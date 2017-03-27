@@ -3,7 +3,7 @@
 
     Copyright (c) 2017 by Cisco Systems, Inc. All rights reserved.
     Author: Marcelo Reis
-    Version: 0.5, 24/03/2017
+    Version: 1.0, 27/03/2017
 """
 
 import ncs.template
