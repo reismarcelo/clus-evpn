@@ -5,3 +5,4 @@ ncs-cdb/
 logs/
 *.ipynb
 *.paw
+.idea/
