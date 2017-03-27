@@ -1,0 +1,35 @@
+services evpn-l3-direct FOO001 Vancouver
+ customer-name FOO
+ sirb-vlan          1202
+ lfnc-vlan          2202
+ lfnc-ip-address    1.1.1.1/30
+ customer-as-number 4264800035
+ contract-speed     100
+ ports
+  leaf-node LFND-1
+   interface Port-channel 1003
+    members
+     Ethernet 1/5
+     Ethernet 1/6
+    !
+   !
+  !
+  leaf-node LFND-2
+   interface Port-channel 1003
+    members
+     Ethernet 1/5
+     Ethernet 1/6
+    !
+   !
+  !
+ !
+ dci
+  vlan 3207
+   subnet 10.10.10.0/30
+  !
+  vlan 3208
+   subnet 20.20.20.0/30
+  !
+ !
+!
+

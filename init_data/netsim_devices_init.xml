@@ -1,0 +1,102 @@
+<devices xmlns="http://tail-f.com/ns/ncs">
+   <device>
+     <name>LFND-0</name>
+     <address>127.0.0.1</address>
+     <port>10022</port>
+     <ssh>
+       <host-key>
+         <algorithm>ssh-rsa</algorithm>
+         <key-data>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCx/fVQt990inICJ3hQOyt45XNH4CQRMuE9waoE0IOJGnQ5asCBPUq2L/+3TZxscDLUc4TfXupSo57HHMnoWsk8gnLGohWoIZSb07P4iRIuZe0u3hZ0fP8Me6p7FnN8+L5ih7KidDmRyp+4c4akCSXnhd869R9cFbtiaICy01oTLsAnPSI+h2Aw+gYYJl4av73alFvP53PfWFC866go/rbvScCkv3/GOYexWWofGZ8WUgZ3Kyxp/4z7e8bw7gXEvO/qFmiaakAqTlCIwf8VR0D+2Wa8CnzYWYfDeo5sWY4oquuRZpbOzO20gGWscXAfRfxtmLxq4ixNdD4IVvaEPT47 mreis@MAREIS-M-60W8</key-data>
+       </host-key>
+     </ssh>
+     <state>
+       <admin-state>unlocked</admin-state>
+     </state>
+     <authgroup>default</authgroup>
+     <device-type>
+       <cli>
+         <ned-id xmlns:cisco-nx-id="http://tail-f.com/ned/cisco-nx-id">cisco-nx-id:cisco-nx</ned-id>
+       </cli>
+     </device-type>
+   </device>
+   <device>
+     <name>LFND-1</name>
+     <address>127.0.0.1</address>
+     <port>10023</port>
+     <ssh>
+       <host-key>
+         <algorithm>ssh-rsa</algorithm>
+         <key-data>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCx/fVQt990inICJ3hQOyt45XNH4CQRMuE9waoE0IOJGnQ5asCBPUq2L/+3TZxscDLUc4TfXupSo57HHMnoWsk8gnLGohWoIZSb07P4iRIuZe0u3hZ0fP8Me6p7FnN8+L5ih7KidDmRyp+4c4akCSXnhd869R9cFbtiaICy01oTLsAnPSI+h2Aw+gYYJl4av73alFvP53PfWFC866go/rbvScCkv3/GOYexWWofGZ8WUgZ3Kyxp/4z7e8bw7gXEvO/qFmiaakAqTlCIwf8VR0D+2Wa8CnzYWYfDeo5sWY4oquuRZpbOzO20gGWscXAfRfxtmLxq4ixNdD4IVvaEPT47 mreis@MAREIS-M-60W8</key-data>
+       </host-key>
+     </ssh>
+     <state>
+       <admin-state>unlocked</admin-state>
+     </state>
+     <authgroup>default</authgroup>
+     <device-type>
+       <cli>
+         <ned-id xmlns:cisco-nx-id="http://tail-f.com/ned/cisco-nx-id">cisco-nx-id:cisco-nx</ned-id>
+       </cli>
+     </device-type>
+   </device>
+   <device>
+     <name>LFND-2</name>
+     <address>127.0.0.1</address>
+     <port>10024</port>
+     <ssh>
+       <host-key>
+         <algorithm>ssh-rsa</algorithm>
+         <key-data>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCx/fVQt990inICJ3hQOyt45XNH4CQRMuE9waoE0IOJGnQ5asCBPUq2L/+3TZxscDLUc4TfXupSo57HHMnoWsk8gnLGohWoIZSb07P4iRIuZe0u3hZ0fP8Me6p7FnN8+L5ih7KidDmRyp+4c4akCSXnhd869R9cFbtiaICy01oTLsAnPSI+h2Aw+gYYJl4av73alFvP53PfWFC866go/rbvScCkv3/GOYexWWofGZ8WUgZ3Kyxp/4z7e8bw7gXEvO/qFmiaakAqTlCIwf8VR0D+2Wa8CnzYWYfDeo5sWY4oquuRZpbOzO20gGWscXAfRfxtmLxq4ixNdD4IVvaEPT47 mreis@MAREIS-M-60W8</key-data>
+       </host-key>
+     </ssh>
+     <state>
+       <admin-state>unlocked</admin-state>
+     </state>
+     <authgroup>default</authgroup>
+     <device-type>
+       <cli>
+         <ned-id xmlns:cisco-nx-id="http://tail-f.com/ned/cisco-nx-id">cisco-nx-id:cisco-nx</ned-id>
+       </cli>
+     </device-type>
+   </device>
+   <device>
+     <name>BRLFND-0</name>
+     <address>127.0.0.1</address>
+     <port>10025</port>
+     <ssh>
+       <host-key>
+         <algorithm>ssh-rsa</algorithm>
+         <key-data>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCx/fVQt990inICJ3hQOyt45XNH4CQRMuE9waoE0IOJGnQ5asCBPUq2L/+3TZxscDLUc4TfXupSo57HHMnoWsk8gnLGohWoIZSb07P4iRIuZe0u3hZ0fP8Me6p7FnN8+L5ih7KidDmRyp+4c4akCSXnhd869R9cFbtiaICy01oTLsAnPSI+h2Aw+gYYJl4av73alFvP53PfWFC866go/rbvScCkv3/GOYexWWofGZ8WUgZ3Kyxp/4z7e8bw7gXEvO/qFmiaakAqTlCIwf8VR0D+2Wa8CnzYWYfDeo5sWY4oquuRZpbOzO20gGWscXAfRfxtmLxq4ixNdD4IVvaEPT47 mreis@MAREIS-M-60W8</key-data>
+       </host-key>
+     </ssh>
+     <state>
+       <admin-state>unlocked</admin-state>
+     </state>
+     <authgroup>default</authgroup>
+     <device-type>
+       <cli>
+         <ned-id xmlns:cisco-nx-id="http://tail-f.com/ned/cisco-nx-id">cisco-nx-id:cisco-nx</ned-id>
+       </cli>
+     </device-type>
+   </device>
+   <device>
+     <name>BRLFND-1</name>
+     <address>127.0.0.1</address>
+     <port>10026</port>
+     <ssh>
+       <host-key>
+         <algorithm>ssh-rsa</algorithm>
+         <key-data>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCx/fVQt990inICJ3hQOyt45XNH4CQRMuE9waoE0IOJGnQ5asCBPUq2L/+3TZxscDLUc4TfXupSo57HHMnoWsk8gnLGohWoIZSb07P4iRIuZe0u3hZ0fP8Me6p7FnN8+L5ih7KidDmRyp+4c4akCSXnhd869R9cFbtiaICy01oTLsAnPSI+h2Aw+gYYJl4av73alFvP53PfWFC866go/rbvScCkv3/GOYexWWofGZ8WUgZ3Kyxp/4z7e8bw7gXEvO/qFmiaakAqTlCIwf8VR0D+2Wa8CnzYWYfDeo5sWY4oquuRZpbOzO20gGWscXAfRfxtmLxq4ixNdD4IVvaEPT47 mreis@MAREIS-M-60W8</key-data>
+       </host-key>
+     </ssh>
+     <state>
+       <admin-state>unlocked</admin-state>
+     </state>
+     <authgroup>default</authgroup>
+     <device-type>
+       <cli>
+         <ned-id xmlns:cisco-nx-id="http://tail-f.com/ned/cisco-nx-id">cisco-nx-id:cisco-nx</ned-id>
+       </cli>
+     </device-type>
+   </device>
+</devices>

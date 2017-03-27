@@ -1,0 +1,12 @@
+This directory is an NCS project directory.
+
+The following commands should issued the first time ncs is used (after a make clean):
+$ make all					-- initialize netsim devices and ncs cdb
+$ make start					-- start netsim testbed and ncs
+$ make cli					-- connect to ncs cli
+admin@ncs# devices sync-to			-- update netsim devices configuration with initial cdb data
+
+Before pushing the project to git, clean temporary data:
+$ make stop
+$ make clean
+

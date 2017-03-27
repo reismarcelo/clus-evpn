@@ -1,0 +1,93 @@
+<plant-information xmlns="http://com/ciscoas/services/vxlan">
+  <plant>
+    <dc-name>Vancouver</dc-name>
+    <leaf-node>
+      <name>BRLFND-0</name>
+    </leaf-node>
+    <leaf-node>
+      <name>BRLFND-1</name>
+    </leaf-node>
+    <leaf-node>
+      <name>LFND-0</name>
+    </leaf-node>
+    <leaf-node>
+      <name>LFND-1</name>
+    </leaf-node>
+    <leaf-node>
+      <name>LFND-2</name>
+    </leaf-node>
+    <border-leaf-node>
+      <name>BRLFND-0</name>
+      <dci-layer3>
+        <interface>
+          <Port-channel>
+            <id>11</id>
+            <members>
+              <Ethernet>
+                <member-id>2/1</member-id>
+              </Ethernet>
+            </members>
+            <description>Port-channel 1 for L3 services</description>
+          </Port-channel>
+          <Port-channel>
+            <id>12</id>
+            <members>
+              <Ethernet>
+                <member-id>2/2</member-id>
+              </Ethernet>
+            </members>
+            <description>Port-channel 2 for L3 services</description>
+          </Port-channel>
+        </interface>
+      </dci-layer3>
+      <dci-layer2>
+        <interface>
+          <Port-channel>
+            <id>13</id>
+            <members>
+              <Ethernet>
+                <member-id>2/3</member-id>
+              </Ethernet>
+            </members>
+            <description>Port-channel for L2 services</description>
+          </Port-channel>
+        </interface>
+      </dci-layer2>
+    </border-leaf-node>
+    <border-leaf-node>
+      <name>BRLFND-1</name>
+      <dci-layer3>
+        <interface>
+          <Ethernet>
+            <id>2/1</id>
+            <description>Ethernet 1 for L3 services</description>
+          </Ethernet>
+          <Ethernet>
+            <id>2/2</id>
+            <description>Ethernet 2 for L3 services</description>
+          </Ethernet>
+        </interface>
+      </dci-layer3>
+      <dci-layer2>
+        <interface>
+          <Port-channel>
+            <id>13</id>
+            <members>
+              <Ethernet>
+                <member-id>2/3</member-id>
+              </Ethernet>
+            </members>
+            <description>Port-channel for L2 services</description>
+          </Port-channel>
+        </interface>
+      </dci-layer2>
+    </border-leaf-node>
+    <as-number xmlns="http://com/ciscoas/services/evpn">
+      <leaf-nodes>65001</leaf-nodes>
+      <dci-nodes>65002</dci-nodes>
+    </as-number>
+  </plant>
+  <global-config>
+    <tenant-prefix-tag>123</tenant-prefix-tag>
+  </global-config>
+</plant-information>

@@ -1,0 +1,42 @@
+<project-meta-data xmlns="http://tail-f.com/ns/ncs-project">
+  <name>clus-evpn</name>
+  <project-version>1.0</project-version>
+  <description>Skeleton for a NCS project</description>
+
+  <!--
+      A default package store could be specified,
+      for example:
+  -->
+  <!-- packages-store>
+    <git>
+      <repo>ssh://git@my-repo.com/blaha</repo>
+      <branch>my-branch</branch>
+    </git>
+  </packages-store -->
+
+  <!--
+      Here packages needed by this project should be listed,
+      for example:
+  -->
+  <!-- package>
+    <name>my-package</name>
+    <git>
+      <repo>ssh://git@my-repo.com/pkgs/my-package.git</repo>
+      <branch>master</branch>
+    </git>
+  </package -->
+
+  <!--
+      or in case you have a local package that you want to have
+      full control over yourself:
+  -->
+  <!-- package>
+    <name>a-package</name>
+    <local/>
+  </package -->
+
+  <!--
+      for a full description on how packages can be specified,
+      please see <NCS-DIR>/src/yang/tailf-ncs-project.yang.
+  -->
+</project-meta-data>

@@ -1,0 +1,24 @@
+services evpn-l3-direct FOO002 Vancouver
+ customer-name FOO
+ customer-as-number 4264800035
+ contract-speed     1000
+ ports
+  leaf-node LFND-1
+   interface Port-channel 1004
+    members
+     Ethernet 1/7
+     Ethernet 1/8
+    !
+   !
+  !
+  leaf-node LFND-2
+   interface Port-channel 1004
+    members
+     Ethernet 1/7
+     Ethernet 1/8
+    !
+   !
+  !
+ !
+!
+

@@ -1,0 +1,54 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+    <devices xmlns="http://tail-f.com/ns/ncs">
+        <device>
+            <name>{$DEVICE}</name>
+            <config>
+
+                <vlan xmlns="http://tail-f.com/ned/cisco-nx">
+                    <vlan-list>
+                        <id>{$DCI_VLAN}</id>
+                        <name>{$DCI_VLAN_NAME}</name>
+                        <vn-segment>{string(vni)}</vn-segment>
+                    </vlan-list>
+                </vlan>
+
+                <evpn xmlns="http://tail-f.com/ned/cisco-nx">
+                    <vni>
+                        <id>{string(vni)}</id>
+                        <l2/>
+                        <rd>{string(evpn/rd)}</rd>
+                        <route-target>
+                            <method>import</method>
+                            <rt>{string(evpn/route-target/import)}</rt>
+                        </route-target>
+                        <route-target>
+                            <method>export</method>
+                            <rt>{string(evpn/route-target/export)}</rt>
+                        </route-target>
+                    </vni>
+                </evpn>
+
+                <interface xmlns="http://tail-f.com/ned/cisco-nx">
+                    <nve>
+                        <name>1</name>
+                        <host-reachability>
+                            <protocol>bgp</protocol>
+                        </host-reachability>
+                        <member>
+                            <vni>
+                                <id>{string(vni)}</id>
+                                <suppress-arp/>
+                                <ingress-replication>
+                                    <protocol>bgp</protocol>
+                                </ingress-replication>
+                            </vni>
+                        </member>
+                        <source-interface>loopback0</source-interface>
+                        <shutdown tags="delete"/>
+                    </nve>
+                </interface>
+
+            </config>
+        </device>
+    </devices>
+</config-template>

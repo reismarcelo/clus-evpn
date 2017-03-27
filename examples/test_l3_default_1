@@ -1,0 +1,36 @@
+services evpn-l3-default ACME001 Vancouver
+ customer-name ACME
+ sirb-vlan          1101
+ customer-as-number 4264800034
+ contract-speed     100
+ ports
+  leaf-node LFND-1
+   lfnc-vlan          2111
+   lfnc-ip-address    3.3.3.3/30
+   interface Port-channel 1001
+    members
+     Ethernet 1/1
+     Ethernet 1/2
+    !
+   !
+  !
+  leaf-node LFND-2
+   lfnc-vlan          2112
+   lfnc-ip-address    4.4.4.4/30
+   interface Port-channel 1001
+    members
+     Ethernet 1/1
+     Ethernet 1/2
+    !
+   !
+  !
+ !
+ dci
+  vlan 3101
+   subnet 55.55.55.0/30
+  !
+  vlan 3102
+   subnet 66.66.66.0/30
+  !
+ !
+!

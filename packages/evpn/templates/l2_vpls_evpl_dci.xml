@@ -1,0 +1,19 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+    <services xmlns="http://tail-f.com/ns/ncs">
+        <vxlan-tenant xmlns="http://com/ciscoas/services/vxlan">
+            <name>{string(customer-name)}</name>
+            <topologies>
+                <bridged-topology>
+                    <name>{string(service-id)}</name>
+                    <dc-name>{string(dc-name)}</dc-name>
+                    <dci>
+                        <vlan>
+                            <id>{$VLAN-ID}</id>
+                            <name>LFN2-{string(service-id)}-{$COUNT}</name>
+                        </vlan>
+                    </dci>
+                </bridged-topology>
+            </topologies>
+        </vxlan-tenant>
+    </services>
+</config-template>

@@ -1,0 +1,7 @@
+*.[oa]
+*~
+*.tar.gz
+ncs-cdb/
+logs/
+*.ipynb
+*.paw

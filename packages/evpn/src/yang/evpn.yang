@@ -1,0 +1,490 @@
+// =========================================================================
+// evpn Service Model
+// =========================================================================
+module evpn {
+
+  namespace "http://com/ciscoas/services/evpn";
+  prefix evpn;
+
+
+  import ietf-inet-types { prefix inet; }
+
+  import tailf-common { prefix tailf; }
+
+  import tailf-ncs { prefix ncs; }
+
+  import vxlan { prefix vxlan; }
+
+
+  organization "Cisco Systems, Inc.";
+
+  contact
+    "Cisco Systems, Inc.
+     Customer Service
+
+     Postal: 170 West Tasman Drive
+     San Jose, CA 95134
+
+     Tel: +1 800 533-NETS";
+
+  description
+    "This module contains the high level model for EVPN services.
+
+     Copyright (c) 2016,2017 by Cisco Systems, Inc.
+     All rights reserved.";
+
+
+  // =========================================================================
+  // REVISION
+  // =========================================================================
+
+  revision 2017-03-26 {
+    description
+      "Added L2 services.";
+  }
+
+  revision 2017-03-24 {
+    description
+      "Included auto-values for resource-managed nodes.";
+  }
+
+  revision 2017-03-01 {
+    description
+      "Customer generalization. ";
+  }
+
+  revision 2016-12-02 {
+    description
+      "Initial revision.";
+  }
+
+
+  // =========================================================================
+  // TYPEDEFS
+  // =========================================================================
+
+  typedef policy-map-name-type {
+    type string {
+      tailf:info "WORD;;Policy-map name (Max Size 40)";
+      length "1..40";
+    }
+  }
+
+
+  // =========================================================================
+  // IDENTITIES
+  // =========================================================================
+
+  augment /vxlan:plant-information/vxlan:plant {
+    container as-number {
+      tailf:info "AS number assignments for the plant";
+      leaf leaf-nodes {
+        tailf:info "AS number assigned to leaf nodes";
+        type inet:as-number {
+          tailf:info "<1-4294967295>;;Autonomous system number";
+        }
+      }
+      leaf dci-nodes {
+        tailf:info "AS number assigned to DCI nodes";
+        type inet:as-number {
+          tailf:info "<1-4294967295>;;Autonomous system number";
+        }
+        default 4200000000;
+      }
+    }
+  }
+
+
+  // =========================================================================
+  // GROUPINGS
+  // =========================================================================
+
+  grouping evpn-service-common-grouping {
+    leaf service-id {
+      description
+        "Customer unique service identification. This is used as the VXLAN service
+         topology name, which is then mapped to VRF names for L3 services";
+      tailf:info "Service identifier";
+      type vxlan:vrf-name-type;
+    }
+    leaf dc-name {
+      tailf:info "Datacenter name";
+      type leafref {
+        path "/vxlan:plant-information/vxlan:plant/vxlan:dc-name";
+      }
+    }
+
+    leaf customer-name {
+      tailf:info "Customer name";
+      type string;
+      mandatory true;
+    }
+  } // evpn-service-common-grouping
+
+  grouping customer-ports-grouping {
+    container ports {
+      tailf:info "Datacenter ports connecting to customer";
+      tailf:cli-add-mode;
+
+      list leaf-node {
+        tailf:info "Leaf node where port is located";
+        key "node-name";
+
+        // TODO: Restrict leafs to the ones inside dc-name
+        leaf node-name {
+          tailf:info "Leaf-node name";
+          type leafref {
+            path "/vxlan:plant-information/vxlan:plant/vxlan:leaf-node/vxlan:name";
+          }
+        }
+
+        container interface {
+          tailf:info "Interface type";
+          choice interface-type {
+            case type-ethernet {
+              list Ethernet {
+                tailf:info "Ethernet IEEE 802.3z";
+                key "id";
+                leaf id {
+                  type vxlan:ethernet-id {
+                    tailf:info "<1-66>/<1-128>;;Slot number/Port number";
+                  }
+                }
+              }
+            }
+            case type-port-channel {
+              list Port-channel {
+                tailf:info "Port Channel interface";
+                key "id";
+                leaf id {
+                  type vxlan:port-channel-id {
+                    tailf:info "<1-4096>;;Port Channel number";
+                  }
+                }
+                container members {
+                  tailf:info "Member interfaces of the port-channel";
+                  tailf:cli-add-mode;
+                  list Ethernet {
+                    tailf:info "Ethernet member interface";
+                    tailf:cli-suppress-mode;
+                    key "member-id";
+                    leaf member-id {
+                      type vxlan:ethernet-id {
+                        tailf:info "<1-66>/<1-128>;;Slot number/Port number";
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        } // container interface
+
+      } // list leaf-node
+    } // container ports
+  } // customer-ports-grouping
+
+  grouping dci-l3-grouping {
+    container dci {
+      tailf:info "DCI information";
+      tailf:cli-add-mode;
+
+      list vlan {
+        tailf:info "DCI VLANs on border-leafs";
+        max-elements 2;
+        key id;
+        leaf id {
+          tailf:info "DCI VLAN ID";
+          type vxlan:vlan-id-type;
+        }
+        leaf subnet {
+          tailf:info "DCI subnet on border-leaf";
+          type inet:ipv4-prefix {
+            tailf:info "A.B.C.D/LEN;;IP prefix with network mask length";
+          }
+        }
+      }
+    }
+  } // dci-l3-grouping
+
+  grouping dci-l2-grouping {
+    container dci {
+      tailf:info "DCI information";
+      tailf:cli-add-mode;
+
+      list vlan {
+        tailf:info "DCI VLANs on border-leafs";
+        max-elements 2;
+        key id;
+        leaf id {
+          tailf:info "DCI VLAN ID";
+          type vxlan:vlan-id-type;
+        }
+      }
+    }
+  } // dci-l2-grouping
+
+  grouping auto-values-grouping {
+    description
+      "Store nodes that can either be provided by the user or automatically assigned via resource management";
+    container auto-values {
+      config false;
+      tailf:cdb-oper {
+        tailf:persistent true;
+      }
+    }
+  } // auto-values-grouping
+
+
+  // =========================================================================
+  // SERVICE-POINTS
+  // =========================================================================
+
+  augment /ncs:services {
+
+    list evpn-l3-direct {
+      description
+        "Connectivity to evpn leaf nodes with L3 termination and use of anycast-gateway";
+      tailf:info "EVPN-L3-DIRECT Service";
+
+      key "service-id dc-name";
+      unique service-id;
+
+      uses ncs:service-data;
+      ncs:servicepoint evpn-l3-direct-servicepoint;
+
+      uses evpn-service-common-grouping;
+
+      leaf sirb-vlan {
+        tailf:info "SIRB VLAN ID";
+        type vxlan:vlan-id-type;
+      }
+      leaf lfnc-vlan {
+        tailf:info "Customer VLAN ID";
+        type vxlan:vlan-id-type;
+      }
+      leaf lfnc-ip-address {
+        tailf:info "Customer IPv4 address";
+        type vxlan:ipv4-mask;
+      }
+      leaf customer-as-number {
+        tailf:info "Customer AS number";
+        type inet:as-number {
+          tailf:info "<1-4294967295>;;Autonomous system number";
+        }
+        mandatory true;
+      }
+      leaf contract-speed {
+        tailf:info "Contract speed offered to customer";
+        type uint32 {
+          tailf:info "<1-100000>;;Mbps";
+          range "1..100000";
+        }
+      }
+
+      uses customer-ports-grouping;
+
+      uses dci-l3-grouping;
+
+      uses auto-values-grouping {
+        augment "auto-values" {
+          leaf sirb-vlan {
+            type vxlan:vlan-id-type;
+          }
+          leaf lfnc-vlan {
+            type vxlan:vlan-id-type;
+          }
+          leaf lfnc-ip-address {
+            type vxlan:ipv4-mask;
+          }
+          list dci-vlan {
+            key id;
+            leaf id {
+              type vxlan:vlan-id-type;
+            }
+            leaf subnet {
+              type inet:ipv4-prefix;
+            }
+          }
+        }
+      }
+
+    } // evpn-l3-direct
+
+
+    list evpn-l3-default {
+      description
+        "Connectivity to evpn leaf nodes with L3 termination using static routes or BGP";
+      tailf:info "EVPN-L3-DEFAULT Service";
+
+      key "service-id dc-name";
+      unique service-id;
+
+      uses ncs:service-data;
+      ncs:servicepoint evpn-l3-default-servicepoint;
+
+      uses evpn-service-common-grouping;
+
+      leaf sirb-vlan {
+        tailf:info "SIRB VLAN ID";
+        type vxlan:vlan-id-type;
+      }
+      leaf customer-as-number {
+        tailf:info "Customer AS number";
+        type inet:as-number {
+          tailf:info "<1-4294967295>;;Autonomous system number";
+        }
+        mandatory true;
+      }
+      leaf contract-speed {
+        tailf:info "Contract speed offered to customer";
+        type uint32 {
+          tailf:info "<1-100000>;;Mbps";
+          range "1..100000";
+        }
+      }
+
+      uses customer-ports-grouping {
+        augment "ports/leaf-node" {
+          leaf lfnc-vlan {
+            tailf:info "Customer VLAN ID";
+            type vxlan:vlan-id-type;
+          }
+          leaf lfnc-ip-address {
+            tailf:info "Customer IPv4 address";
+            type vxlan:ipv4-mask;
+          }
+        }
+      }
+
+      uses dci-l3-grouping;
+
+      uses auto-values-grouping {
+        augment "auto-values" {
+          leaf sirb-vlan {
+            type vxlan:vlan-id-type;
+          }
+          list leaf-node {
+            key "node-name";
+            leaf node-name {
+              type leafref {
+                path "/vxlan:plant-information/vxlan:plant/vxlan:leaf-node/vxlan:name";
+              }
+            }
+            leaf lfnc-vlan {
+              type vxlan:vlan-id-type;
+            }
+            leaf lfnc-ip-address {
+              type vxlan:ipv4-mask;
+            }
+          }
+          list dci-vlan {
+            key id;
+            leaf id {
+              type vxlan:vlan-id-type;
+            }
+            leaf subnet {
+              type inet:ipv4-prefix;
+            }
+          }
+        }
+      }
+
+      // TODO: Include customer routing config static/bgp
+
+    } // evpn-l3-default
+
+
+    list evpn-l2-vpls {
+      description
+        "Connectivity to evpn leaf nodes with L2 extending to the DCI, connecting to customer
+         VPLS instance on the DCI";
+      tailf:info "EVPN-L2-VPLS Service";
+
+      key "service-id dc-name";
+      unique service-id;
+
+      uses ncs:service-data;
+      ncs:servicepoint evpn-l2-vpls-servicepoint;
+
+      uses evpn-service-common-grouping;
+
+      leaf lfnc-vlan {
+        tailf:info "Customer VLAN ID";
+        type vxlan:vlan-id-type;
+      }
+      leaf contract-speed {
+        tailf:info "Contract speed offered to customer";
+        type uint32 {
+          tailf:info "<1-100000>;;Mbps";
+          range "1..100000";
+        }
+      }
+
+      uses customer-ports-grouping;
+
+      uses dci-l2-grouping;
+
+      uses auto-values-grouping {
+        augment "auto-values" {
+          leaf lfnc-vlan {
+            type vxlan:vlan-id-type;
+          }
+          list dci-vlan {
+            key id;
+            leaf id {
+              type vxlan:vlan-id-type;
+            }
+          }
+        }
+      }
+    } // evpn-l2-vpls
+
+
+    list evpn-l2-evpl {
+      description
+        "Connectivity to evpn leaf nodes with L2 extending to the DCI, connecting to customer
+         EVPL instance on the DCI";
+      tailf:info "EVPN-L2-EVPL Service";
+
+      key "service-id dc-name";
+      unique service-id;
+
+      uses ncs:service-data;
+      ncs:servicepoint evpn-l2-evpl-servicepoint;
+
+      uses evpn-service-common-grouping;
+
+      leaf lfnc-vlan {
+        tailf:info "Customer VLAN ID";
+        type vxlan:vlan-id-type;
+      }
+      leaf contract-speed {
+        tailf:info "Contract speed offered to customer";
+        type uint32 {
+          tailf:info "<1-100000>;;Mbps";
+          range "1..100000";
+        }
+      }
+
+      uses customer-ports-grouping;
+
+      uses dci-l2-grouping;
+
+      uses auto-values-grouping {
+        augment "auto-values" {
+          leaf lfnc-vlan {
+            type vxlan:vlan-id-type;
+          }
+          list dci-vlan {
+            key id;
+            leaf id {
+              type vxlan:vlan-id-type;
+            }
+          }
+        }
+      }
+    } // evpn-l2-evpl
+
+  } // augment services
+}

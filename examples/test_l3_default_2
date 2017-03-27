@@ -1,0 +1,24 @@
+services evpn-l3-default ACME002 Vancouver
+ customer-name ACME
+ customer-as-number 4264800034
+ contract-speed     1000
+ ports
+  leaf-node LFND-1
+   interface Port-channel 1002
+    members
+     Ethernet 1/3
+     Ethernet 1/4
+    !
+   !
+  !
+  leaf-node LFND-2
+   interface Port-channel 1002
+    members
+     Ethernet 1/3
+     Ethernet 1/4
+    !
+   !
+  !
+ !
+!
+

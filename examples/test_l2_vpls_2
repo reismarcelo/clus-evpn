@@ -1,0 +1,20 @@
+services evpn-l2-vpls BAR001 Vancouver
+ customer-name  BAR
+ contract-speed 1000
+ ports
+  leaf-node LFND-0
+   interface Ethernet 1/10
+   !
+  !
+  leaf-node LFND-1
+   interface Port-channel 1005
+    members
+     Ethernet 1/9
+     Ethernet 1/10
+     Ethernet 1/11
+    !
+   !
+  !
+ !
+!
+

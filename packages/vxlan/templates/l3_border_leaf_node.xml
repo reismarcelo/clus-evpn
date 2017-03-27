@@ -1,0 +1,144 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+    <devices xmlns="http://tail-f.com/ns/ncs">
+        <device>
+            <name>{$DEVICE}</name>
+            <config>
+
+                <vlan xmlns="http://tail-f.com/ned/cisco-nx">
+                    <vlan-list>
+                        <id>{string(sirb/vlan-id)}</id>
+                        <name>{string(sirb/vlan-name)}</name>
+                        <vn-segment>{string(sirb/vni)}</vn-segment>
+                    </vlan-list>
+                    <vlan-list foreach="{dci/vlan}">
+                        <id>{string(id)}</id>
+                        <name>{string(name)}</name>
+                    </vlan-list>
+                </vlan>
+
+                <vrf xmlns="http://tail-f.com/ned/cisco-nx">
+                    <context>
+                        <id>{string(name)}</id>
+                        <description>{string(vrf-description)}</description>
+                        <vni>{string(sirb/vni)}</vni>
+                        <rd>{string(evpn/rd)}</rd>
+                        <address-family>
+                            <ipv4>
+                                <unicast>
+                                    <route-target>
+                                        <method>export</method>
+                                        <asn>{string(evpn/route-target/export)}</asn>
+                                        <target-evpn>evpn</target-evpn>
+                                    </route-target>
+                                    <route-target>
+                                        <method>export</method>
+                                        <asn>{string(evpn/route-target/export)}</asn>
+                                        <target-evpn>non-evpn</target-evpn>
+                                    </route-target>
+                                    <route-target>
+                                        <method>import</method>
+                                        <asn>{string(evpn/route-target/import)}</asn>
+                                        <target-evpn>evpn</target-evpn>
+                                    </route-target>
+                                    <route-target>
+                                        <method>import</method>
+                                        <asn>{string(evpn/route-target/import)}</asn>
+                                        <target-evpn>non-evpn</target-evpn>
+                                    </route-target>
+                                </unicast>
+                            </ipv4>
+                        </address-family>
+                    </context>
+                </vrf>
+
+                <router xmlns="http://tail-f.com/ned/cisco-nx">
+                    <bgp>
+                        <id>{$DEVICE-ASN}</id>
+                        <vrf>
+                            <name>{string(name)}</name>
+                            <address-family>
+                                <proto>ipv4</proto>
+                                <type>unicast</type>
+                                <advertise>
+                                    <l2vpn>evpn</l2vpn>
+                                </advertise>
+                                <maximum-paths>
+                                    <number>2</number>
+                                </maximum-paths>
+                                <redistribute>
+                                    <direct>
+                                        <route-map>{$REDIST-CONNECTED}</route-map>
+                                    </direct>
+                                    <static>
+                                        <route-map>{$REDIST-STATIC}</route-map>
+                                    </static>
+                                </redistribute>
+                            </address-family>
+                            <local-as>{string(tenant-as-number)}</local-as>
+                            <neighbor foreach="{dci/vlan}">
+                                <id>{string(bgp-neighbor-ipv4)}</id>
+                                <inner-remote-as>
+                                    <remote-as>{string(../dci-as-number)}</remote-as>
+                                </inner-remote-as>
+                                <description>{string(bgp-neighbor-description)}</description>
+                                <update-source>Vlan{string(id)}</update-source>
+                                <address-family>
+                                    <proto>ipv4</proto>
+                                    <type>unicast</type>
+                                </address-family>
+                            </neighbor>
+                        </vrf>
+                    </bgp>
+                </router>
+
+                <interface xmlns="http://tail-f.com/ned/cisco-nx">
+                    <nve>
+                        <name>1</name>
+                        <host-reachability>
+                            <protocol>bgp</protocol>
+                        </host-reachability>
+                        <member>
+                            <vni>
+                                <id>{string(sirb/vni)}</id>
+                                <associate-vrf/>
+                            </vni>
+                        </member>
+                        <source-interface>loopback0</source-interface>
+                        <shutdown tags="delete"/>
+                    </nve>
+                    <Vlan>
+                        <name>{string(sirb/vlan-id)}</name>
+                        <description>{string(sirb/vlan-name)}</description>
+                        <vrf>
+                            <member>{string(name)}</member>
+                        </vrf>
+                        <ip>
+                            <forward/>
+                            <redirects>false</redirects>
+                        </ip>
+                        <ipv6>
+                            <redirects>false</redirects>
+                        </ipv6>
+                    </Vlan>
+                    <Vlan foreach="{dci/vlan}">
+                        <name>{string(id)}</name>
+                        <description>{string(name)}</description>
+                        <vrf>
+                            <member>{string(../../name)}</member>
+                        </vrf>
+                        <ip>
+                            <address>
+                                <ipaddr>{string(border-leaf-ipv4)}</ipaddr>
+                            </address>
+                            <redirects>false</redirects>
+                        </ip>
+                        <ipv6>
+                            <redirects>false</redirects>
+                        </ipv6>
+                    </Vlan>
+                </interface>
+
+            </config>
+        </device>
+    </devices>
+</config-template>
