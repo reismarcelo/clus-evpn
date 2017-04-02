@@ -1,12 +1,19 @@
-This directory is an NCS project directory.
+CLUS-EVPN - NSO EVPN project for Cisco Live US 2017
 
 The following commands should issued the first time ncs is used (after a make clean):
-$ make all					-- initialize netsim devices and ncs cdb
-$ make start					-- start netsim testbed and ncs
-$ make cli					-- connect to ncs cli
-admin@ncs# devices sync-to			-- update netsim devices configuration with initial cdb data
+$ make all					            -- initialize netsim devices and ncs cdb
+$ make start				            -- start netsim testbed and ncs
+$ make cli					            -- connect to nso cli
+admin@ncs# devices fetch-ssh-host-keys
+admin@ncs# devices sync-to	            -- update netsim devices configuration with initial cdb data
 
 Before pushing the project to git, clean temporary data:
 $ make stop
 $ make clean
 
+This has been tested with Python 2.7.13 and 3.6.1. If using Python 2.7.13, the following pip packages
+need to be installed:
+- ipaddress
+- future
+
+Please note that NSO versions 4.3.2 and 4.4 have issues with Python 3.6.1.

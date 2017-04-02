@@ -1,11 +1,9 @@
+""" CLUS-EVPN - NSO EVPN project for Cisco Live US 2017
 """
-    clus-evpn
-
-    Copyright (c) 2017 by Cisco Systems, Inc. All rights reserved.
-    Author: Marcelo Reis
-    Version: 1.0, 27/03/2017
-"""
-
+from __future__ import absolute_import, division, print_function
+from builtins import (ascii, bytes, chr, dict, filter, hex, input, int, map, next, oct, open, pow, range, round,
+                      super, zip)
+from builtins import str as text
 import ncs.template
 import resource_manager.id_allocator as id_allocator
 import resource_manager.ipaddress_allocator as net_allocator
@@ -176,4 +174,3 @@ class NcsServiceConfigError(Exception):
 class AllocationsNotReady(Exception):
     """ Exception indicating that requested allocations are not yet ready """
     pass
-

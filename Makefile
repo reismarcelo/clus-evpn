@@ -21,7 +21,7 @@ stop: netsim-stop
 clean: packages-clean netsim-clean db-clean
 	rm -rf logs/* lux_logs
 	rm -rf .bundle
-	mkdir first_start
+	if [ ! -d first_start ]; then mkdir first_start; fi
 
 db-clean:
 	rm -rf state/* ncs-cdb/*

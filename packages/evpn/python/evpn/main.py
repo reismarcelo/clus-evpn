@@ -1,3 +1,9 @@
+""" CLUS-EVPN - NSO EVPN project for Cisco Live US 2017
+"""
+from __future__ import absolute_import, division, print_function
+from builtins import (ascii, bytes, chr, dict, filter, hex, input, int, map, next, oct, open, pow, range, round,
+                      super, zip)
+from builtins import str as text
 import ncs
 from ncs.application import Service
 import ncs.template
@@ -252,7 +258,7 @@ class L2EvplServiceCallback(Service):
 # ---------------------------------------------
 def apply_l3_direct_default_dci_template(root_context, service_context):
     for count, vlan in enumerate(service_context.auto_values.dci_vlan, start=1):
-        dci_link_net = ip_network(vlan.subnet)
+        dci_link_net = ip_network(text(vlan.subnet))
         dci_link_ip_list = list(dci_link_net.hosts())
         if len(dci_link_ip_list) < 2:
             raise NcsServiceConfigError('VLAN {} subnet must have at least 2 host addresses'.format(vlan.id))
@@ -282,7 +288,7 @@ def subnet_first_host(subnet_str):
     :param subnet_str: IP subnet as a string in <prefix>/<len> format
     :return: String representing the IP address in <prefix>/<len> format
     """
-    subnet = ip_network(subnet_str)
+    subnet = ip_network(text(subnet_str))
     return '{}/{}'.format(next(subnet.hosts()), subnet.prefixlen)
 
 

@@ -9,23 +9,6 @@
         <bgp/>
         <interface-vlan/>
       </feature>
-      <segment xmlns="http://tail-f.com/ned/cisco-nx">
-        <control-protocol>
-          <bgp>true</bgp>
-        </control-protocol>
-      </segment>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>101</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>102</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
       <vlan xmlns="http://tail-f.com/ned/cisco-nx">
         <vlan-list>
           <id>1</id>
@@ -52,23 +35,6 @@
         <bgp/>
         <interface-vlan/>
       </feature>
-      <segment xmlns="http://tail-f.com/ned/cisco-nx">
-        <control-protocol>
-          <bgp>true</bgp>
-        </control-protocol>
-      </segment>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>101</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>102</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
       <vlan xmlns="http://tail-f.com/ned/cisco-nx">
         <vlan-list>
           <id>1</id>
@@ -95,23 +61,6 @@
         <bgp/>
         <interface-vlan/>
       </feature>
-      <segment xmlns="http://tail-f.com/ned/cisco-nx">
-        <control-protocol>
-          <bgp>true</bgp>
-        </control-protocol>
-      </segment>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>101</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>102</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
       <vlan xmlns="http://tail-f.com/ned/cisco-nx">
         <vlan-list>
           <id>1</id>
@@ -138,23 +87,6 @@
         <bgp/>
         <interface-vlan/>
       </feature>
-      <segment xmlns="http://tail-f.com/ned/cisco-nx">
-        <control-protocol>
-          <bgp>true</bgp>
-        </control-protocol>
-      </segment>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>101</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>102</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
       <vlan xmlns="http://tail-f.com/ned/cisco-nx">
         <vlan-list>
           <id>1</id>
@@ -181,23 +113,6 @@
         <bgp/>
         <interface-vlan/>
       </feature>
-      <segment xmlns="http://tail-f.com/ned/cisco-nx">
-        <control-protocol>
-          <bgp>true</bgp>
-        </control-protocol>
-      </segment>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>101</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
-      <fex xmlns="http://tail-f.com/ned/cisco-nx">
-        <id>102</id>
-        <pinning>
-          <max-links>1</max-links>
-        </pinning>
-      </fex>
       <vlan xmlns="http://tail-f.com/ned/cisco-nx">
         <vlan-list>
           <id>1</id>
