@@ -5,9 +5,31 @@ from builtins import (ascii, bytes, chr, dict, filter, hex, input, int, map, nex
                       super, zip)
 from builtins import str as text
 import ncs
-from ncs.application import Service
+from ncs.application import Service, PlanComponent
 import ncs.template
-from vxlan.utils import apply_template, NcsServiceConfigError, value_or_empty, get_device_asn
+import functools
+from vxlan.utils import apply_template, NcsServiceConfigError, value_or_empty, get_device_asn, init_plan
+
+
+# --------------------------------------------------
+# Service create callback decorator
+# --------------------------------------------------
+def vxlan_service(cb_create_method):
+    @functools.wraps(cb_create_method)
+    def wrapper(self, tctx, root, service, proplist):
+        self.log.info('Service create(service={})'.format(service))
+        self_plan = init_plan(PlanComponent(service, 'self', 'ncs:self'))
+
+        try:
+            if cb_create_method(self, tctx, root, service, proplist, self_plan):
+                return
+        except NcsServiceConfigError as e:
+            self.log.error(e)
+            self_plan.set_failed('ncs:ready')
+        else:
+            self_plan.set_reached('ncs:ready')
+
+    return wrapper
 
 
 # ------------------------------------
@@ -15,9 +37,8 @@ from vxlan.utils import apply_template, NcsServiceConfigError, value_or_empty, g
 # ------------------------------------
 class VxlanL2ServiceCallback(Service):
     @Service.create
-    def cb_create(self, tctx, root, service, proplist):
-        self.log.info('Service create(service={})'.format(service))
-
+    @vxlan_service
+    def cb_create(self, tctx, root, service, proplist, self_plan):
         for leaf in service.ports.leaf_node:
             self.log.info('Rendering L2 leaf template for {}'.format(leaf.node_name))
             apply_template('l2_leaf_node', service.ports.leaf_node[leaf.node_name])
@@ -52,9 +73,8 @@ class VxlanL2ServiceCallback(Service):
 # ------------------------------------
 class VxlanL3ServiceCallback(Service):
     @Service.create
-    def cb_create(self, tctx, root, service, proplist):
-        self.log.info('Service create(service={})'.format(service))
-
+    @vxlan_service
+    def cb_create(self, tctx, root, service, proplist, self_plan):
         common_vars = {
             'PREFIX-TAG': value_or_empty(root.plant_information.global_config.tenant_prefix_tag),
             'REDIST-STATIC': value_or_empty(root.plant_information.global_config.tenant_route_maps.bgp_redistribute_static),

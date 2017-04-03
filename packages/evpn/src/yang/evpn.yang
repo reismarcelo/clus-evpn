@@ -1,5 +1,5 @@
 // =========================================================================
-// evpn Service Model
+//  EVPN SERVICE MODEL
 // =========================================================================
 module evpn {
 
@@ -35,8 +35,13 @@ module evpn {
 
 
   // =========================================================================
-  // REVISION
+  //  REVISION
   // =========================================================================
+
+  revision 2017-04-02 {
+    description
+      "Added plan-component.";
+  }
 
   revision 2017-03-26 {
     description
@@ -60,7 +65,7 @@ module evpn {
 
 
   // =========================================================================
-  // TYPEDEFS
+  //  TYPEDEFS
   // =========================================================================
 
   typedef policy-map-name-type {
@@ -72,31 +77,17 @@ module evpn {
 
 
   // =========================================================================
-  // IDENTITIES
+  //  IDENTITIES
   // =========================================================================
 
-  augment /vxlan:plant-information/vxlan:plant {
-    container as-number {
-      tailf:info "AS number assignments for the plant";
-      leaf leaf-nodes {
-        tailf:info "AS number assigned to leaf nodes";
-        type inet:as-number {
-          tailf:info "<1-4294967295>;;Autonomous system number";
-        }
-      }
-      leaf dci-nodes {
-        tailf:info "AS number assigned to DCI nodes";
-        type inet:as-number {
-          tailf:info "<1-4294967295>;;Autonomous system number";
-        }
-        default 4200000000;
-      }
-    }
+  identity resource-allocations {
+    description "Plan component state indicating status of resource-allocations";
+    base ncs:plan-state;
   }
 
 
   // =========================================================================
-  // GROUPINGS
+  //  GROUPINGS
   // =========================================================================
 
   grouping evpn-service-common-grouping {
@@ -237,7 +228,31 @@ module evpn {
 
 
   // =========================================================================
-  // SERVICE-POINTS
+  //  PLANT AUGMENT
+  // =========================================================================
+
+  augment /vxlan:plant-information/vxlan:plant {
+    container as-number {
+      tailf:info "AS number assignments for the plant";
+      leaf leaf-nodes {
+        tailf:info "AS number assigned to leaf nodes";
+        type inet:as-number {
+          tailf:info "<1-4294967295>;;Autonomous system number";
+        }
+      }
+      leaf dci-nodes {
+        tailf:info "AS number assigned to DCI nodes";
+        type inet:as-number {
+          tailf:info "<1-4294967295>;;Autonomous system number";
+        }
+        default 4200000000;
+      }
+    }
+  }
+
+
+  // =========================================================================
+  //  SERVICE-POINTS
   // =========================================================================
 
   augment /ncs:services {
@@ -251,6 +266,7 @@ module evpn {
       unique service-id;
 
       uses ncs:service-data;
+      uses ncs:plan-data;
       ncs:servicepoint evpn-l3-direct-servicepoint;
 
       uses evpn-service-common-grouping;
@@ -321,6 +337,7 @@ module evpn {
       unique service-id;
 
       uses ncs:service-data;
+      uses ncs:plan-data;
       ncs:servicepoint evpn-l3-default-servicepoint;
 
       uses evpn-service-common-grouping;
@@ -405,6 +422,7 @@ module evpn {
       unique service-id;
 
       uses ncs:service-data;
+      uses ncs:plan-data;
       ncs:servicepoint evpn-l2-vpls-servicepoint;
 
       uses evpn-service-common-grouping;
@@ -451,6 +469,7 @@ module evpn {
       unique service-id;
 
       uses ncs:service-data;
+      uses ncs:plan-data;
       ncs:servicepoint evpn-l2-evpl-servicepoint;
 
       uses evpn-service-common-grouping;

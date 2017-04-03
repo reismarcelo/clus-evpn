@@ -1,5 +1,5 @@
 // =========================================================================
-// VXLAN Service Model
+//  VXLAN SERVICE MODEL
 // =========================================================================
 module vxlan {
 
@@ -31,8 +31,13 @@ module vxlan {
 
 
   // =========================================================================
-  // REVISION
+  //  REVISION
   // =========================================================================
+
+  revision 2017-04-02 {
+    description
+      "Added plan-component.";
+  }
 
   revision 2017-03-26 {
     description
@@ -51,7 +56,7 @@ module vxlan {
 
 
   // =========================================================================
-  // TYPEDEFS
+  //  TYPEDEFS
   // =========================================================================
 
   typedef vnid-type {
@@ -158,7 +163,7 @@ module vxlan {
 
 
   // =========================================================================
-  // IDENTITIES
+  //  IDENTITIES
   // =========================================================================
 
   identity port-mode {
@@ -177,7 +182,7 @@ module vxlan {
 
 
   // =========================================================================
-  // GROUPINGS
+  //  GROUPINGS
   // =========================================================================
 
   grouping interface-common-grouping {
@@ -326,7 +331,7 @@ module vxlan {
 
 
   // =========================================================================
-  // PLANT INFORMATION
+  //  PLANT INFORMATION
   // =========================================================================
 
   container plant-information {
@@ -408,7 +413,7 @@ module vxlan {
 
 
   // =========================================================================
-  // SERVICE-POINTS
+  //  SERVICE-POINTS
   // =========================================================================
 
   augment /ncs:services {
@@ -430,6 +435,7 @@ module vxlan {
           key "name dc-name";
 
           uses ncs:service-data;
+          uses ncs:plan-data;
           ncs:servicepoint vxlan-l2-servicepoint;
 
           leaf name {
@@ -469,6 +475,7 @@ module vxlan {
           key "name dc-name";
 
           uses ncs:service-data;
+          uses ncs:plan-data;
           ncs:servicepoint vxlan-l3-servicepoint;
 
           leaf name {

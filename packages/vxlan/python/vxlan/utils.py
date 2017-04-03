@@ -46,6 +46,21 @@ def value_or_empty(value):
     return value or ''
 
 
+def init_plan(plan_component, *custom_states):
+    """
+    Initialize the states of an NCS PlanComponent object
+    :param plan_component: An NCS PlanComponent object
+    :param custom_states: One or more strings representing additional states supported by the plan component
+    :return: The PlanComponent object
+    """
+    for plan_state in ['ncs:init'] + list(custom_states) + ['ncs:ready']:
+        plan_component.append_state(plan_state)
+
+    plan_component.set_reached('ncs:init')
+
+    return plan_component
+
+
 class Allocation(object):
     type = collections.namedtuple("_", "id address")(1, 2)
 
