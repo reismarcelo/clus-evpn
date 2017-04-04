@@ -1,6 +1,6 @@
 CLUS-EVPN - NSO EVPN project for Cisco Live US 2017
 
-The following commands should issued the first time ncs is used (after a make clean):
+The following commands should issued the first time ncs is used (or after a make clean):
 $ make all					            -- initialize netsim devices and ncs cdb
 $ make start				            -- start netsim testbed and ncs
 $ make cli					            -- connect to nso cli
@@ -10,6 +10,10 @@ admin@ncs# devices sync-to	            -- update netsim devices configuration wi
 Before pushing the project to git, clean temporary data:
 $ make stop
 $ make clean
+
+Recommended environment:
+- NSO 4.3.1
+- Python 3.6.1
 
 This has been tested with Python 2.7.13 and 3.6.1. If using Python 2.7.13, the following pip packages
 need to be installed:

@@ -15,6 +15,11 @@ from vxlan.utils import apply_template, NcsServiceConfigError, value_or_empty, g
 # Service create callback decorator
 # --------------------------------------------------
 def vxlan_service(cb_create_method):
+    """
+    Decorator for cb_create callback. Initialize a self plan component.
+    :param cb_create_method: cb_create method
+    :return: cb_create wrapper
+    """
     @functools.wraps(cb_create_method)
     def wrapper(self, tctx, root, service, proplist):
         self.log.info('Service create(service={})'.format(service))

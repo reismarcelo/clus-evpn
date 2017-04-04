@@ -32,6 +32,11 @@ class Config(object):
 # Service create callback decorator
 # --------------------------------------------------
 def evpn_service(cb_create_method):
+    """
+    Decorator for cb_create callback. Initialize a self plan component and BatchAllocator.
+    :param cb_create_method: cb_create method
+    :return: cb_create wrapper
+    """
     @functools.wraps(cb_create_method)
     def wrapper(self, tctx, root, service, proplist):
         self.log.info('Service create(service={})'.format(service))

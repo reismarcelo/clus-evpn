@@ -372,8 +372,8 @@ module vxlan {
           }
         }
 
-		    container dci-layer3 {
-		      tailf:info "DCI information for routed topologies";
+		container dci-layer3 {
+		  tailf:info "DCI information for routed topologies";
           tailf:cli-add-mode;
           uses interface-grouping;
         }
