@@ -1,7 +1,7 @@
 PACKAGES = vxlan evpn
 
-NETWORK = create-network packages/ncs-4.3.1-cisco-nx-4.3.7.tar.gz 3 LFND-  \
-          create-network packages/ncs-4.3.1-cisco-nx-4.3.7.tar.gz 2 BRLFND-
+NETWORK = create-network packages/ncs-4.4.1-cisco-nx-4.4.2.tar.gz 3 LFND-  \
+          create-network packages/ncs-4.4.1-cisco-nx-4.4.2.tar.gz 2 BRLFND-
 
 netsim:
 	if [ ! -d netsim ]; then \

@@ -1,6 +1,25 @@
 CLUS-EVPN - NSO EVPN project for Cisco Live US 2017
 
-The following commands should issued the first time ncs is used (or after a make clean):
+This Cisco NSO project contains the following packages:
+. EVPN Package
+    . Implements customer-facing EVPN services:
+        . evpn-l3-direct - Connectivity to evpn leaf nodes with L3 termination and use of anycast-gateway
+        . evpn-l3-default - Connectivity to evpn leaf nodes with L3 termination using static routes or BGP
+        . evpn-l2-vpls - Connectivity to evpn leaf nodes with L2 extending to the DCI, connecting to customer VPLS instance on the DCI
+        . evpn-l2-evpl - Connectivity to evpn leaf nodes with L2 extending to the DCI, connecting to customer EVPL instance on the DCI
+    . These services call VXLAN services in order to build the corresponding Layer-2 or Layer-3 topology.
+
+. VXLAN Package
+    . Implements VXLAN services:
+        . routed-topology - VXLAN Layer-3 topology
+        . bridged-topology - VXLAN Layer-2 topology
+
+The following additional packages are required:
+. Cisco NX-OS NED - e.g. ncs-4.4.1-cisco-nx-4.4.2.tar.gz
+. Cisco resource-manager - e.g. ncs-4.4.1-resource-manager-3.0.0.tar.gz
+
+
+Run the following commands after a new install (or after a make clean):
 $ make all					            -- initialize netsim devices and ncs cdb
 $ make start				            -- start netsim testbed and ncs
 $ make cli					            -- connect to nso cli
@@ -12,12 +31,13 @@ $ make stop
 $ make clean
 
 Recommended environment:
-- NSO 4.3.1
-- Python 3.6.1
+. NSO 4.4.1
+. Python 3.6.1
 
-This has been tested with Python 2.7.13 and 3.6.1. If using Python 2.7.13, the following pip packages
-need to be installed:
-- ipaddress
-- future
+This has been tested with Python 2.7.13 and 3.6.1.
 
-Please note that NSO versions 4.3.2 and 4.4 have issues with Python 3.6.1.
+If using Python 2.7.13, the following pip packages need to be installed:
+. ipaddress
+. future
+
+Please note that NSO versions 4.3.2 and 4.4 have issues with Python 3.6.1, which were fixed in later versions.
