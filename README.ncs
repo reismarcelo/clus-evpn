@@ -3,11 +3,16 @@ CLUS-EVPN - NSO EVPN project for Cisco Live US 2017
 This Cisco NSO project contains the following packages:
 . EVPN Package
     . Implements customer-facing EVPN services:
-        . evpn-l3-direct - Connectivity to evpn leaf nodes with L3 termination and use of anycast-gateway
-        . evpn-l3-default - Connectivity to evpn leaf nodes with L3 termination using static routes or BGP
-        . evpn-l2-vpls - Connectivity to evpn leaf nodes with L2 extending to the DCI, connecting to customer VPLS instance on the DCI
-        . evpn-l2-evpl - Connectivity to evpn leaf nodes with L2 extending to the DCI, connecting to customer EVPL instance on the DCI
-    . These services call VXLAN services in order to build the corresponding Layer-2 or Layer-3 topology.
+        . evpn-l3-direct  - Connectivity to evpn leaf nodes with L3 termination and use of
+                            anycast-gateway
+        . evpn-l3-default - Connectivity to evpn leaf nodes with L3 termination using
+                            static routes or BGP
+        . evpn-l2-vpls    - Connectivity to evpn leaf nodes with L2 extending to the DCI,
+                            connecting to customer VPLS instance on the DCI
+        . evpn-l2-evpl    - Connectivity to evpn leaf nodes with L2 extending to the DCI,
+                            connecting to customer EVPL instance on the DCI
+    . These services call VXLAN services in order to build the corresponding Layer-2 or
+      Layer-3 topology.
 
 . VXLAN Package
     . Implements VXLAN services:
@@ -20,8 +25,8 @@ The following additional packages are required:
 
 
 Run the following commands after a new install (or after a make clean):
-$ make all					            -- initialize netsim devices and ncs cdb
-$ make start				            -- start netsim testbed and ncs
+$ make all                              -- initialize netsim devices and ncs cdb
+$ make start                            -- start netsim testbed and ncs
 $ make cli					            -- connect to nso cli
 admin@ncs# devices fetch-ssh-host-keys
 admin@ncs# devices sync-to	            -- update netsim devices configuration with initial cdb data
