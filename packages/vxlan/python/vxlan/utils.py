@@ -17,6 +17,13 @@ _tm = __import__(ncs.tm.TM)
 # ---------------------------------------------
 
 def apply_template(template_name, context, var_dict=None):
+    """
+    Facilitate applying templates by setting template variables via an optional dictionary
+
+    :param template_name: Name of the template file
+    :param context: Context in which the template is rendered
+    :param var_dict: Optional dictionary containing additional variables to be passed to the template
+    """
     template = ncs.template.Template(context)
     t_vars = ncs.template.Variables()
 

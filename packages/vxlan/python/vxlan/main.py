@@ -46,7 +46,7 @@ class VxlanL2ServiceCallback(Service):
     def cb_create(self, tctx, root, service, proplist, self_plan):
         for leaf in service.ports.leaf_node:
             self.log.info('Rendering L2 leaf template for {}'.format(leaf.node_name))
-            apply_template('l2_leaf_node', service.ports.leaf_node[leaf.node_name])
+            apply_template('l2_leaf_node', leaf)
 
         if len(service.dci.vlan) != len(root.plant_information.plant[service.dc_name].border_leaf_node):
             raise NcsServiceConfigError('Number of L2 DCI VLANs must match the number of border-leaf nodes')
@@ -93,7 +93,7 @@ class VxlanL3ServiceCallback(Service):
                 'DEVICE-ASN': get_device_asn(root, leaf.node_name),
             }
             leaf_vars.update(common_vars)
-            apply_template('l3_leaf_node', service.ports.leaf_node[leaf.node_name], leaf_vars)
+            apply_template('l3_leaf_node', leaf, leaf_vars)
 
         dci_vlans = [vlan.id for vlan in service.dci.vlan]
 

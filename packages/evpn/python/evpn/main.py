@@ -115,7 +115,7 @@ class L3DirectServiceCallback(Service):
         apply_template('l3_direct', service, service_vars)
 
         self.log.info('Rendering l3 dci template')
-        apply_l3_direct_default_dci_template(root, service)
+        apply_l3_dci_template(root, service)
 
 
 # --------------------------------------------------
@@ -182,7 +182,7 @@ class L3DefaultServiceCallback(Service):
         apply_template('l3_default', service, service_vars)
 
         self.log.info('Rendering l3 dci template')
-        apply_l3_direct_default_dci_template(root, service)
+        apply_l3_dci_template(root, service)
 
 
 # --------------------------------------------------
@@ -232,7 +232,7 @@ class L2VplsServiceCallback(Service):
         apply_template('l2_vpls', service, service_vars)
 
         self.log.info('Rendering l2 dci template')
-        apply_l2_vpls_evpl_dci_template(root, service)
+        apply_l2_dci_template(root, service)
 
 
 # --------------------------------------------------
@@ -282,13 +282,13 @@ class L2EvplServiceCallback(Service):
         apply_template('l2_vpls', service, service_vars)
 
         self.log.info('Rendering l2 dci template')
-        apply_l2_vpls_evpl_dci_template(root, service)
+        apply_l2_dci_template(root, service)
 
 
 # --------------------------------------------------
 # UTILITY FUNCTIONS
 # --------------------------------------------------
-def apply_l3_direct_default_dci_template(root_context, service_context):
+def apply_l3_dci_template(root_context, service_context):
     for count, vlan in enumerate(service_context.auto_values.dci_vlan, start=1):
         dci_link_net = ip_network(text(vlan.subnet))
         dci_link_ip_list = list(dci_link_net.hosts())
@@ -302,16 +302,16 @@ def apply_l3_direct_default_dci_template(root_context, service_context):
             'DCI-IP': dci_link_ip_list[0],
             'SITE-DCI-ASN': root_context.plant_information.plant[service_context.dc_name].as_number.dci_nodes,
         }
-        apply_template('l3_direct_default_dci', service_context, dci_vars)
+        apply_template('l3_dci', service_context, dci_vars)
 
 
-def apply_l2_vpls_evpl_dci_template(root_context, service_context):
+def apply_l2_dci_template(root_context, service_context):
     for count, vlan in enumerate(service_context.auto_values.dci_vlan, start=1):
         dci_vars = {
             'COUNT': count,
             'VLAN-ID': vlan.id,
         }
-        apply_template('l2_vpls_evpl_dci', service_context, dci_vars)
+        apply_template('l2_dci', service_context, dci_vars)
 
 
 def subnet_first_host(subnet_str):

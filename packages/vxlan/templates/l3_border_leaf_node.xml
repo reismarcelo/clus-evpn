@@ -21,28 +21,44 @@
                         <id>{string(name)}</id>
                         <description>{string(vrf-description)}</description>
                         <vni>{string(sirb/vni)}</vni>
-                        <rd>{string(evpn/rd)}</rd>
-                        <address-family>
+                        <rd>{string(sirb/evpn/rd)}</rd>
+                        <address-family when="{not(sirb/evpn/route-target/auto)}">
                             <ipv4>
                                 <unicast>
                                     <route-target>
                                         <method>export</method>
-                                        <asn>{string(evpn/route-target/export)}</asn>
+                                        <asn>{string(sirb/evpn/route-target/export)}</asn>
                                         <target-evpn>evpn</target-evpn>
                                     </route-target>
                                     <route-target>
                                         <method>export</method>
-                                        <asn>{string(evpn/route-target/export)}</asn>
+                                        <asn>{string(sirb/evpn/route-target/export)}</asn>
                                         <target-evpn>non-evpn</target-evpn>
                                     </route-target>
                                     <route-target>
                                         <method>import</method>
-                                        <asn>{string(evpn/route-target/import)}</asn>
+                                        <asn>{string(sirb/evpn/route-target/import)}</asn>
                                         <target-evpn>evpn</target-evpn>
                                     </route-target>
                                     <route-target>
                                         <method>import</method>
-                                        <asn>{string(evpn/route-target/import)}</asn>
+                                        <asn>{string(sirb/evpn/route-target/import)}</asn>
+                                        <target-evpn>non-evpn</target-evpn>
+                                    </route-target>
+                                </unicast>
+                            </ipv4>
+                        </address-family>
+                        <address-family when="{sirb/evpn/route-target/auto}">
+                            <ipv4>
+                                <unicast>
+                                    <route-target>
+                                        <method>both</method>
+                                        <asn>auto</asn>
+                                        <target-evpn>evpn</target-evpn>
+                                    </route-target>
+                                    <route-target>
+                                        <method>both</method>
+                                        <asn>auto</asn>
                                         <target-evpn>non-evpn</target-evpn>
                                     </route-target>
                                 </unicast>

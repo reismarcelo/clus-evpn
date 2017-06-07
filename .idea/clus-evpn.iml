@@ -2,8 +2,8 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <content url="file://$MODULE_DIR$/../nso-4.4.1/src/ncs/pyapi" />
-    <content url="file://$USER_HOME$/Documents/Work/Produtos/NSO/official_packages/ncs-4.4.1-resource-manager-project-3.0.0/packages/resource-manager/python" />
+    <content url="file://$MODULE_DIR$/../nso-4.4.1.3/src/ncs/pyapi" />
+    <content url="file://$USER_HOME$/Documents/Work/Produtos/NSO/official_packages/ncs-4.4.1.3-resource-manager-project-3.1.0/packages/resource-manager/python" />
     <orderEntry type="jdk" jdkName="Python 3.6.1 (/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

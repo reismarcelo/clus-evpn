@@ -10,14 +10,14 @@
                         <vlan-id>{string(auto-values/sirb-vlan)}</vlan-id>
                         <vlan-name>SIRB-{string(service-id)}</vlan-name>
                         <vni>{string(10000+auto-values/sirb-vlan)}</vni>
+                        <evpn>
+                            <route-target>
+                                <import>{$SITE-LEAF-ASN}:{string(10000+auto-values/sirb-vlan)}</import>
+                                <export>{$SITE-LEAF-ASN}:{string(10000+auto-values/sirb-vlan)}</export>
+                            </route-target>
+                        </evpn>
                     </sirb>
                     <tenant-as-number>{string(customer-as-number)}</tenant-as-number>
-                    <evpn>
-                        <route-target>
-                            <import>{$SITE-LEAF-ASN}:{string(10000+auto-values/sirb-vlan)}</import>
-                            <export>{$SITE-LEAF-ASN}:{string(10000+auto-values/sirb-vlan)}</export>
-                        </route-target>
-                    </evpn>
                     <ports>
                         <leaf-node foreach="{ports/leaf-node}">
                             <node-name>{string(node-name)}</node-name>
@@ -41,6 +41,12 @@
                             <vlan-id>{string(../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-vlan)}</vlan-id>
                             <vlan-name>LFNC-{string(../../service-id)}-1</vlan-name>
                             <vni>{string(10000+../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-vlan)}</vni>
+                            <evpn>
+                                <route-target>
+                                    <import>{$SITE-LEAF-ASN}:{string(10000+../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-vlan)}</import>
+                                    <export>{$SITE-LEAF-ASN}:{string(10000+../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-vlan)}</export>
+                                </route-target>
+                            </evpn>
                             <tenant-ip-address>{string(../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-ip-address)}</tenant-ip-address>
                         </leaf-node>
                     </ports>

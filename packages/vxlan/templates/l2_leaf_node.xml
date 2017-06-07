@@ -13,7 +13,7 @@
                 </vlan>
 
                 <evpn xmlns="http://tail-f.com/ned/cisco-nx">
-                    <vni>
+                    <vni when="{not(../../evpn/route-target/auto)}">
                         <id>{string(../../vni)}</id>
                         <l2/>
                         <rd>{string(../../evpn/rd)}</rd>
@@ -24,6 +24,19 @@
                         <route-target>
                             <method>export</method>
                             <rt>{string(../../evpn/route-target/export)}</rt>
+                        </route-target>
+                    </vni>
+                    <vni when="{../../evpn/route-target/auto}">
+                        <id>{string(../../vni)}</id>
+                        <l2/>
+                        <rd>{string(../../evpn/rd)}</rd>
+                        <route-target>
+                            <method>import</method>
+                            <rt>auto</rt>
+                        </route-target>
+                        <route-target>
+                            <method>export</method>
+                            <rt>auto</rt>
                         </route-target>
                     </vni>
                 </evpn>

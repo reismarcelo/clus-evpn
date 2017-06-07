@@ -34,6 +34,11 @@ module vxlan {
   //  REVISION
   // =========================================================================
 
+  revision 2017-06-07 {
+    description
+      "Fixed route-target locations. Allow 'auto' for route-targets.";
+  }
+
   revision 2017-04-02 {
     description
       "Added plan-component.";
@@ -257,39 +262,6 @@ module vxlan {
   } // interface-grouping
 
   grouping topology-common-grouping {
-    container evpn {
-      tailf:info "EVPN parameters";
-      tailf:cli-add-mode;
-
-      container route-target {
-        tailf:info "Route-target extended communities";
-        tailf:cli-add-mode;
-        leaf import {
-          tailf:info "Import route-target";
-          type rt-rd-type;
-          mandatory true;
-        }
-        leaf export {
-          tailf:info "Export route-target";
-          type rt-rd-type;
-          mandatory true;
-        }
-      }
-
-      leaf rd {
-        tailf:info "Route Distinguisher";
-        type union {
-          type enumeration {
-            enum "auto" {
-              tailf:info "Generate RD automatically (default)";
-            }
-          }
-          type rt-rd-type;
-        }
-        default "auto";
-      }
-    } // container evpn
-
     container ports {
       tailf:info "Tenant ports that make the topology";
       tailf:cli-add-mode;
@@ -328,6 +300,66 @@ module vxlan {
       }
     }
   } // topology-common-grouping
+
+  grouping evpn-parameters-grouping {
+    leaf vlan-id {
+      tailf:info "Tenant VLAN ID";
+      type vlan-id-type;
+      mandatory true;
+    }
+    leaf vlan-name {
+      tailf:info "Tenant VLAN name";
+      type vlan-name-type;
+      mandatory true;
+    }
+    leaf vni {
+      tailf:info "Tenant VNID";
+      type vnid-type;
+      mandatory true;
+    }
+
+    container evpn {
+      tailf:info "EVPN parameters";
+      tailf:cli-add-mode;
+
+      container route-target {
+        tailf:info "Route-target extended communities";
+        tailf:cli-add-mode;
+        choice route-target-type {
+          default auto;
+          case auto {
+            leaf auto {
+              tailf:info "Generate RT automatically (default)";
+              type empty;
+            }
+          }
+          case manual {
+            leaf import {
+              tailf:info "Import route-target";
+              type rt-rd-type;
+            }
+            leaf export {
+              tailf:info "Export route-target";
+              type rt-rd-type;
+            }
+          }
+        }
+      }
+
+      leaf rd {
+        tailf:info "Route Distinguisher";
+        type union {
+          type enumeration {
+            enum "auto" {
+              tailf:info "Generate RD automatically (default)";
+            }
+          }
+          type rt-rd-type;
+        }
+        default "auto";
+      }
+    } // container evpn
+  }
 
 
   // =========================================================================
@@ -450,21 +482,7 @@ module vxlan {
             }
           }
 
-          leaf vlan-id {
-            tailf:info "Tenant VLAN ID";
-            type vlan-id-type;
-            mandatory true;
-          }
-          leaf vlan-name {
-            tailf:info "Tenant VLAN name";
-            type vlan-name-type;
-            mandatory true;
-          }
-          leaf vni {
-            tailf:info "Tenant VNID";
-            type vnid-type;
-            mandatory true;
-          }
+          uses evpn-parameters-grouping;
 
           uses topology-common-grouping;
 
@@ -494,20 +512,16 @@ module vxlan {
             tailf:info "Transit L3 VNI information";
             tailf:cli-add-mode;
 
-            leaf vlan-id {
-              tailf:info "SIRB VLAN ID";
-              type vlan-id-type;
-              mandatory true;
-            }
-            leaf vlan-name {
-              tailf:info "SIRB VLAN name";
-              type vlan-name-type;
-              mandatory true;
-            }
-            leaf vni {
-              tailf:info "SIRB VNID";
-              type vnid-type;
-              mandatory true;
+            uses evpn-parameters-grouping {
+              refine vlan-id {
+                tailf:info "SIRB VLAN ID";
+              }
+              refine vlan-name {
+                tailf:info "SIRB VLAN name";
+              }
+              refine vni {
+                tailf:info "SIRB VNID";
+              }
             }
           }
 
@@ -528,21 +542,8 @@ module vxlan {
 
           uses topology-common-grouping {
             augment "ports/leaf-node" {
-              leaf vlan-id {
-                tailf:info "Tenant VLAN ID";
-                type vlan-id-type;
-                mandatory true;
-              }
-              leaf vlan-name {
-                tailf:info "Tenant VLAN name";
-                type vlan-name-type;
-                mandatory true;
-              }
-              leaf vni {
-                tailf:info "Tenant VNID";
-                type vnid-type;
-                mandatory true;
-              }
+              uses evpn-parameters-grouping;
+
               leaf tenant-ip-address {
                 tailf:info "Tenant IPv4 address";
                 type ipv4-mask;

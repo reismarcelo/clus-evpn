@@ -17,49 +17,49 @@
                     </vlan-list>
                 </vlan>
 
-                <evpn xmlns="http://tail-f.com/ned/cisco-nx">
-                    <vni>
-                        <id>{string(vni)}</id>
-                        <l2/>
-                        <rd>{string(../../evpn/rd)}</rd>
-                        <route-target>
-                            <method>import</method>
-                            <rt>{string(../../evpn/route-target/import)}</rt>
-                        </route-target>
-                        <route-target>
-                            <method>export</method>
-                            <rt>{string(../../evpn/route-target/export)}</rt>
-                        </route-target>
-                    </vni>
-                </evpn>
-
                 <vrf xmlns="http://tail-f.com/ned/cisco-nx">
                     <context>
                         <id>{string(../../name)}</id>
                         <description>{string(../../vrf-description)}</description>
                         <vni>{string(../../sirb/vni)}</vni>
-                        <rd>{string(../../evpn/rd)}</rd>
-                        <address-family>
+                        <rd>{string(../../sirb/evpn/rd)}</rd>
+                        <address-family when="{not(../../sirb/evpn/route-target/auto)}">
                             <ipv4>
                                 <unicast>
                                     <route-target>
                                         <method>export</method>
-                                        <asn>{string(../../evpn/route-target/export)}</asn>
+                                        <asn>{string(../../sirb/evpn/route-target/export)}</asn>
                                         <target-evpn>evpn</target-evpn>
                                     </route-target>
                                     <route-target>
                                         <method>export</method>
-                                        <asn>{string(../../evpn/route-target/export)}</asn>
+                                        <asn>{string(../../sirb/evpn/route-target/export)}</asn>
                                         <target-evpn>non-evpn</target-evpn>
                                     </route-target>
                                     <route-target>
                                         <method>import</method>
-                                        <asn>{string(../../evpn/route-target/import)}</asn>
+                                        <asn>{string(../../sirb/evpn/route-target/import)}</asn>
                                         <target-evpn>evpn</target-evpn>
                                     </route-target>
                                     <route-target>
                                         <method>import</method>
-                                        <asn>{string(../../evpn/route-target/import)}</asn>
+                                        <asn>{string(../../sirb/evpn/route-target/import)}</asn>
+                                        <target-evpn>non-evpn</target-evpn>
+                                    </route-target>
+                                </unicast>
+                            </ipv4>
+                        </address-family>
+                        <address-family when="{../../sirb/evpn/route-target/auto}">
+                            <ipv4>
+                                <unicast>
+                                    <route-target>
+                                        <method>both</method>
+                                        <asn>auto</asn>
+                                        <target-evpn>evpn</target-evpn>
+                                    </route-target>
+                                    <route-target>
+                                        <method>both</method>
+                                        <asn>auto</asn>
                                         <target-evpn>non-evpn</target-evpn>
                                     </route-target>
                                 </unicast>
@@ -67,6 +67,35 @@
                         </address-family>
                     </context>
                 </vrf>
+
+                <evpn xmlns="http://tail-f.com/ned/cisco-nx">
+                    <vni when="{not(evpn/route-target/auto)}">
+                        <id>{string(vni)}</id>
+                        <l2/>
+                        <rd>{string(evpn/rd)}</rd>
+                        <route-target>
+                            <method>import</method>
+                            <rt>{string(evpn/route-target/import)}</rt>
+                        </route-target>
+                        <route-target>
+                            <method>export</method>
+                            <rt>{string(evpn/route-target/export)}</rt>
+                        </route-target>
+                    </vni>
+                    <vni when="{evpn/route-target/auto}">
+                        <id>{string(vni)}</id>
+                        <l2/>
+                        <rd>{string(evpn/rd)}</rd>
+                        <route-target>
+                            <method>import</method>
+                            <rt>auto</rt>
+                        </route-target>
+                        <route-target>
+                            <method>export</method>
+                            <rt>auto</rt>
+                        </route-target>
+                    </vni>
+                </evpn>
 
                 <router xmlns="http://tail-f.com/ned/cisco-nx">
                     <bgp>
