@@ -36,7 +36,9 @@ module vxlan {
 
   revision 2017-06-07 {
     description
-      "Fixed route-target locations. Allow 'auto' for route-targets.";
+      "Fixed route-target locations.
+       Allow 'auto' for route-targets.
+       Added option for multicast replication mode (in addition to ingress)";
   }
 
   revision 2017-04-02 {
@@ -484,6 +486,29 @@ module vxlan {
 
           uses evpn-parameters-grouping;
 
+          leaf replication-mode {
+            tailf:info "VXLAN replication mode";
+            default "ingress";
+            type enumeration {
+              enum "ingress" {
+                tailf:info "Ingress replication of BUM traffic (default)";
+              }
+              enum "multicast" {
+                tailf:info "Multicast replication of BUM traffic";
+              }
+            }
+          }
+          leaf replication-group {
+            tailf:info "Multicast group for BUM traffic replication";
+            when "../replication-mode = 'multicast'" {
+              tailf:dependency "../replication-mode";
+            }
+            mandatory true;
+            type inet:ipv4-address {
+              tailf:info "A.B.C.D;;Multicast group IPv4 address";
+            }
+          }
+
           uses topology-common-grouping;
 
         } // list bridged-topology
@@ -540,10 +565,22 @@ module vxlan {
             }
           }
 
+          leaf replication-mode {
+            tailf:info "VXLAN replication mode";
+            default "ingress";
+            type enumeration {
+              enum "ingress" {
+                tailf:info "Ingress replication of BUM traffic (default)";
+              }
+              enum "multicast" {
+                tailf:info "Multicast replication of BUM traffic";
+              }
+            }
+          }
+
           uses topology-common-grouping {
             augment "ports/leaf-node" {
               uses evpn-parameters-grouping;
-
               leaf tenant-ip-address {
                 tailf:info "Tenant IPv4 address";
                 type ipv4-mask;
@@ -552,6 +589,16 @@ module vxlan {
               leaf anycast-gateway {
                 tailf:info "Enable anycast-gateway on this port";
                 type empty;
+              }
+              leaf replication-group {
+                tailf:info "Multicast group for BUM traffic replication";
+                when "../../../replication-mode = 'multicast'" {
+                  tailf:dependency "../../../replication-mode";
+                }
+                mandatory true;
+                type inet:ipv4-address {
+                  tailf:info "A.B.C.D;;Multicast group IPv4 address";
+                }
               }
             }
             augment "dci" {

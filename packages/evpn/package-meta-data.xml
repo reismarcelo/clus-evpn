@@ -1,6 +1,6 @@
 <ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
     <name>evpn</name>
-    <package-version>1.2</package-version>
+    <package-version>1.3</package-version>
     <description>EVPN service package</description>
     <ncs-min-version>4.3</ncs-min-version>
 

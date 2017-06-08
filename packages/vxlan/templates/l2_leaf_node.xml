@@ -51,9 +51,10 @@
                             <vni>
                                 <id>{string(../../vni)}</id>
                                 <suppress-arp/>
-                                <ingress-replication>
+                                <ingress-replication when="{../../replication-mode = 'ingress'}">
                                     <protocol>bgp</protocol>
                                 </ingress-replication>
+                                <mcast-group when="{../../replication-mode = 'multicast'}">{string(../../replication-group)}</mcast-group>
                             </vni>
                         </member>
                         <source-interface>loopback0</source-interface>

@@ -15,6 +15,8 @@
                             <export>{$SITE-LEAF-ASN}:{string(10000+auto-values/lfnc-vlan)}</export>
                         </route-target>
                     </evpn>
+                    <replication-mode>{string(replication-mode)}</replication-mode>
+                    <replication-group when="{replication-mode = 'multicast'}">{string(replication-group)}</replication-group>
                     <ports>
                         <leaf-node foreach="{ports/leaf-node}">
                             <node-name>{string(node-name)}</node-name>

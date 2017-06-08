@@ -18,6 +18,7 @@
                         </evpn>
                     </sirb>
                     <tenant-as-number>{string(customer-as-number)}</tenant-as-number>
+                    <replication-mode>{string(replication-mode)}</replication-mode>
                     <ports>
                         <leaf-node foreach="{ports/leaf-node}">
                             <node-name>{string(node-name)}</node-name>
@@ -48,6 +49,7 @@
                                 </route-target>
                             </evpn>
                             <tenant-ip-address>{string(../../auto-values/lfnc-ip-address)}</tenant-ip-address>
+                            <replication-group when="{../../replication-mode = 'multicast'}">{string(../../replication-group)}</replication-group>
                             <anycast-gateway/>
                         </leaf-node>
                     </ports>
