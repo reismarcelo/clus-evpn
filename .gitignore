@@ -9,7 +9,5 @@ logs/
 .DS_Store
 .ipynb_checkpoints/
 first_start/
-init_data/.DS_Store
-packages/.DS_Store
 scripts/
 target/
