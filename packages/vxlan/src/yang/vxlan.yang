@@ -34,6 +34,13 @@ module vxlan {
   //  REVISION
   // =========================================================================
 
+  revision 2017-06-16 {
+    description
+      "Enabled configuration of NVE source interface.
+       Enabled configuration of switchport mode and mtu on tenant facing ports
+       Allow single vlan mode for layer2 DCI";
+  }
+
   revision 2017-06-07 {
     description
       "Fixed route-target locations.
@@ -170,25 +177,6 @@ module vxlan {
 
 
   // =========================================================================
-  //  IDENTITIES
-  // =========================================================================
-
-  identity port-mode {
-    description "Base identity defining the tagging mode a port operates on";
-  }
-
-  identity access {
-    description "Defines port as switchport access";
-    base port-mode;
-  }
-
-  identity trunk {
-    description "Defines port as switchport trunk";
-    base port-mode;
-  }
-
-
-  // =========================================================================
   //  GROUPINGS
   // =========================================================================
 
@@ -200,12 +188,17 @@ module vxlan {
         length "1..254";
       }
     }
-    // TODO: Implement interface mode in the templates
     leaf mode {
       description "Indicate whether this is an access port (i.e. no tagging) or a dot1q trunk port";
       tailf:info "Switchport mode";
-      type identityref {
-        base "vxlan:port-mode";
+      default access;
+      type enumeration {
+        enum access {
+          tailf:info "Switchport mode access";
+        }
+        enum trunk {
+          tailf:info "Switchport mode trunk";
+        }
       }
     }
     leaf mtu {
@@ -440,6 +433,14 @@ module vxlan {
         leaf bgp-redistribute-connected {
           tailf:info "Route-map applied to redistributed connected routes in BGP";
           type route-map-name-type;
+        }
+      }
+      leaf nve-source-interface {
+        tailf:info "Specify Loopback to be used as source-interface for NVE";
+        default "loopback0";
+        type string {
+          tailf:info "Loopback interface";
+          pattern "loopback[0-9]+";
         }
       }
     } // container global-config

@@ -2,22 +2,22 @@
   <id-pool xmlns="http://tail-f.com/pkg/id-allocator">
     <name>dci-vlan</name>
     <range>
-      <start>3001</start>
-      <end>3999</end>
+      <start>2960</start>
+      <end>2979</end>
     </range>
   </id-pool>
   <id-pool xmlns="http://tail-f.com/pkg/id-allocator">
     <name>lfnc-vlan</name>
     <range>
-      <start>2001</start>
+      <start>2980</start>
       <end>2999</end>
     </range>
   </id-pool>
   <id-pool xmlns="http://tail-f.com/pkg/id-allocator">
     <name>sirb-vlan</name>
     <range>
-      <start>1001</start>
-      <end>1999</end>
+      <start>2950</start>
+      <end>2959</end>
     </range>
   </id-pool>
   <ip-address-pool xmlns="http://tail-f.com/pkg/ipaddress-allocator">

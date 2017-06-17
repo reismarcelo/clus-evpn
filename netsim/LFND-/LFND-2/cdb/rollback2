@@ -1,0 +1,26 @@
+# Created by: admin
+# Date: 2017-06-16 15:56:02
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10104
+
+interface {
+    Vlan 2112 {
+        description LFNC-ACME001-1;
+        vrf {
+            member ACME001;
+        }
+        ip {
+            address {
+                ipaddr 4.4.4.4/30;
+                tag    123;
+            }
+            redirects false;
+        }
+        ipv6 {
+            redirects false;
+        }
+    }
+}

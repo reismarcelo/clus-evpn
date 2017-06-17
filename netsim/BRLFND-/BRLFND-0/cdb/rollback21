@@ -1,0 +1,18 @@
+# Created by: admin
+# Date: 2017-06-16 15:55:41
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10064
+
+router {
+    bgp 65000 {
+        vrf ACME001 {
+            neighbor 55.55.55.1 {
+                delete:
+                update-source Vlan3101;
+            }
+         }
+     }
+ }

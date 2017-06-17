@@ -1,0 +1,23 @@
+# Created by: admin
+# Date: 2017-06-16 15:56:02
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10075
+
+interface {
+    Vlan 1101 {
+        description SIRB-ACME001;
+        vrf {
+            member ACME001;
+        }
+        ip {
+            forward;
+            redirects false;
+        }
+        ipv6 {
+            redirects false;
+        }
+    }
+}

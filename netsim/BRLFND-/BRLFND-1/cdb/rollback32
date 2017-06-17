@@ -1,0 +1,16 @@
+# Created by: admin
+# Date: 2017-06-16 15:55:40
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10047
+
+interface {
+    Vlan 3102 {
+        ip {
+            delete:
+            redirects false;
+        }
+     }
+ }

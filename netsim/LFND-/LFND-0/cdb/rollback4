@@ -1,0 +1,27 @@
+# Created by: admin
+# Date: 2017-06-16 15:28:30
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10007
+
+interface {
+    port-channel 73 {
+        switchport {
+            mode trunk;
+            trunk {
+                allowed {
+                    vlan {
+                        ids [ 1 380 400 ];
+                    }
+                }
+            }
+        }
+        spanning-tree {
+            port {
+                type network;
+            }
+        }
+    }
+}

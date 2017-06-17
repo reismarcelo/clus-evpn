@@ -1,0 +1,12 @@
+# Created by: admin
+# Date: 2017-06-16 15:55:34
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10010
+
+router {
+    delete:
+    bgp 65000;
+}

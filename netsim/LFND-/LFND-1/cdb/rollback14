@@ -1,0 +1,18 @@
+# Created by: admin
+# Date: 2017-06-16 15:56:01
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10086
+
+vlan {
+    vlan-list 1101 {
+        name       SIRB-ACME001;
+        vn-segment 11101;
+    }
+    vlan-list 2111 {
+        name       LFNC-ACME001-1;
+        vn-segment 12111;
+    }
+}

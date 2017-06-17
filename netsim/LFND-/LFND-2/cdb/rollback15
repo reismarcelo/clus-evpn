@@ -1,0 +1,22 @@
+# Created by: admin
+# Date: 2017-06-16 15:56:01
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10091
+
+router {
+    bgp 65000 {
+        vrf ACME001 {
+            address-family ipv4 unicast {
+                advertise {
+                    l2vpn evpn;
+                }
+                maximum-paths {
+                    number 2;
+                }
+            }
+        }
+    }
+ }

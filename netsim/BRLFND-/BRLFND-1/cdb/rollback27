@@ -1,0 +1,20 @@
+# Created by: admin
+# Date: 2017-06-16 15:55:41
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10052
+
+interface {
+    Ethernet 2/2 {
+        switchport {
+            trunk {
+                allowed {
+                    delete:
+                    vlan;
+                }
+             }
+         }
+     }
+ }

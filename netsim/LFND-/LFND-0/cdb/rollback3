@@ -1,0 +1,26 @@
+# Created by: admin
+# Date: 2017-06-16 15:28:31
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10008
+
+interface {
+    Ethernet 1/1 {
+        enable {
+            switchport true;
+        }
+        switchport {
+            mode trunk;
+            trunk {
+                allowed {
+                    vlan {
+                        ids [ 1 380 400 ];
+                    }
+                }
+            }
+        }
+        description e1/1;
+    }
+}

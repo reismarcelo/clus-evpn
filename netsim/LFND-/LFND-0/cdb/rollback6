@@ -1,0 +1,16 @@
+# Created by: admin
+# Date: 2017-06-16 15:28:30
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10005
+
+interface {
+    Ethernet 1/1 {
+        channel-group {
+            mode active;
+            id 73;
+        }
+     }
+ }

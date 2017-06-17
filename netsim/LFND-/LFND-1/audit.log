@@ -1,0 +1,377 @@
+<INFO> 16-Jun-2017::15:28:29.247 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 logged in over ssh from 127.0.0.1 with authmeth:password
+<INFO> 16-Jun-2017::15:28:29.294 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 assigned to groups: admin
+<INFO> 16-Jun-2017::15:28:29.404 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'enable'
+<INFO> 16-Jun-2017::15:28:29.404 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:29.406 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'terminal length 0'
+<INFO> 16-Jun-2017::15:28:29.485 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:29.487 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'terminal width 0'
+<INFO> 16-Jun-2017::15:28:29.542 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:29.593 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'show version'
+<INFO> 16-Jun-2017::15:28:29.669 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:29.671 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'paginate false'
+<INFO> 16-Jun-2017::15:28:29.671 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:29.727 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:28:29.824 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.428 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:28:30.528 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.535 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'configure terminal'
+<INFO> 16-Jun-2017::15:28:30.539 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.550 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'feature bgp'
+<INFO> 16-Jun-2017::15:28:30.560 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.613 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'feature interface-vlan'
+<INFO> 16-Jun-2017::15:28:30.629 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.654 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'no fex 101'
+<INFO> 16-Jun-2017::15:28:30.660 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.707 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'no fex 102'
+<INFO> 16-Jun-2017::15:28:30.707 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.754 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'no vlan 380,400'
+<INFO> 16-Jun-2017::15:28:30.771 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.799 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'interface Ethernet1/1'
+<INFO> 16-Jun-2017::15:28:30.800 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.805 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'no channel-group 73'
+<INFO> 16-Jun-2017::15:28:30.806 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.839 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'no interface port-channel100'
+<INFO> 16-Jun-2017::15:28:30.840 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.905 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'no interface port-channel73'
+<INFO> 16-Jun-2017::15:28:30.906 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:30.965 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'no interface Ethernet1/1'
+<INFO> 16-Jun-2017::15:28:30.965 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:31.031 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'no interface Ethernet101/1/1'
+<INFO> 16-Jun-2017::15:28:31.032 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:31.097 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'exit'
+<INFO> 16-Jun-2017::15:28:31.102 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:28:31.105 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI 'copy running-config startup-config'
+<INFO> 16-Jun-2017::15:28:31.111 MAREIS-M-D0X9 confd[2426]: audit user: admin/28 CLI done
+<INFO> 16-Jun-2017::15:29:02.873 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 Logged out ssh <local> user
+<INFO> 16-Jun-2017::15:55:20.778 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 logged in over ssh from 127.0.0.1 with authmeth:password
+<INFO> 16-Jun-2017::15:55:20.780 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 assigned to groups: admin
+<INFO> 16-Jun-2017::15:55:20.786 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'enable'
+<INFO> 16-Jun-2017::15:55:20.786 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:20.788 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'terminal length 0'
+<INFO> 16-Jun-2017::15:55:20.851 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:20.853 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'terminal width 0'
+<INFO> 16-Jun-2017::15:55:20.924 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:20.939 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'show version'
+<INFO> 16-Jun-2017::15:55:21.117 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:21.120 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'paginate false'
+<INFO> 16-Jun-2017::15:55:21.120 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:21.149 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:55:21.199 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:33.679 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:55:33.742 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:33.826 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:55:33.885 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:33.891 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'configure terminal'
+<INFO> 16-Jun-2017::15:55:33.892 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:33.901 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'router bgp 65000'
+<INFO> 16-Jun-2017::15:55:33.903 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:33.961 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'address-family ipv4 evpn'
+<INFO> 16-Jun-2017::15:55:33.962 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:33.996 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:33.997 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:34.002 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:34.002 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:34.009 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:34.010 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:34.013 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'copy running-config startup-config'
+<INFO> 16-Jun-2017::15:55:34.022 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:34.028 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:55:34.078 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.462 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:55:39.508 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.515 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'configure terminal'
+<INFO> 16-Jun-2017::15:55:39.515 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.524 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vlan 1101'
+<INFO> 16-Jun-2017::15:55:39.525 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.567 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'name SIRB-ACME001'
+<INFO> 16-Jun-2017::15:55:39.568 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.591 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vn-segment 11101'
+<INFO> 16-Jun-2017::15:55:39.592 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.633 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vlan 2111'
+<INFO> 16-Jun-2017::15:55:39.633 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.697 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'name LFNC-ACME001-1'
+<INFO> 16-Jun-2017::15:55:39.697 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.718 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vn-segment 12111'
+<INFO> 16-Jun-2017::15:55:39.718 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.773 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'evpn'
+<INFO> 16-Jun-2017::15:55:39.773 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.776 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vni 12111 l2'
+<INFO> 16-Jun-2017::15:55:39.777 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.801 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'rd auto'
+<INFO> 16-Jun-2017::15:55:39.802 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.862 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'route-target import 65001:12111'
+<INFO> 16-Jun-2017::15:55:39.862 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.884 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'route-target export 65001:12111'
+<INFO> 16-Jun-2017::15:55:39.885 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.914 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vrf context ACME001'
+<INFO> 16-Jun-2017::15:55:39.916 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.943 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vni 11101'
+<INFO> 16-Jun-2017::15:55:39.943 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:39.989 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'rd auto'
+<INFO> 16-Jun-2017::15:55:39.989 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.013 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'address-family ipv4 unicast'
+<INFO> 16-Jun-2017::15:55:40.014 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.074 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'route-target export 65001:11101 evpn'
+<INFO> 16-Jun-2017::15:55:40.074 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.110 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'route-target export 65001:11101'
+<INFO> 16-Jun-2017::15:55:40.111 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.152 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'route-target import 65001:11101 evpn'
+<INFO> 16-Jun-2017::15:55:40.152 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.197 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'route-target import 65001:11101'
+<INFO> 16-Jun-2017::15:55:40.197 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.239 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:40.240 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.242 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:40.243 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.249 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'policy-map type qos RATE-LIMIT-100Mbps'
+<INFO> 16-Jun-2017::15:55:40.250 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.275 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'class class-default'
+<INFO> 16-Jun-2017::15:55:40.276 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.333 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'police cir 100 mbps'
+<INFO> 16-Jun-2017::15:55:40.335 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.380 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'interface nve1'
+<INFO> 16-Jun-2017::15:55:40.380 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.410 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'host-reachability protocol bgp'
+<INFO> 16-Jun-2017::15:55:40.411 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.439 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'member vni 11101 associate-vrf'
+<INFO> 16-Jun-2017::15:55:40.439 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.470 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'member vni 12111'
+<INFO> 16-Jun-2017::15:55:40.470 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.500 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'suppress-arp'
+<INFO> 16-Jun-2017::15:55:40.500 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.527 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'ingress-replication protocol bgp'
+<INFO> 16-Jun-2017::15:55:40.527 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.607 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no shutdown'
+<INFO> 16-Jun-2017::15:55:40.607 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.610 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'source-interface loopback0'
+<INFO> 16-Jun-2017::15:55:40.610 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.640 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'interface Vlan1101'
+<INFO> 16-Jun-2017::15:55:40.646 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.673 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'description SIRB-ACME001'
+<INFO> 16-Jun-2017::15:55:40.674 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.701 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no shutdown'
+<INFO> 16-Jun-2017::15:55:40.702 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.705 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vrf member ACME001'
+<INFO> 16-Jun-2017::15:55:40.706 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.735 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'ip forward'
+<INFO> 16-Jun-2017::15:55:40.736 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.765 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no ip redirects'
+<INFO> 16-Jun-2017::15:55:40.766 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.792 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no ipv6 redirects'
+<INFO> 16-Jun-2017::15:55:40.793 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.823 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:40.823 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.829 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'interface Vlan2111'
+<INFO> 16-Jun-2017::15:55:40.835 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.893 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'description LFNC-ACME001-1'
+<INFO> 16-Jun-2017::15:55:40.894 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.927 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no shutdown'
+<INFO> 16-Jun-2017::15:55:40.928 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.932 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vrf member ACME001'
+<INFO> 16-Jun-2017::15:55:40.933 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:40.965 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'ip address 3.3.3.3/30 tag 123'
+<INFO> 16-Jun-2017::15:55:40.968 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.021 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no ip redirects'
+<INFO> 16-Jun-2017::15:55:41.022 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.049 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no ipv6 redirects'
+<INFO> 16-Jun-2017::15:55:41.050 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.077 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:41.077 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.084 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'interface port-channel1001'
+<INFO> 16-Jun-2017::15:55:41.091 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.123 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'switchport mode access'
+<INFO> 16-Jun-2017::15:55:41.125 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.129 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'switchport access vlan 2111'
+<INFO> 16-Jun-2017::15:55:41.130 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.157 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'description ACME001-Port-Channel'
+<INFO> 16-Jun-2017::15:55:41.158 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.182 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no shutdown'
+<INFO> 16-Jun-2017::15:55:41.183 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.186 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'service-policy type qos input RATE-LIMIT-100Mbps'
+<INFO> 16-Jun-2017::15:55:41.187 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.224 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'spanning-tree bpdufilter enable'
+<INFO> 16-Jun-2017::15:55:41.225 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.252 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'spanning-tree port type edge'
+<INFO> 16-Jun-2017::15:55:41.252 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.280 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'storm-control broadcast level 5.0'
+<INFO> 16-Jun-2017::15:55:41.281 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.313 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'storm-control unicast level 5.0'
+<INFO> 16-Jun-2017::15:55:41.314 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.342 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'storm-control multicast level 5.0'
+<INFO> 16-Jun-2017::15:55:41.343 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.426 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:41.427 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.434 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'interface Ethernet1/1'
+<INFO> 16-Jun-2017::15:55:41.441 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.500 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'switchport mode access'
+<INFO> 16-Jun-2017::15:55:41.501 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.506 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'switchport access vlan 2111'
+<INFO> 16-Jun-2017::15:55:41.506 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.531 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'channel-group 1001 mode active'
+<INFO> 16-Jun-2017::15:55:41.532 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.558 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'description ACME001'
+<INFO> 16-Jun-2017::15:55:41.558 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.584 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no shutdown'
+<INFO> 16-Jun-2017::15:55:41.585 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.587 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'spanning-tree bpdufilter enable'
+<INFO> 16-Jun-2017::15:55:41.588 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.610 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'spanning-tree port type edge'
+<INFO> 16-Jun-2017::15:55:41.611 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.634 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'storm-control broadcast level 5.0'
+<INFO> 16-Jun-2017::15:55:41.634 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.664 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'storm-control unicast level 5.0'
+<INFO> 16-Jun-2017::15:55:41.665 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.693 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'storm-control multicast level 5.0'
+<INFO> 16-Jun-2017::15:55:41.694 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.721 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no lldp transmit'
+<INFO> 16-Jun-2017::15:55:41.721 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.756 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'interface Ethernet1/2'
+<INFO> 16-Jun-2017::15:55:41.762 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.801 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'switchport mode access'
+<INFO> 16-Jun-2017::15:55:41.803 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.807 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'switchport access vlan 2111'
+<INFO> 16-Jun-2017::15:55:41.807 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.839 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'channel-group 1001 mode active'
+<INFO> 16-Jun-2017::15:55:41.839 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.862 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'description ACME001'
+<INFO> 16-Jun-2017::15:55:41.862 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.884 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no shutdown'
+<INFO> 16-Jun-2017::15:55:41.884 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.887 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'spanning-tree bpdufilter enable'
+<INFO> 16-Jun-2017::15:55:41.887 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.913 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'spanning-tree port type edge'
+<INFO> 16-Jun-2017::15:55:41.913 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.935 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'storm-control broadcast level 5.0'
+<INFO> 16-Jun-2017::15:55:41.935 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.959 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'storm-control unicast level 5.0'
+<INFO> 16-Jun-2017::15:55:41.960 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:41.998 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'storm-control multicast level 5.0'
+<INFO> 16-Jun-2017::15:55:41.998 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.022 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no lldp transmit'
+<INFO> 16-Jun-2017::15:55:42.023 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.054 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'router bgp 65000'
+<INFO> 16-Jun-2017::15:55:42.055 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.058 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vrf ACME001'
+<INFO> 16-Jun-2017::15:55:42.058 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.104 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'address-family ipv4 unicast'
+<INFO> 16-Jun-2017::15:55:42.106 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.148 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'advertise l2vpn evpn'
+<INFO> 16-Jun-2017::15:55:42.149 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.173 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'maximum-paths 2'
+<INFO> 16-Jun-2017::15:55:42.174 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.217 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:42.218 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.224 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:42.225 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.227 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:42.228 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.233 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:55:42.234 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.518 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'copy running-config startup-config'
+<INFO> 16-Jun-2017::15:55:42.552 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:55:42.556 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:55:42.705 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:01.621 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:56:01.750 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:01.766 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'configure terminal'
+<INFO> 16-Jun-2017::15:56:01.766 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:01.774 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'router bgp 65000'
+<INFO> 16-Jun-2017::15:56:01.775 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:01.778 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no vrf ACME001'
+<INFO> 16-Jun-2017::15:56:01.779 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:01.838 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no vlan 1101,2111'
+<INFO> 16-Jun-2017::15:56:01.842 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:01.887 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'evpn'
+<INFO> 16-Jun-2017::15:56:01.888 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:01.891 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no vni 12111 l2'
+<INFO> 16-Jun-2017::15:56:01.891 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:01.947 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'vrf context ACME001'
+<INFO> 16-Jun-2017::15:56:01.947 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:01.950 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no address-family ipv4 unicast'
+<INFO> 16-Jun-2017::15:56:01.951 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.015 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no vni 11101'
+<INFO> 16-Jun-2017::15:56:02.015 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.036 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no rd auto'
+<INFO> 16-Jun-2017::15:56:02.036 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.076 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:56:02.076 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.082 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no vrf context ACME001'
+<INFO> 16-Jun-2017::15:56:02.083 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.104 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'interface Ethernet1/1'
+<INFO> 16-Jun-2017::15:56:02.104 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.106 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no channel-group 1001'
+<INFO> 16-Jun-2017::15:56:02.107 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.155 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'interface Ethernet1/2'
+<INFO> 16-Jun-2017::15:56:02.155 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.157 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no channel-group 1001'
+<INFO> 16-Jun-2017::15:56:02.158 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.231 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no interface port-channel1001'
+<INFO> 16-Jun-2017::15:56:02.231 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.305 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no policy-map type qos RATE-LIMIT-100Mbps'
+<INFO> 16-Jun-2017::15:56:02.305 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.384 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no interface nve1'
+<INFO> 16-Jun-2017::15:56:02.384 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.436 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no interface Vlan1101'
+<INFO> 16-Jun-2017::15:56:02.436 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.487 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no interface Vlan2111'
+<INFO> 16-Jun-2017::15:56:02.488 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.559 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no interface Ethernet1/1'
+<INFO> 16-Jun-2017::15:56:02.559 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.599 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'no interface Ethernet1/2'
+<INFO> 16-Jun-2017::15:56:02.600 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.637 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'exit'
+<INFO> 16-Jun-2017::15:56:02.638 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.656 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'copy running-config startup-config'
+<INFO> 16-Jun-2017::15:56:02.664 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:02.669 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI 'show running-config'
+<INFO> 16-Jun-2017::15:56:02.719 MAREIS-M-D0X9 confd[2426]: audit user: admin/29 CLI done
+<INFO> 16-Jun-2017::15:56:33.719 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 Logged out ssh <local> user
+<INFO> 16-Jun-2017::16:05:53.275 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 logged in over ssh from 127.0.0.1 with authmeth:password
+<INFO> 16-Jun-2017::16:05:53.277 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 assigned to groups: admin
+<INFO> 16-Jun-2017::16:05:53.282 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI 'enable'
+<INFO> 16-Jun-2017::16:05:53.283 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI done
+<INFO> 16-Jun-2017::16:05:53.285 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI 'terminal length 0'
+<INFO> 16-Jun-2017::16:05:53.394 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI done
+<INFO> 16-Jun-2017::16:05:53.396 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI 'terminal width 0'
+<INFO> 16-Jun-2017::16:05:53.485 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI done
+<INFO> 16-Jun-2017::16:05:53.502 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI 'show version'
+<INFO> 16-Jun-2017::16:05:53.695 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI done
+<INFO> 16-Jun-2017::16:05:53.696 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI 'paginate false'
+<INFO> 16-Jun-2017::16:05:53.697 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI done
+<INFO> 16-Jun-2017::16:05:53.721 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI 'show running-config'
+<INFO> 16-Jun-2017::16:05:53.775 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI done
+<INFO> 16-Jun-2017::16:05:53.830 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI 'show running-config'
+<INFO> 16-Jun-2017::16:05:53.880 MAREIS-M-D0X9 confd[2426]: audit user: admin/30 CLI done
+<INFO> 16-Jun-2017::16:06:24.500 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 Logged out ssh <local> user
+<INFO> 16-Jun-2017::19:57:00.856 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 logged in over ssh from 127.0.0.1 with authmeth:password
+<INFO> 16-Jun-2017::19:57:00.860 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 assigned to groups: admin
+<INFO> 16-Jun-2017::19:57:00.867 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI 'enable'
+<INFO> 16-Jun-2017::19:57:00.867 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI done
+<INFO> 16-Jun-2017::19:57:00.869 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI 'terminal length 0'
+<INFO> 16-Jun-2017::19:57:00.898 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI done
+<INFO> 16-Jun-2017::19:57:00.900 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI 'terminal width 0'
+<INFO> 16-Jun-2017::19:57:01.033 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI done
+<INFO> 16-Jun-2017::19:57:01.046 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI 'show version'
+<INFO> 16-Jun-2017::19:57:01.272 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI done
+<INFO> 16-Jun-2017::19:57:01.274 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI 'paginate false'
+<INFO> 16-Jun-2017::19:57:01.274 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI done
+<INFO> 16-Jun-2017::19:57:01.377 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI 'show running-config'
+<INFO> 16-Jun-2017::19:57:01.428 MAREIS-M-D0X9 confd[2426]: audit user: admin/31 CLI done
+<INFO> 16-Jun-2017::19:57:32.608 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 Logged out ssh <local> user
+<INFO> 16-Jun-2017::19:57:54.324 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 logged in over ssh from 127.0.0.1 with authmeth:password
+<INFO> 16-Jun-2017::19:57:54.326 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 assigned to groups: admin
+<INFO> 16-Jun-2017::19:57:54.332 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI 'enable'
+<INFO> 16-Jun-2017::19:57:54.332 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI done
+<INFO> 16-Jun-2017::19:57:54.334 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI 'terminal length 0'
+<INFO> 16-Jun-2017::19:57:54.494 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI done
+<INFO> 16-Jun-2017::19:57:54.496 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI 'terminal width 0'
+<INFO> 16-Jun-2017::19:57:54.614 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI done
+<INFO> 16-Jun-2017::19:57:54.626 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI 'show version'
+<INFO> 16-Jun-2017::19:57:54.825 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI done
+<INFO> 16-Jun-2017::19:57:54.828 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI 'paginate false'
+<INFO> 16-Jun-2017::19:57:54.828 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI done
+<INFO> 16-Jun-2017::19:57:54.877 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI 'show running-config'
+<INFO> 16-Jun-2017::19:57:54.946 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI done
+<INFO> 16-Jun-2017::19:57:55.028 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI 'show running-config'
+<INFO> 16-Jun-2017::19:57:55.084 MAREIS-M-D0X9 confd[2426]: audit user: admin/32 CLI done
+<INFO> 16-Jun-2017::19:58:26.746 MAREIS-M-D0X9 confd[2426]: audit user: admin/0 Logged out ssh <local> user

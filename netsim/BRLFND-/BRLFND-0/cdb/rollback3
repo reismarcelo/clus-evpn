@@ -1,0 +1,21 @@
+# Created by: admin
+# Date: 2017-06-16 15:56:02
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10082
+
+interface {
+    port-channel 11 {
+        switchport {
+            trunk {
+                allowed {
+                    vlan {
+                        ids [ 3101 ];
+                    }
+                }
+            }
+        }
+    }
+}

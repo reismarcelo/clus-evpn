@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
+  <name>cisco-nx</name>
+  <package-version>4.4.6</package-version>
+  <description>NED package for the Cisco Nexus</description>
+  <ncs-min-version>3.4.8</ncs-min-version>
+  <ncs-min-version>4.0.4</ncs-min-version>
+  <ncs-min-version>4.1.3</ncs-min-version>
+  <ncs-min-version>4.2</ncs-min-version>
+  <component>
+    <name>cisco-nx</name>
+    <ned>
+      <cli>
+        <ned-id xmlns:cisco-nx-id="http://tail-f.com/ned/cisco-nx-id">cisco-nx-id:cisco-nx</ned-id>
+        <java-class-name>com.tailf.packages.ned.nexus.NexusNedCli</java-class-name>
+      </cli>
+      <device>
+        <vendor>Cisco</vendor>
+      </device>
+      <option>
+        <name>entitlement-tag</name>
+        <value>regid.2015-10.com.cisco.cisco-nx-NED,1.0_e1f22074-b2c9-4ed7-a611-7c7d0ccc1429</value>
+      </option>
+      <option>
+        <name>show-tag</name>
+        <value>interface</value>
+      </option>
+      <!--<option>
+        <name>requires-transaction-states</name>
+      </option>-->
+    </ned>
+  </component>
+  <component>
+    <name>NexusDp</name>
+    <callback>
+      <java-class-name>com.tailf.packages.ned.nexus.NexusDp</java-class-name>
+    </callback>
+  </component>
+</ncs-package>

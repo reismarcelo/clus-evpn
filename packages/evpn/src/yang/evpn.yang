@@ -38,6 +38,12 @@ module evpn {
   //  REVISION
   // =========================================================================
 
+  revision 2017-06-16 {
+    description
+      "Enabled configuration of switchport mode and mtu on tenant facing ports
+       Allow single vlan mode for layer2 DCI";
+  }
+
   revision 2017-06-07 {
     description
       "Added option for multicast replication mode (in addition to ingress)";
@@ -159,6 +165,7 @@ module evpn {
                     tailf:info "<1-66>/<1-128>;;Slot number/Port number";
                   }
                 }
+                uses vxlan:interface-common-grouping;
               }
             }
             case type-port-channel {
@@ -184,6 +191,7 @@ module evpn {
                     }
                   }
                 }
+                uses vxlan:interface-common-grouping;
               }
             }
           }
@@ -252,6 +260,7 @@ module evpn {
   augment /vxlan:plant-information/vxlan:plant {
     container as-number {
       tailf:info "AS number assignments for the plant";
+      tailf:cli-add-mode;
       leaf leaf-nodes {
         tailf:info "AS number assigned to leaf nodes";
         type inet:as-number {
@@ -264,6 +273,15 @@ module evpn {
           tailf:info "<1-4294967295>;;Autonomous system number";
         }
         default 4200000000;
+      }
+    }
+
+    container dci-layer2 {
+      tailf:info "Layer2 DCI parameters for the plant";
+      tailf:cli-add-mode;
+      leaf single-vlan-mode {
+        tailf:info "Use the same DCI VLAN on all DCI nodes";
+        type empty;
       }
     }
   }

@@ -1,0 +1,16 @@
+# Created by: admin
+# Date: 2017-06-16 15:56:02
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10093
+
+interface {
+    Ethernet 1/2 {
+        channel-group {
+            mode active;
+            id 1001;
+        }
+     }
+ }

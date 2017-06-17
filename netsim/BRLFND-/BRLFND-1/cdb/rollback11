@@ -1,0 +1,39 @@
+# Created by: admin
+# Date: 2017-06-16 15:56:01
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10068
+
+router {
+    bgp 65000 {
+        vrf ACME001 {
+            address-family ipv4 unicast {
+                advertise {
+                    l2vpn evpn;
+                }
+                maximum-paths {
+                    number 2;
+                }
+            }
+            neighbor 55.55.55.1 {
+                inner-remote-as {
+                    remote-as 65002;
+                }
+                description   ACME001-1;
+                update-source Vlan3101;
+                address-family ipv4 unicast;
+            }
+            neighbor 66.66.66.1 {
+                inner-remote-as {
+                    remote-as 65002;
+                }
+                description   ACME001-2;
+                update-source Vlan3102;
+                address-family ipv4 unicast;
+            }
+            local-as 4264800034;
+        }
+    }
+ }

@@ -1,0 +1,25 @@
+# Created by: admin
+# Date: 2017-06-16 15:56:02
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10077
+
+interface {
+    Vlan 3102 {
+        description LFN3-ACME001-2;
+        vrf {
+            member ACME001;
+        }
+        ip {
+            address {
+                ipaddr 66.66.66.2/30;
+            }
+            redirects false;
+        }
+        ipv6 {
+            redirects false;
+        }
+    }
+}

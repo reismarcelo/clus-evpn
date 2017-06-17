@@ -1,0 +1,18 @@
+# Created by: admin
+# Date: 2017-06-16 15:55:41
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10072
+
+interface {
+    Ethernet 1/2 {
+        switchport {
+            access {
+                delete:
+                vlan 2111;
+            }
+         }
+     }
+ }

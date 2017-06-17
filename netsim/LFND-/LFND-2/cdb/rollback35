@@ -1,0 +1,18 @@
+# Created by: admin
+# Date: 2017-06-16 15:55:41
+# Via: cli
+# Type: delta
+# Label: 
+# Comment: 
+# No: 10071
+
+interface {
+    Ethernet 1/1 {
+        storm-control {
+            broadcast {
+                delete:
+                level 5.0;
+            }
+         }
+     }
+ }
