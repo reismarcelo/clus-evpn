@@ -22,7 +22,7 @@ class Config(object):
     LFNC_VLAN_POOL = 'lfnc-vlan'
     LFNC_IP_POOL = 'lfnc-ip'
     LFNC_IP_LENGTH = 30
-    DCI_NUM_VLANS = 1
+    DCI_NUM_VLANS = 2
     DCI_VLAN_POOL = 'dci-vlan'
     DCI_IP_POOL = 'dci-ip'
     DCI_IP_LENGTH = 30

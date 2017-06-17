@@ -1,7 +1,7 @@
 <project-meta-data xmlns="http://tail-f.com/ns/ncs-project">
   <name>clus-evpn</name>
-  <project-version>1.0</project-version>
-  <description>Skeleton for a NCS project</description>
+  <project-version>1.4</project-version>
+  <description>CLUS EVPN Project</description>
 
   <!--
       A default package store could be specified,

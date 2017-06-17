@@ -20,8 +20,8 @@ This Cisco NSO project contains the following packages:
         . bridged-topology - VXLAN Layer-2 topology
 
 The following additional packages are required:
-. Cisco NX-OS NED - e.g. ncs-4.4.1-cisco-nx-4.4.6.tar.gz
-. Cisco resource-manager - e.g. ncs-4.4.1.3-resource-manager-3.1.0.tar.gz
+. Cisco NX-OS NED - ncs-4.4.1-cisco-nx-4.4.6.tar.gz
+. Cisco resource-manager - ncs-4.4.1.3-resource-manager-3.1.0.tar.gz
 
 
 Run the following commands after a new install (or after a make clean):
@@ -30,8 +30,9 @@ $ make start                            -- start netsim testbed and ncs
 $ make cli					            -- connect to nso cli
 admin@ncs# devices fetch-ssh-host-keys
 admin@ncs# devices sync-to	            -- update netsim devices configuration with initial cdb data
+admin@ncs# devices sync-to	            -- yes, need to do it twice
 
-Before pushing the project to git, clean temporary data:
+Before pushing the project to git, remember to clean temporary data:
 $ make stop
 $ make clean
 
