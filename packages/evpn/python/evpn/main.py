@@ -22,7 +22,7 @@ class Config(object):
     LFNC_VLAN_POOL = 'lfnc-vlan'
     LFNC_IP_POOL = 'lfnc-ip'
     LFNC_IP_LENGTH = 30
-    DCI_NUM_VLANS = 2
+    DCI_NUM_VLANS = 1
     DCI_VLAN_POOL = 'dci-vlan'
     DCI_IP_POOL = 'dci-ip'
     DCI_IP_LENGTH = 30
@@ -316,6 +316,13 @@ def apply_l2_dci_template(root_context, service_context):
         apply_template('l2_dci', service_context, dci_vars)
 
 
+def num_l2_dci_vlans(root_context, service_context):
+    if root_context.plant_information.plant[service_context.dc_name].dci_layer2.single_vlan_mode.exists():
+        return 1
+
+    return Config.DCI_NUM_VLANS
+
+
 def subnet_first_host(subnet_str):
     """
     Return the first valid IP address in the subnet
@@ -324,13 +331,6 @@ def subnet_first_host(subnet_str):
     """
     subnet = ip_network(text(subnet_str))
     return '{}/{}'.format(next(subnet.hosts()), subnet.prefixlen)
-
-
-def num_l2_dci_vlans(root_context, service_context):
-    if root_context.plant_information.plant[service_context.dc_name].dci_layer2.single_vlan_mode.exists():
-        return 1
-
-    return Config.DCI_NUM_VLANS
 
 
 # --------------------------------------------------

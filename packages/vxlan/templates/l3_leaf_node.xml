@@ -137,7 +137,7 @@
                             </vni>
                             <vni>
                                 <id>{string(vni)}</id>
-                                <suppress-arp/>
+                                <suppress-arp when="{suppress-arp}"/>
                                 <ingress-replication when="{../../replication-mode = 'ingress'}">
                                     <protocol>bgp</protocol>
                                 </ingress-replication>
@@ -205,7 +205,6 @@
                             </trunk>
                         </switchport>
                         <description>{string(description)}-Port-Channel</description>
-                        <mtu>{string(mtu)}</mtu>
                         <spanning-tree>
                             <bpdufilter>enable</bpdufilter>
                             <port>
@@ -248,7 +247,6 @@
                             <mode>active</mode>
                         </channel-group>
                         <description>{string(../../description)}</description>
-                        <mtu>{string(../../mtu)}</mtu>
                         <spanning-tree>
                             <bpdufilter>enable</bpdufilter>
                             <port>
@@ -293,7 +291,6 @@
                             </trunk>
                         </switchport>
                         <description>{string(description)}</description>
-                        <mtu>{string(mtu)}</mtu>
                         <spanning-tree>
                             <bpdufilter>enable</bpdufilter>
                             <port>

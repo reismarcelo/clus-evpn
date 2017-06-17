@@ -25,7 +25,6 @@
                                     <id>{string(id)}</id>
                                     <description>{string(../../../../service-id)}</description>
                                     <mode>{string(mode)}</mode>
-                                    <mtu>{string(mtu)}</mtu>
                                 </Ethernet>
                             </interface>
                             <interface foreach="{interface/Port-channel}">
@@ -38,7 +37,6 @@
                                     </members>
                                     <description>{string(../../../../service-id)}</description>
                                     <mode>{string(mode)}</mode>
-                                    <mtu>{string(mtu)}</mtu>
                                 </Port-channel>
                             </interface>
                         </leaf-node>

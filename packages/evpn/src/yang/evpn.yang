@@ -38,9 +38,9 @@ module evpn {
   //  REVISION
   // =========================================================================
 
-  revision 2017-06-16 {
+  revision 2017-06-17 {
     description
-      "Enabled configuration of switchport mode and mtu on tenant facing ports
+      "Enabled configuration of switchport mode on tenant facing ports
        Allow single vlan mode for layer2 DCI";
   }
 
@@ -136,6 +136,15 @@ module evpn {
     }
   } // evpn-service-common-grouping
 
+  grouping interface-common-grouping {
+    leaf mode {
+      description "Indicate whether this is an access port (i.e. no tagging) or a dot1q trunk port";
+      tailf:info "Switchport mode";
+      default access;
+      type vxlan:switchport-mode-type;
+    }
+  } // interface-common-grouping
+
   grouping customer-ports-grouping {
     container ports {
       tailf:info "Datacenter ports connecting to customer";
@@ -156,43 +165,39 @@ module evpn {
         container interface {
           tailf:info "Interface type";
           choice interface-type {
-            case type-ethernet {
-              list Ethernet {
-                tailf:info "Ethernet IEEE 802.3z";
-                key "id";
-                leaf id {
-                  type vxlan:ethernet-id {
-                    tailf:info "<1-66>/<1-128>;;Slot number/Port number";
-                  }
+            list Ethernet {
+              tailf:info "Ethernet IEEE 802.3z";
+              key "id";
+              leaf id {
+                type vxlan:ethernet-id {
+                  tailf:info "<1-66>/<1-128>;;Slot number/Port number";
                 }
-                uses vxlan:interface-common-grouping;
               }
+              uses interface-common-grouping;
             }
-            case type-port-channel {
-              list Port-channel {
-                tailf:info "Port Channel interface";
-                key "id";
-                leaf id {
-                  type vxlan:port-channel-id {
-                    tailf:info "<1-4096>;;Port Channel number";
-                  }
+            list Port-channel {
+              tailf:info "Port Channel interface";
+              key "id";
+              leaf id {
+                type vxlan:port-channel-id {
+                  tailf:info "<1-4096>;;Port Channel number";
                 }
-                container members {
-                  tailf:info "Member interfaces of the port-channel";
-                  tailf:cli-add-mode;
-                  list Ethernet {
-                    tailf:info "Ethernet member interface";
-                    tailf:cli-suppress-mode;
-                    key "member-id";
-                    leaf member-id {
-                      type vxlan:ethernet-id {
-                        tailf:info "<1-66>/<1-128>;;Slot number/Port number";
-                      }
+              }
+              container members {
+                tailf:info "Member interfaces of the port-channel";
+                tailf:cli-add-mode;
+                list Ethernet {
+                  tailf:info "Ethernet member interface";
+                  tailf:cli-suppress-mode;
+                  key "member-id";
+                  leaf member-id {
+                    type vxlan:ethernet-id {
+                      tailf:info "<1-66>/<1-128>;;Slot number/Port number";
                     }
                   }
                 }
-                uses vxlan:interface-common-grouping;
               }
+              uses interface-common-grouping;
             }
           }
         } // container interface

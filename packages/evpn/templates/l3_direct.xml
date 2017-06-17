@@ -27,7 +27,6 @@
                                     <id>{string(id)}</id>
                                     <description>{string(../../../../service-id)}</description>
                                     <mode>{string(mode)}</mode>
-                                    <mtu>{string(mtu)}</mtu>
                                 </Ethernet>
                             </interface>
                             <interface foreach="{interface/Port-channel}">
@@ -40,7 +39,6 @@
                                     </members>
                                     <description>{string(../../../../service-id)}</description>
                                     <mode>{string(mode)}</mode>
-                                    <mtu>{string(mtu)}</mtu>
                                 </Port-channel>
                             </interface>
                             <vlan-id>{string(../../auto-values/lfnc-vlan)}</vlan-id>
@@ -55,6 +53,7 @@
                             <tenant-ip-address>{string(../../auto-values/lfnc-ip-address)}</tenant-ip-address>
                             <replication-group when="{../../replication-mode = 'multicast'}">{string(../../replication-group)}</replication-group>
                             <anycast-gateway/>
+                            <suppress-arp/>
                         </leaf-node>
                     </ports>
                 </routed-topology>

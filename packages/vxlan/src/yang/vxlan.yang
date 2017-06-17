@@ -34,11 +34,12 @@ module vxlan {
   //  REVISION
   // =========================================================================
 
-  revision 2017-06-16 {
+  revision 2017-06-17 {
     description
       "Enabled configuration of NVE source interface.
-       Enabled configuration of switchport mode and mtu on tenant facing ports
-       Allow single vlan mode for layer2 DCI";
+       Enabled configuration of switchport mode on tenant facing ports.
+       Allow single vlan mode for layer2 DCI.
+       Suppress ARP is now configurable on routed-topologies.";
   }
 
   revision 2017-06-07 {
@@ -175,6 +176,17 @@ module vxlan {
     }
   }
 
+  typedef switchport-mode-type {
+    type enumeration {
+      enum access {
+        tailf:info "Switchport mode access";
+      }
+      enum trunk {
+        tailf:info "Switchport mode trunk";
+      }
+    }
+  }
+
 
   // =========================================================================
   //  GROUPINGS
@@ -192,20 +204,7 @@ module vxlan {
       description "Indicate whether this is an access port (i.e. no tagging) or a dot1q trunk port";
       tailf:info "Switchport mode";
       default access;
-      type enumeration {
-        enum access {
-          tailf:info "Switchport mode access";
-        }
-        enum trunk {
-          tailf:info "Switchport mode trunk";
-        }
-      }
-    }
-    leaf mtu {
-      tailf:info "Configure MTU for the interface";
-      type uint16 {
-        tailf:info "MTU size in bytes";
-      }
+      type switchport-mode-type;
     }
   } // interface-common-grouping
 
@@ -223,7 +222,6 @@ module vxlan {
                 tailf:info "<1-66>/<1-128>;;Slot number/Port number";
               }
             }
-            uses interface-common-grouping;
           }
         }
         case type-port-channel {
@@ -249,7 +247,6 @@ module vxlan {
                 }
               }
             }
-            uses interface-common-grouping;
           }
         }
       }
@@ -272,7 +269,14 @@ module vxlan {
             path "/vxlan:plant-information/vxlan:plant/vxlan:leaf-node/vxlan:name";
           }
         }
-        uses interface-grouping;
+        uses interface-grouping {
+          augment "interface/interface-type/type-ethernet/Ethernet" {
+            uses interface-common-grouping;
+          }
+          augment "interface/interface-type/type-port-channel/Port-channel" {
+            uses interface-common-grouping;
+          }
+        }
       }
     } // container ports
 
@@ -588,7 +592,15 @@ module vxlan {
                 mandatory true;
               }
               leaf anycast-gateway {
-                tailf:info "Enable anycast-gateway on this port";
+                tailf:info "Enable anycast-gateway";
+                type empty;
+              }
+              leaf suppress-arp {
+                description "Suppress ARP is only supported with anycast-gateway";
+                tailf:info "Enable ARP suppression";
+                when "../anycast-gateway" {
+                  tailf:dependency "../anycast-gateway";
+                }
                 type empty;
               }
               leaf replication-group {

@@ -50,7 +50,6 @@
                         <member>
                             <vni>
                                 <id>{string(vni)}</id>
-                                <suppress-arp/>
                                 <ingress-replication when="{replication-mode = 'ingress'}">
                                     <protocol>bgp</protocol>
                                 </ingress-replication>

@@ -27,7 +27,6 @@
                                     <id>{string(id)}</id>
                                     <description>{string(../../../../service-id)}</description>
                                     <mode>{string(mode)}</mode>
-                                    <mtu>{string(mtu)}</mtu>
                                 </Ethernet>
                             </interface>
                             <interface foreach="{interface/Port-channel}">
@@ -40,7 +39,6 @@
                                     </members>
                                     <description>{string(../../../../service-id)}</description>
                                     <mode>{string(mode)}</mode>
-                                    <mtu>{string(mtu)}</mtu>
                                 </Port-channel>
                             </interface>
                             <vlan-id>{string(../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-vlan)}</vlan-id>

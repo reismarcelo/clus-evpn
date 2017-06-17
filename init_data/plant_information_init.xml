@@ -89,5 +89,9 @@
   </plant>
   <global-config>
     <tenant-prefix-tag>123</tenant-prefix-tag>
+    <tenant-route-maps>
+      <bgp-redistribute-connected>redist-nso-test</bgp-redistribute-connected>
+    </tenant-route-maps>
+    <nve-source-interface>loopback1</nve-source-interface>
   </global-config>
 </plant-information>
