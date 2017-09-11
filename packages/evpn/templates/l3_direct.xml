@@ -11,7 +11,7 @@
                         <vlan-name>SIRB-{string(service-id)}</vlan-name>
                         <vni>{string(10000+auto-values/sirb-vlan)}</vni>
                         <evpn>
-                            <route-target>
+                            <route-target when="{$SITE-LEAF-ASN}">
                                 <import>{$SITE-LEAF-ASN}:{string(10000+auto-values/sirb-vlan)}</import>
                                 <export>{$SITE-LEAF-ASN}:{string(10000+auto-values/sirb-vlan)}</export>
                             </route-target>
@@ -45,7 +45,7 @@
                             <vlan-name>LFNC-{string(../../service-id)}-1</vlan-name>
                             <vni>{string(10000+../../auto-values/lfnc-vlan)}</vni>
                             <evpn>
-                                <route-target>
+                                <route-target when="{$SITE-LEAF-ASN}">
                                     <import>{$SITE-LEAF-ASN}:{string(10000+../../auto-values/lfnc-vlan)}</import>
                                     <export>{$SITE-LEAF-ASN}:{string(10000+../../auto-values/lfnc-vlan)}</export>
                                 </route-target>
@@ -61,7 +61,7 @@
         </vxlan-tenant>
     </services>
 
-    <devices xmlns="http://tail-f.com/ns/ncs">
+    <devices xmlns="http://tail-f.com/ns/ncs" when="{contract-speed}">
         <device foreach="{ports/leaf-node}">
             <name>{string(node-name)}</name>
             <config>

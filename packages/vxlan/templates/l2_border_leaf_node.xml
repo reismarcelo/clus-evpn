@@ -1,7 +1,7 @@
 <config-template xmlns="http://tail-f.com/ns/config/1.0">
     <devices xmlns="http://tail-f.com/ns/ncs">
         <device>
-            <name>{$DEVICE}</name>
+            <name>{$DEVICE-NAME}</name>
             <config>
 
                 <vlan xmlns="http://tail-f.com/ned/cisco-nx">
@@ -56,7 +56,7 @@
                                 <mcast-group when="{replication-mode = 'multicast'}">{string(replication-group)}</mcast-group>
                             </vni>
                         </member>
-                        <source-interface>{$NVE_SOURCE}</source-interface>
+                        <source-interface when="{$NVE_SOURCE}">{$NVE_SOURCE}</source-interface>
                         <shutdown tags="delete"/>
                     </nve>
                 </interface>

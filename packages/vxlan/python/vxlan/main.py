@@ -69,7 +69,7 @@ class VxlanL2ServiceCallback(Service):
                 last_dci_vlan = dci_vlan
 
             border_leaf_vars = {
-                'DEVICE': border_leaf.name,
+                'DEVICE-NAME': border_leaf.name,
                 'DCI_VLAN': dci_vlan.id,
                 'DCI_VLAN_NAME': dci_vlan.name
             }
@@ -116,7 +116,7 @@ class VxlanL3ServiceCallback(Service):
         for border_leaf in root.plant_information.plant[service.dc_name].border_leaf_node:
             self.log.info('Rendering L3 border-leaf template for {}'.format(border_leaf.name))
             border_leaf_vars = {
-                'DEVICE': border_leaf.name,
+                'DEVICE-NAME': border_leaf.name,
                 'DEVICE-ASN': get_device_asn(root, border_leaf.name),
             }
             border_leaf_vars.update(common_vars)
@@ -128,7 +128,7 @@ class VxlanL3ServiceCallback(Service):
                 raise NcsServiceConfigError('Number of DCI VLANs must match number of L3 DCI ports')
             for dci_port, dci_vlan in zip(dci_ports, dci_vlans):
                 border_leaf_vlan_vars = {
-                    'DEVICE': border_leaf.name,
+                    'DEVICE-NAME': border_leaf.name,
                     'DCI_PORT': dci_port.id,
                     'DCI_VLAN': dci_vlan,
                 }

@@ -45,7 +45,9 @@ def get_device_asn(root, device_name):
 def value_or_empty(value):
     """
     Return the provided value if it is not None, otherwise return an empty string
-    This is needed in order to avoid the corresponding template nodes from being rendered.
+    In order to avoid the corresponding template nodes from being rendered, a 'when' xpath template statement
+    must be used. Do not rely on NSO pre-4.4.3 behavior of not rendering string nodes that evaluates to an
+    empty string.
 
     :param value:
     :return: value or an empty string

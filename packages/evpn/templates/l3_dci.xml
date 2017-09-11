@@ -14,7 +14,7 @@
                             <bgp-neighbor-ipv4>{$DCI-IP}</bgp-neighbor-ipv4>
                             <bgp-neighbor-description>{string(service-id)}-{$COUNT}</bgp-neighbor-description>
                         </vlan>
-                        <dci-as-number>{string($SITE-DCI-ASN)}</dci-as-number>
+                        <dci-as-number when="{$SITE-DCI-ASN}">{string($SITE-DCI-ASN)}</dci-as-number>
                     </dci>
                 </routed-topology>
             </topologies>

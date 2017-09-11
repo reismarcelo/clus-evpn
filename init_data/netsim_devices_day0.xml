@@ -16,7 +16,7 @@
       </vlan>
       <router xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp>
-          <id>65000</id>
+          <id>65001</id>
           <address-family>
             <proto>ipv4</proto>
             <type>evpn</type>
@@ -42,7 +42,7 @@
       </vlan>
       <router xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp>
-          <id>65000</id>
+          <id>65001</id>
           <address-family>
             <proto>ipv4</proto>
             <type>evpn</type>
@@ -68,7 +68,7 @@
       </vlan>
       <router xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp>
-          <id>65000</id>
+          <id>65001</id>
           <address-family>
             <proto>ipv4</proto>
             <type>evpn</type>
@@ -94,7 +94,7 @@
       </vlan>
       <router xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp>
-          <id>65000</id>
+          <id>65001</id>
           <address-family>
             <proto>ipv4</proto>
             <type>evpn</type>
@@ -120,7 +120,7 @@
       </vlan>
       <router xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp>
-          <id>65000</id>
+          <id>65001</id>
           <address-family>
             <proto>ipv4</proto>
             <type>evpn</type>

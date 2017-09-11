@@ -1,7 +1,7 @@
 <config-template xmlns="http://tail-f.com/ns/config/1.0">
     <devices xmlns="http://tail-f.com/ns/ncs">
         <device>
-            <name>{$DEVICE}</name>
+            <name>{$DEVICE-NAME}</name>
             <config>
 
                 <vlan xmlns="http://tail-f.com/ned/cisco-nx">
@@ -19,7 +19,7 @@
                 <vrf xmlns="http://tail-f.com/ned/cisco-nx">
                     <context>
                         <id>{string(name)}</id>
-                        <description>{string(vrf-description)}</description>
+                        <description when="{vrf-description}">{string(vrf-description)}</description>
                         <vni>{string(sirb/vni)}</vni>
                         <rd>{string(sirb/evpn/rd)}</rd>
                         <address-family when="{not(sirb/evpn/route-target/auto)}">
@@ -82,10 +82,10 @@
                                     <number>2</number>
                                 </maximum-paths>
                                 <redistribute>
-                                    <direct>
+                                    <direct when="{$REDIST-CONNECTED}">
                                         <route-map>{$REDIST-CONNECTED}</route-map>
                                     </direct>
-                                    <static>
+                                    <static when="{$REDIST-STATIC}">
                                         <route-map>{$REDIST-STATIC}</route-map>
                                     </static>
                                 </redistribute>
@@ -96,7 +96,7 @@
                                 <inner-remote-as>
                                     <remote-as>{string(../dci-as-number)}</remote-as>
                                 </inner-remote-as>
-                                <description>{string(bgp-neighbor-description)}</description>
+                                <description when="{bgp-neighbor-description}">{string(bgp-neighbor-description)}</description>
                                 <update-source>Vlan{string(id)}</update-source>
                                 <address-family>
                                     <proto>ipv4</proto>
@@ -119,7 +119,7 @@
                                 <associate-vrf/>
                             </vni>
                         </member>
-                        <source-interface>{$NVE_SOURCE}</source-interface>
+                        <source-interface when="{$NVE_SOURCE}">{$NVE_SOURCE}</source-interface>
                         <shutdown tags="delete"/>
                     </nve>
                     <Vlan>

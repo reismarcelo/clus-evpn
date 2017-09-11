@@ -20,7 +20,7 @@
                 <vrf xmlns="http://tail-f.com/ned/cisco-nx">
                     <context>
                         <id>{string(../../name)}</id>
-                        <description>{string(../../vrf-description)}</description>
+                        <description when="{../../vrf-description}">{string(../../vrf-description)}</description>
                         <vni>{string(../../sirb/vni)}</vni>
                         <rd>{string(../../sirb/evpn/rd)}</rd>
                         <address-family when="{not(../../sirb/evpn/route-target/auto)}">
@@ -112,10 +112,10 @@
                                     <number>2</number>
                                 </maximum-paths>
                                 <redistribute>
-                                    <direct>
+                                    <direct when="{$REDIST-CONNECTED}">
                                         <route-map>{$REDIST-CONNECTED}</route-map>
                                     </direct>
-                                    <static>
+                                    <static when="{$REDIST-STATIC}">
                                         <route-map>{$REDIST-STATIC}</route-map>
                                     </static>
                                 </redistribute>
@@ -144,7 +144,7 @@
                                 <mcast-group when="{../../replication-mode = 'multicast'}">{string(replication-group)}</mcast-group>
                             </vni>
                         </member>
-                        <source-interface>{$NVE_SOURCE}</source-interface>
+                        <source-interface when="{$NVE_SOURCE}">{$NVE_SOURCE}</source-interface>
                         <shutdown tags="delete"/>
                     </nve>
                     <Vlan>
@@ -170,7 +170,7 @@
                         <ip>
                             <address>
                                 <ipaddr>{string(tenant-ip-address)}</ipaddr>
-                                <tag>{$PREFIX-TAG}</tag>
+                                <tag when="{$PREFIX-TAG}">{$PREFIX-TAG}</tag>
                             </address>
                             <redirects>false</redirects>
                         </ip>
@@ -204,7 +204,7 @@
                                 </allowed>
                             </trunk>
                         </switchport>
-                        <description>{string(description)}-Port-Channel</description>
+                        <description when="{description}">{string(description)}-Port-Channel</description>
                         <spanning-tree>
                             <bpdufilter>enable</bpdufilter>
                             <port>
@@ -246,7 +246,7 @@
                             <id>{string(../../id)}</id>
                             <mode>active</mode>
                         </channel-group>
-                        <description>{string(../../description)}</description>
+                        <description when="{../../description}">{string(../../description)}</description>
                         <spanning-tree>
                             <bpdufilter>enable</bpdufilter>
                             <port>
@@ -290,7 +290,7 @@
                                 </allowed>
                             </trunk>
                         </switchport>
-                        <description>{string(description)}</description>
+                        <description when="{description}">{string(description)}</description>
                         <spanning-tree>
                             <bpdufilter>enable</bpdufilter>
                             <port>

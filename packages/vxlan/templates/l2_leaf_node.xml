@@ -56,7 +56,7 @@
                                 <mcast-group when="{../../replication-mode = 'multicast'}">{string(../../replication-group)}</mcast-group>
                             </vni>
                         </member>
-                        <source-interface>{$NVE_SOURCE}</source-interface>
+                        <source-interface when="{$NVE_SOURCE}">{$NVE_SOURCE}</source-interface>
                         <shutdown tags="delete"/>
                     </nve>
                 </interface>
@@ -80,7 +80,7 @@
                                 </allowed>
                             </trunk>
                         </switchport>
-                        <description>{string(description)}-Port-Channel</description>
+                        <description when="{description}">{string(description)}-Port-Channel</description>
                         <spanning-tree>
                             <bpdufilter>enable</bpdufilter>
                             <port>
@@ -122,7 +122,7 @@
                             <id>{string(../../id)}</id>
                             <mode>active</mode>
                         </channel-group>
-                        <description>{string(../../description)}</description>
+                        <description when="../../description">{string(../../description)}</description>
                         <spanning-tree>
                             <bpdufilter>enable</bpdufilter>
                             <port>
@@ -166,7 +166,7 @@
                                 </allowed>
                             </trunk>
                         </switchport>
-                        <description>{string(description)}</description>
+                        <description when="description">{string(description)}</description>
                         <spanning-tree>
                             <bpdufilter>enable</bpdufilter>
                             <port>
