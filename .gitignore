@@ -1,7 +1,7 @@
 *.[oa]
 *~
 *.tar.gz
-ncs-cdb/
+ncs-cdb/*.cdb
 logs/
 *.ipynb
 *.paw
@@ -11,3 +11,6 @@ logs/
 first_start/
 scripts/
 target/
+packages/resource-manager/
+netsim/
+

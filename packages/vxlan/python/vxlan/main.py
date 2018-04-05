@@ -5,37 +5,11 @@ from builtins import (ascii, bytes, chr, dict, filter, hex, input, int, map, nex
                       super, zip)
 from builtins import str as text
 import ncs
-from ncs.application import Service, PlanComponent
+from ncs.application import Service
 import ncs.template
 import functools
 from itertools import islice, chain, repeat
-from vxlan.utils import apply_template, NcsServiceConfigError, value_or_empty, get_device_asn, init_plan
-
-
-# --------------------------------------------------
-# Service create callback decorator
-# --------------------------------------------------
-def vxlan_service(cb_create_method):
-    """
-    Decorator for cb_create callback. Initialize a self plan component.
-    :param cb_create_method: cb_create method
-    :return: cb_create wrapper
-    """
-    @functools.wraps(cb_create_method)
-    def wrapper(self, tctx, root, service, proplist):
-        self.log.info('Service create(service={})'.format(service))
-        self_plan = init_plan(PlanComponent(service, 'self', 'ncs:self'))
-
-        try:
-            if cb_create_method(self, tctx, root, service, proplist, self_plan):
-                return
-        except NcsServiceConfigError as e:
-            self.log.error(e)
-            self_plan.set_failed('ncs:ready')
-        else:
-            self_plan.set_reached('ncs:ready')
-
-    return wrapper
+from vxlan.utils import apply_template, NcsServiceError, value_or_empty, get_device_asn, plan_data_service
 
 
 # ------------------------------------
@@ -43,7 +17,7 @@ def vxlan_service(cb_create_method):
 # ------------------------------------
 class VxlanL2ServiceCallback(Service):
     @Service.create
-    @vxlan_service
+    @plan_data_service()
     def cb_create(self, tctx, root, service, proplist, self_plan):
         common_vars = {
             'NVE_SOURCE': value_or_empty(root.plant_information.global_config.nve_source_interface),
@@ -56,7 +30,7 @@ class VxlanL2ServiceCallback(Service):
         border_leaf_nodes = root.plant_information.plant[service.dc_name].border_leaf_node
 
         if not ((len(service.dci.vlan) == 1) or (len(service.dci.vlan) == len(border_leaf_nodes))):
-            raise NcsServiceConfigError('Number of L2 DCI VLANs must be 1 or match the number of border-leaf nodes')
+            raise NcsServiceError('Number of L2 DCI VLANs must be 1 or match the number of border-leaf nodes')
 
         last_dci_vlan = None
         for border_leaf, dci_vlan in zip(border_leaf_nodes,
@@ -79,7 +53,7 @@ class VxlanL2ServiceCallback(Service):
             self.log.info('Rendering border-leaf vlan template for {}'.format(border_leaf.name))
             dci_ports = border_leaf.dci_layer2.interface.Port_channel or border_leaf.dci_layer2.interface.Ethernet
             if len(dci_ports) != 1:
-                raise NcsServiceConfigError('Each border-leaf can only have one L2 DCI port')
+                raise NcsServiceError('Each border-leaf can only have one L2 DCI port')
             for dci_port in dci_ports:
                 border_leaf_vlan_vars = {
                     'DCI_PORT': dci_port.id,
@@ -87,13 +61,15 @@ class VxlanL2ServiceCallback(Service):
                 border_leaf_vlan_vars.update(border_leaf_vars)
                 apply_template('border_leaf_node_vlans', dci_port, border_leaf_vlan_vars)
 
+        return proplist
+
 
 # ------------------------------------
 # L3 VXLAN TOPOLOGY SERVICE CALLBACK
 # ------------------------------------
 class VxlanL3ServiceCallback(Service):
     @Service.create
-    @vxlan_service
+    @plan_data_service()
     def cb_create(self, tctx, root, service, proplist, self_plan):
         common_vars = {
             'NVE_SOURCE': value_or_empty(root.plant_information.global_config.nve_source_interface),
@@ -125,7 +101,7 @@ class VxlanL3ServiceCallback(Service):
             self.log.info('Rendering border-leaf vlan template for {}'.format(border_leaf.name))
             dci_ports = border_leaf.dci_layer3.interface.Port_channel or border_leaf.dci_layer3.interface.Ethernet
             if len(dci_ports) != len(dci_vlans):
-                raise NcsServiceConfigError('Number of DCI VLANs must match number of L3 DCI ports')
+                raise NcsServiceError('Number of DCI VLANs must match number of L3 DCI ports')
             for dci_port, dci_vlan in zip(dci_ports, dci_vlans):
                 border_leaf_vlan_vars = {
                     'DEVICE-NAME': border_leaf.name,
@@ -133,6 +109,8 @@ class VxlanL3ServiceCallback(Service):
                     'DCI_VLAN': dci_vlan,
                 }
                 apply_template('border_leaf_node_vlans', dci_port, border_leaf_vlan_vars)
+
+        return proplist
 
 
 # ---------------------------------------------

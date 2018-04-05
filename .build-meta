@@ -1,0 +1,5 @@
+# Meta information for the building process
+PACKAGES = resource-manager vxlan evpn
+GIT_PACKAGES =
+NCSVSNSTRICT: 4.4
+NCSVSN: 4.4

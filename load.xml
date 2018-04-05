@@ -1,0 +1,22 @@
+<devices xmlns="http://tail-f.com/ns/ncs">
+   <device>
+     <name>BC08-EBH-55A1-010</name>
+     <address>127.0.0.1</address>
+     <port>10027</port>
+     <ssh>
+       <host-key>
+         <algorithm>ssh-rsa</algorithm>
+         <key-data>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDtrQIdqmTeJzLRpYlH1HfHqmTMu0p/OmPFFhvNbmM837ig88tIcT4X0RULLJXl85WL+ZHVx0qJEEZn+2r1GOnvC7dZTCMg43JEIU/f6iNHYCPYgptzsnz5RZ6Z1YqwOy0OCqYpYimjmJC7KE5LVU6nVUkCJR8sU6uWxmjRPXYoUsX8Kpyy01WpDeTRv11TSCLyX+VyQt0a33FES8n42RGfVm8feTZhHN5pyebS/vkwDym4BuN0fWiZyMbysxGPpDnERXCvLQzg1dDN1PZ6gt/h5Wduo+pZO9M0f50Ybevu37omc/yH1nJDaVvu13ZMmVoeJR3gujQ8h69VFjVsQq/t mreis@MAREIS-M-D0X9</key-data>
+       </host-key>
+     </ssh>
+     <state>
+       <admin-state>unlocked</admin-state>
+     </state>
+     <authgroup>default</authgroup>
+     <device-type>
+       <cli>
+         <ned-id xmlns:cisco-ios-xr-id="http://tail-f.com/ned/cisco-ios-xr-id">cisco-ios-xr-id:cisco-ios-xr</ned-id>
+       </cli>
+     </device-type>
+   </device>
+</devices>

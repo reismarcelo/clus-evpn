@@ -5,13 +5,13 @@ from builtins import (ascii, bytes, chr, dict, filter, hex, input, int, map, nex
                       super, zip)
 from builtins import str as text
 import ncs
-from ncs.application import Service, PlanComponent
+from ncs.application import Service
 import ncs.template
 import functools
 from itertools import islice, chain, repeat
 from ipaddress import ip_network
-from vxlan.utils import (apply_template, BatchAllocator, Allocation, NcsServiceConfigError, AllocationsNotReady,
-                         init_plan, value_or_empty)
+from vxlan.utils import (apply_template, BatchAllocator, Allocation, NcsServiceError, AllocationsNotReady,
+                         plan_data_service, value_or_empty)
 
 
 # --------------------------------------------------
@@ -29,40 +29,14 @@ class Config(object):
 
 
 # --------------------------------------------------
-# Service create callback decorator
-# --------------------------------------------------
-def evpn_service(cb_create_method):
-    """
-    Decorator for cb_create callback. Initialize a self plan component and BatchAllocator.
-    :param cb_create_method: cb_create method
-    :return: cb_create wrapper
-    """
-    @functools.wraps(cb_create_method)
-    def wrapper(self, tctx, root, service, proplist):
-        self.log.info('Service create(service={})'.format(service))
-        self_plan = init_plan(PlanComponent(service, 'self', 'ncs:self'), 'evpn:resource-allocations')
-        allocator = BatchAllocator(tctx.username, root, service)
-
-        try:
-            if cb_create_method(self, tctx, root, service, proplist, self_plan, allocator):
-                return
-        except (NcsServiceConfigError, AllocationsNotReady) as e:
-            self.log.error(e)
-            self_plan.set_failed('ncs:ready')
-        else:
-            self_plan.set_reached('ncs:ready')
-
-    return wrapper
-
-
-# --------------------------------------------------
 # L3 DIRECT SERVICE CALLBACK
 # --------------------------------------------------
 class L3DirectServiceCallback(Service):
     @Service.create
-    @evpn_service
-    def cb_create(self, tctx, root, service, proplist, self_plan, allocator):
+    @plan_data_service('evpn:resource-allocations')
+    def cb_create(self, tctx, root, service, proplist, self_plan):
         # Prepare allocation requests for values not provided by the user
+        allocator = BatchAllocator(tctx.username, root, service)
         # SIRB VLAN
         if service.sirb_vlan is None:
             allocator.enqueue(Allocation.type.id, Config.SIRB_VLAN_POOL, ['SIRB_VLAN', service.service_id])
@@ -87,7 +61,7 @@ class L3DirectServiceCallback(Service):
         not_ready_msg = allocator.request()
         if not_ready_msg is not None:
             self.log.info(not_ready_msg)
-            return True
+            return
 
         # Write operational data container with final values for VLANs and IPs
         # These are either the user-configured values or values assigned by BatchAllocator
@@ -101,7 +75,7 @@ class L3DirectServiceCallback(Service):
         for dci_vlan in islice(chain(service.dci.vlan, repeat(None)), Config.DCI_NUM_VLANS):
             dci_vlan_id = dci_vlan.id if dci_vlan is not None else next(allocations_iter)
             if dci_vlan_id in service.auto_values.dci_vlan:
-                raise NcsServiceConfigError(
+                raise NcsServiceError(
                     'Configured DCI VLAN ID {} is equal to an auto-assigned VLAN ID'.format(dci_vlan_id))
             dci_vlan_node = service.auto_values.dci_vlan.create(dci_vlan_id)
             dci_vlan_node.subnet = (dci_vlan.subnet if dci_vlan is not None else None) or next(allocations_iter)
@@ -117,15 +91,18 @@ class L3DirectServiceCallback(Service):
         self.log.info('Rendering l3 dci template')
         apply_l3_dci_template(root, service)
 
+        return proplist
+
 
 # --------------------------------------------------
 # L3 DEFAULT SERVICE CALLBACK
 # --------------------------------------------------
 class L3DefaultServiceCallback(Service):
     @Service.create
-    @evpn_service
-    def cb_create(self, tctx, root, service, proplist, self_plan, allocator):
+    @plan_data_service('evpn:resource-allocations')
+    def cb_create(self, tctx, root, service, proplist, self_plan):
         # Prepare allocation requests for values not provided by the user
+        allocator = BatchAllocator(tctx.username, root, service)
         # SIRB VLAN
         if service.sirb_vlan is None:
             allocator.enqueue(Allocation.type.id, Config.SIRB_VLAN_POOL, ['SIRB_VLAN', service.service_id])
@@ -152,7 +129,7 @@ class L3DefaultServiceCallback(Service):
         not_ready_msg = allocator.request()
         if not_ready_msg is not None:
             self.log.info(not_ready_msg)
-            return True
+            return
 
         # Write operational data container with final values for VLANs and IPs
         # These are either the user-configured values or values assigned by BatchAllocator
@@ -168,7 +145,7 @@ class L3DefaultServiceCallback(Service):
         for dci_vlan in islice(chain(service.dci.vlan, repeat(None)), Config.DCI_NUM_VLANS):
             dci_vlan_id = dci_vlan.id if dci_vlan is not None else next(allocations_iter)
             if dci_vlan_id in service.auto_values.dci_vlan:
-                raise NcsServiceConfigError(
+                raise NcsServiceError(
                     'Configured DCI VLAN ID {} is equal to an auto-assigned VLAN ID'.format(dci_vlan_id))
             dci_vlan_node = service.auto_values.dci_vlan.create(dci_vlan_id)
             dci_vlan_node.subnet = (dci_vlan.subnet if dci_vlan is not None else None) or next(allocations_iter)
@@ -184,15 +161,18 @@ class L3DefaultServiceCallback(Service):
         self.log.info('Rendering l3 dci template')
         apply_l3_dci_template(root, service)
 
+        return proplist
+
 
 # --------------------------------------------------
 # L2 VPLS SERVICE CALLBACK
 # --------------------------------------------------
 class L2VplsServiceCallback(Service):
     @Service.create
-    @evpn_service
-    def cb_create(self, tctx, root, service, proplist, self_plan, allocator):
+    @plan_data_service('evpn:resource-allocations')
+    def cb_create(self, tctx, root, service, proplist, self_plan):
         # Prepare allocation requests for values not provided by the user
+        allocator = BatchAllocator(tctx.username, root, service)
         # LFNC VLAN
         if service.lfnc_vlan is None:
             allocator.enqueue(Allocation.type.id, Config.LFNC_VLAN_POOL, ['LFNC_VLAN', service.service_id])
@@ -209,7 +189,7 @@ class L2VplsServiceCallback(Service):
         not_ready_msg = allocator.request()
         if not_ready_msg is not None:
             self.log.info(not_ready_msg)
-            return True
+            return
 
         # Write operational data container with final values for VLANs and IPs
         # These are either the user-configured values or values assigned by BatchAllocator
@@ -220,7 +200,7 @@ class L2VplsServiceCallback(Service):
         for dci_vlan in islice(chain(service.dci.vlan, repeat(None)), num_l2_dci_vlans(root, service)):
             dci_vlan_id = dci_vlan.id if dci_vlan is not None else next(allocations_iter)
             if dci_vlan_id in service.auto_values.dci_vlan:
-                raise NcsServiceConfigError(
+                raise NcsServiceError(
                     'Configured DCI VLAN ID {} is equal to an auto-assigned VLAN ID'.format(dci_vlan_id))
             service.auto_values.dci_vlan.create(dci_vlan_id)
 
@@ -235,15 +215,18 @@ class L2VplsServiceCallback(Service):
         self.log.info('Rendering l2 dci template')
         apply_l2_dci_template(root, service)
 
+        return proplist
+
 
 # --------------------------------------------------
 # L2 Evpl SERVICE CALLBACK
 # --------------------------------------------------
 class L2EvplServiceCallback(Service):
     @Service.create
-    @evpn_service
-    def cb_create(self, tctx, root, service, proplist, self_plan, allocator):
+    @plan_data_service('evpn:resource-allocations')
+    def cb_create(self, tctx, root, service, proplist, self_plan):
         # Prepare allocation requests for values not provided by the user
+        allocator = BatchAllocator(tctx.username, root, service)
         # LFNC VLAN
         if service.lfnc_vlan is None:
             allocator.enqueue(Allocation.type.id, Config.LFNC_VLAN_POOL, ['LFNC_VLAN', service.service_id])
@@ -260,7 +243,7 @@ class L2EvplServiceCallback(Service):
         not_ready_msg = allocator.request()
         if not_ready_msg is not None:
             self.log.info(not_ready_msg)
-            return True
+            return
 
         # Write operational data container with final values for VLANs and IPs
         # These are either the user-configured values or values assigned by BatchAllocator
@@ -271,7 +254,7 @@ class L2EvplServiceCallback(Service):
         for dci_vlan in islice(chain(service.dci.vlan, repeat(None)), num_l2_dci_vlans(root, service)):
             dci_vlan_id = dci_vlan.id if dci_vlan is not None else next(allocations_iter)
             if dci_vlan_id in service.auto_values.dci_vlan:
-                raise NcsServiceConfigError(
+                raise NcsServiceError(
                     'Configured DCI VLAN ID {} is equal to an auto-assigned VLAN ID'.format(dci_vlan_id))
             service.auto_values.dci_vlan.create(dci_vlan_id)
 
@@ -286,6 +269,8 @@ class L2EvplServiceCallback(Service):
         self.log.info('Rendering l2 dci template')
         apply_l2_dci_template(root, service)
 
+        return proplist
+
 
 # --------------------------------------------------
 # UTILITY FUNCTIONS
@@ -295,7 +280,7 @@ def apply_l3_dci_template(root_context, service_context):
         dci_link_net = ip_network(text(vlan.subnet))
         dci_link_ip_list = list(dci_link_net.hosts())
         if len(dci_link_ip_list) < 2:
-            raise NcsServiceConfigError('VLAN {} subnet must have at least 2 host addresses'.format(vlan.id))
+            raise NcsServiceError('VLAN {} subnet must have at least 2 host addresses'.format(vlan.id))
         dci_vars = {
             'COUNT': count,
             'VLAN-ID': vlan.id,

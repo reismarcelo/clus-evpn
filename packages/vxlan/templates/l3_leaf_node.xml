@@ -139,7 +139,9 @@
                                 <id>{string(vni)}</id>
                                 <suppress-arp when="{suppress-arp}"/>
                                 <ingress-replication when="{../../replication-mode = 'ingress'}">
-                                    <protocol>bgp</protocol>
+                                    <protocol>
+                                        <bgp/>
+                                    </protocol>
                                 </ingress-replication>
                                 <mcast-group when="{../../replication-mode = 'multicast'}">{string(replication-group)}</mcast-group>
                             </vni>

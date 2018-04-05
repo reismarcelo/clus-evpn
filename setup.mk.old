@@ -1,11 +1,8 @@
-# THIS MAKFILE IS GENERATED
+PACKAGES = vxlan evpn
 
-PACKAGES = resource-manager vxlan evpn
+NETWORK = create-network packages/ncs-4.5.3-cisco-nx-4.6.2.tar.gz 3 LFND-  \
+          create-network packages/ncs-4.5.3-cisco-nx-4.6.2.tar.gz 2 BRLFND-
 
-NETWORK = create-network packages/ncs-4.6-cisco-nx-5.1.3.tar.gz 3 LFND-  \
-          create-network packages/ncs-4.6-cisco-nx-5.1.3.tar.gz 2 BRLFND- 
-
-.PHONY: netsim netsim-clean netsim-start netsim-stop
 netsim:
 	if [ ! -d netsim ]; then \
 		mkdir netsim; \
@@ -33,4 +30,3 @@ packages-clean:
 	(for i in $(PACKAGES); do \
 	        $(MAKE) -C packages/$${i}/src clean || exit 1; \
 	done)
-
