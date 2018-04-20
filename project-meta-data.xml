@@ -5,12 +5,12 @@
 
     <netsim>
         <device>
-            <name>ncs-4.6-cisco-nx-5.1.3.tar.gz</name>
+            <name>ncs-4.6.1-cisco-nx-5.2.tar.gz</name>
             <prefix>LFND-</prefix>
             <num-devices>3</num-devices>
         </device>
         <device>
-            <name>ncs-4.6-cisco-nx-5.1.3.tar.gz</name>
+            <name>ncs-4.6.1-cisco-nx-5.2.tar.gz</name>
             <prefix>BRLFND-</prefix>
             <num-devices>2</num-devices>
         </device>

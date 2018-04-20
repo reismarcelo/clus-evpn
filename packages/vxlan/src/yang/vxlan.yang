@@ -34,6 +34,11 @@ module vxlan {
   //  REVISION
   // =========================================================================
 
+  revision 2018-04-20 {
+    description
+      "Fixes.";
+  }
+
   revision 2017-06-17 {
     description
       "Enabled configuration of NVE source interface.
@@ -325,7 +330,6 @@ module vxlan {
         tailf:info "Route-target extended communities";
         tailf:cli-add-mode;
         choice route-target-type {
-          default auto;
           case auto {
             leaf auto {
               tailf:info "Generate RT automatically (default)";
@@ -334,10 +338,12 @@ module vxlan {
           }
           case manual {
             leaf import {
+              mandatory true;
               tailf:info "Import route-target";
               type rt-rd-type;
             }
             leaf export {
+              mandatory true;
               tailf:info "Export route-target";
               type rt-rd-type;
             }
