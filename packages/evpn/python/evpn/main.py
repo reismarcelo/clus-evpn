@@ -22,7 +22,8 @@ class Config(object):
     LFNC_VLAN_POOL = 'lfnc-vlan'
     LFNC_IP_POOL = 'lfnc-ip'
     LFNC_IP_LENGTH = 30
-    DCI_NUM_VLANS = 2
+    L2_DCI_NUM_VLANS = 2
+    L3_DCI_NUM_VLANS = 4
     DCI_VLAN_POOL = 'dci-vlan'
     DCI_IP_POOL = 'dci-ip'
     DCI_IP_LENGTH = 30
@@ -47,7 +48,7 @@ class L3DirectServiceCallback(Service):
             allocator.enqueue(Allocation.type.address, Config.LFNC_IP_POOL, ['LFNC_IP', service.service_id],
                               length=Config.LFNC_IP_LENGTH)
         # DCI VLAN, subnet
-        for count, dci_vlan in enumerate(islice(chain(service.dci.vlan, repeat(None)), Config.DCI_NUM_VLANS)):
+        for count, dci_vlan in enumerate(islice(chain(service.dci.vlan, repeat(None)), Config.L3_DCI_NUM_VLANS)):
             if dci_vlan is None:
                 allocator.enqueue(Allocation.type.id, Config.DCI_VLAN_POOL,
                                   ['DCI_VLAN', service.service_id, str(count)])
@@ -72,7 +73,7 @@ class L3DirectServiceCallback(Service):
         service.auto_values.lfnc_vlan = service.lfnc_vlan or next(allocations_iter)
         service.auto_values.lfnc_ip_address = service.lfnc_ip_address or subnet_first_host(next(allocations_iter))
         # DCI VLAN, subnet
-        for dci_vlan in islice(chain(service.dci.vlan, repeat(None)), Config.DCI_NUM_VLANS):
+        for dci_vlan in islice(chain(service.dci.vlan, repeat(None)), Config.L3_DCI_NUM_VLANS):
             dci_vlan_id = dci_vlan.id if dci_vlan is not None else next(allocations_iter)
             if dci_vlan_id in service.auto_values.dci_vlan:
                 raise NcsServiceError(
@@ -115,7 +116,7 @@ class L3DefaultServiceCallback(Service):
                 allocator.enqueue(Allocation.type.address, Config.LFNC_IP_POOL,
                                   ['LFNC_IP', service.service_id, str(count)], length=Config.LFNC_IP_LENGTH)
         # DCI VLAN, subnet
-        for count, dci_vlan in enumerate(islice(chain(service.dci.vlan, repeat(None)), Config.DCI_NUM_VLANS)):
+        for count, dci_vlan in enumerate(islice(chain(service.dci.vlan, repeat(None)), Config.L3_DCI_NUM_VLANS)):
             if dci_vlan is None:
                 allocator.enqueue(Allocation.type.id, Config.DCI_VLAN_POOL,
                                   ['DCI_VLAN', service.service_id, str(count)])
@@ -142,7 +143,7 @@ class L3DefaultServiceCallback(Service):
             node.lfnc_vlan = leaf_node.lfnc_vlan or next(allocations_iter)
             node.lfnc_ip_address = leaf_node.lfnc_ip_address or subnet_first_host(next(allocations_iter))
         # DCI VLAN, subnet
-        for dci_vlan in islice(chain(service.dci.vlan, repeat(None)), Config.DCI_NUM_VLANS):
+        for dci_vlan in islice(chain(service.dci.vlan, repeat(None)), Config.L3_DCI_NUM_VLANS):
             dci_vlan_id = dci_vlan.id if dci_vlan is not None else next(allocations_iter)
             if dci_vlan_id in service.auto_values.dci_vlan:
                 raise NcsServiceError(
@@ -305,7 +306,7 @@ def num_l2_dci_vlans(root_context, service_context):
     if root_context.plant_information.plant[service_context.dc_name].dci_layer2.single_vlan_mode.exists():
         return 1
 
-    return Config.DCI_NUM_VLANS
+    return Config.L2_DCI_NUM_VLANS
 
 
 def subnet_first_host(subnet_str):

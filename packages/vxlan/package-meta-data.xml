@@ -1,8 +1,8 @@
 <ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
     <name>vxlan</name>
-    <package-version>1.6</package-version>
+    <package-version>1.7</package-version>
     <description>VXLAN service package</description>
-    <ncs-min-version>4.4</ncs-min-version>
+    <ncs-min-version>4.6</ncs-min-version>
 
     <required-package>
         <name>resource-manager</name>

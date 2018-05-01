@@ -20,7 +20,7 @@ This Cisco NSO project contains the following packages:
         . bridged-topology - VXLAN Layer-2 topology
 
 The following additional packages are required:
-. Cisco NX-OS NED - ncs-4.6-cisco-nx-5.1.3.tar.gz
+. Cisco NX-OS NED - ncs-4.6.1-cisco-nx-5.2.tar.gz
 . Cisco resource-manager - ncs-4.6-resource-manager-3.3.0.tar.gz
 
 
@@ -37,13 +37,11 @@ $ make stop
 $ make clean
 
 Recommended environment:
-. NSO 4.6
-. Python 3.6.4
+. NSO 4.6.1
+. Python 3.6.5
 
-This has been tested with Python 2.7.14 and 3.6.4.
+This has been tested with Python 2.7.14 and 3.6.5.
 
 If using Python 2.7.14, the following pip packages need to be installed:
 . ipaddress
 . future
-
-Please note that NSO versions 4.3.2 and 4.4 have issues with Python 3.6.1, which were fixed in later versions.

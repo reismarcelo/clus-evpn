@@ -34,9 +34,14 @@ module vxlan {
   //  REVISION
   // =========================================================================
 
+  revision 2018-04-23 {
+    description
+      "Optimizations to the templates using NSO 4.6 features.";
+  }
+
   revision 2018-04-20 {
     description
-      "Fixes.";
+      "EVPN route-target fixes.";
   }
 
   revision 2017-06-17 {
@@ -314,7 +319,6 @@ module vxlan {
     leaf vlan-name {
       tailf:info "Tenant VLAN name";
       type vlan-name-type;
-      mandatory true;
     }
     leaf vni {
       tailf:info "Tenant VNID";
@@ -364,7 +368,41 @@ module vxlan {
         default "auto";
       }
     } // container evpn
-  }
+  } // evpn-parameters-grouping
+
+  grouping border-leaf-info-grouping {
+    list border-leaf-info {
+      config false;
+      tailf:cdb-oper {
+        tailf:persistent true;
+      }
+      key node-name;
+
+      leaf node-name {
+        type leafref {
+          path "/ncs:devices/ncs:device/ncs:name";
+        }
+      }
+      uses interface-grouping {
+        augment "interface/interface-type/type-ethernet/Ethernet" {
+          leaf vlan-id {
+            type vlan-id-type;
+          }
+          leaf vlan-name {
+            type vlan-name-type;
+          }
+        }
+        augment "interface/interface-type/type-port-channel/Port-channel" {
+          leaf vlan-id {
+            type vlan-id-type;
+          }
+          leaf vlan-name {
+            type vlan-name-type;
+          }
+        }
+      }
+    } // list border-leaf-info
+  } // border-leaf-info-grouping
 
 
   // =========================================================================
@@ -522,6 +560,8 @@ module vxlan {
 
           uses topology-common-grouping;
 
+          uses border-leaf-info-grouping;
+
         } // list bridged-topology
 
         list routed-topology {
@@ -574,6 +614,7 @@ module vxlan {
             type inet:as-number {
               tailf:info "<1-4294967295>;;Autonomous system number";
             }
+            mandatory true;
           }
 
           leaf replication-mode {
@@ -626,18 +667,21 @@ module vxlan {
                 type inet:as-number {
                   tailf:info "<1-4294967295>;;Autonomous system number";
                 }
+                mandatory true;
               }
             }
             augment "dci/vlan" {
               leaf border-leaf-ipv4 {
                 tailf:info "Tenant DCI IPv4 address on border-leaf";
                 type ipv4-mask;
+                mandatory true;
               }
               leaf bgp-neighbor-ipv4 {
                 tailf:info "Border-leaf DCI bgp neighbor IPv4 address";
                 type inet:ipv4-address {
                   tailf:info "A.B.C.D;;BGP neighbor IPv4 address";
                 }
+                mandatory true;
               }
               leaf bgp-neighbor-description {
                 tailf:info "Border-leaf DCI bgp neighbor description";
@@ -648,6 +692,9 @@ module vxlan {
               }
             }
           }
+
+          uses border-leaf-info-grouping;
+
         } // list routed-topology
       } // container topologies
     } // list vxlan-tenant

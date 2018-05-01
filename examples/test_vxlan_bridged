@@ -1,0 +1,29 @@
+services vxlan-tenant BIKES-CO
+ topologies bridged-topology L2-1 Vancouver
+  vlan-id   121
+  vni       10121
+  ports
+   leaf-node LFND-0
+    interface Port-channel 1021
+     members
+      Ethernet 1/21
+      Ethernet 1/22
+      Ethernet 1/23      
+    !
+   !
+   leaf-node LFND-1
+    interface Ethernet 1/22
+    !
+   !
+   leaf-node LFND-2
+    interface Ethernet 1/23
+    !
+   !
+  !
+  dci
+   vlan 3401
+   !
+  !
+ !
+!
+

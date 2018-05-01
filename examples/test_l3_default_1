@@ -32,5 +32,11 @@ services evpn-l3-default ACME001 Vancouver
   vlan 3102
    subnet 66.66.66.0/30
   !
+  vlan 3103
+   subnet 77.77.77.0/30
+  !
+  vlan 3104
+   subnet 88.88.88.0/30
+  !
  !
 !

@@ -38,6 +38,11 @@ module evpn {
   //  REVISION
   // =========================================================================
 
+  revision 2018-04-30 {
+    description
+      "Fixed L3 DCI number of VLANs";
+  }
+
   revision 2017-06-17 {
     description
       "Enabled configuration of switchport mode on tenant facing ports
@@ -213,7 +218,7 @@ module evpn {
 
       list vlan {
         tailf:info "DCI VLANs on border-leafs";
-        max-elements 2;
+        max-elements 4;
         key id;
         leaf id {
           tailf:info "DCI VLAN ID";

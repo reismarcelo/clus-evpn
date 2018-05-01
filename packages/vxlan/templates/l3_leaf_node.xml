@@ -1,18 +1,18 @@
 <config-template xmlns="http://tail-f.com/ns/config/1.0">
     <devices xmlns="http://tail-f.com/ns/ncs">
         <device>
-            <name>{string(node-name)}</name>
+            <name>{ports/leaf-node/node-name}</name>
             <config>
 
                 <vlan xmlns="http://tail-f.com/ned/cisco-nx">
                     <vlan-list>
                         <id>{string(../../sirb/vlan-id)}</id>
-                        <name>{string(../../sirb/vlan-name)}</name>
+                        <name when="{../../sirb/vlan-name}">{string(../../sirb/vlan-name)}</name>
                         <vn-segment>{string(../../sirb/vni)}</vn-segment>
                     </vlan-list>
                     <vlan-list>
                         <id>{string(vlan-id)}</id>
-                        <name>{string(vlan-name)}</name>
+                        <name when="{vlan-name}">{string(vlan-name)}</name>
                         <vn-segment>{string(vni)}</vn-segment>
                     </vlan-list>
                 </vlan>
@@ -23,9 +23,21 @@
                         <description when="{../../vrf-description}">{string(../../vrf-description)}</description>
                         <vni>{string(../../sirb/vni)}</vni>
                         <rd>{string(../../sirb/evpn/rd)}</rd>
-                        <address-family when="{not(../../sirb/evpn/route-target/auto)}">
+                        <address-family>
                             <ipv4>
                                 <unicast>
+                                <?if {not(../../sirb/evpn/route-target/import)}?>
+                                    <route-target>
+                                        <method>both</method>
+                                        <asn>auto</asn>
+                                        <target-evpn>evpn</target-evpn>
+                                    </route-target>
+                                    <route-target>
+                                        <method>both</method>
+                                        <asn>auto</asn>
+                                        <target-evpn>non-evpn</target-evpn>
+                                    </route-target>
+                                <?else?>
                                     <route-target>
                                         <method>export</method>
                                         <asn>{string(../../sirb/evpn/route-target/export)}</asn>
@@ -46,22 +58,7 @@
                                         <asn>{string(../../sirb/evpn/route-target/import)}</asn>
                                         <target-evpn>non-evpn</target-evpn>
                                     </route-target>
-                                </unicast>
-                            </ipv4>
-                        </address-family>
-                        <address-family when="{../../sirb/evpn/route-target/auto}">
-                            <ipv4>
-                                <unicast>
-                                    <route-target>
-                                        <method>both</method>
-                                        <asn>auto</asn>
-                                        <target-evpn>evpn</target-evpn>
-                                    </route-target>
-                                    <route-target>
-                                        <method>both</method>
-                                        <asn>auto</asn>
-                                        <target-evpn>non-evpn</target-evpn>
-                                    </route-target>
+                                <?end?>
                                 </unicast>
                             </ipv4>
                         </address-family>
@@ -69,37 +66,36 @@
                 </vrf>
 
                 <evpn xmlns="http://tail-f.com/ned/cisco-nx">
-                    <vni when="{not(evpn/route-target/auto)}">
+                    <vni>
                         <id>{string(vni)}</id>
                         <l2/>
                         <rd>{string(evpn/rd)}</rd>
-                        <route-target>
-                            <method>import</method>
-                            <rt>{string(evpn/route-target/import)}</rt>
-                        </route-target>
-                        <route-target>
-                            <method>export</method>
-                            <rt>{string(evpn/route-target/export)}</rt>
-                        </route-target>
-                    </vni>
-                    <vni when="{evpn/route-target/auto}">
-                        <id>{string(vni)}</id>
-                        <l2/>
-                        <rd>{string(evpn/rd)}</rd>
-                        <route-target>
-                            <method>import</method>
-                            <rt>auto</rt>
-                        </route-target>
-                        <route-target>
-                            <method>export</method>
-                            <rt>auto</rt>
-                        </route-target>
+                        <?if {not(evpn/route-target/import)}?>
+                            <route-target>
+                                <method>import</method>
+                                <rt>auto</rt>
+                            </route-target>
+                            <route-target>
+                                <method>export</method>
+                                <rt>auto</rt>
+                            </route-target>
+                        <?else?>
+                            <route-target>
+                                <method>import</method>
+                                <rt>{string(evpn/route-target/import)}</rt>
+                            </route-target>
+                            <route-target>
+                                <method>export</method>
+                                <rt>{string(evpn/route-target/export)}</rt>
+                            </route-target>
+                        <?end?>
                     </vni>
                 </evpn>
 
                 <router xmlns="http://tail-f.com/ned/cisco-nx">
+                    <?set-root-node {/}?>
                     <bgp>
-                        <id>{$DEVICE-ASN}</id>
+                        <id>{string(/devices/device[name=current()/node-name]/config/router/bgp[1]/id)}</id>
                         <vrf>
                             <name>{string(../../name)}</name>
                             <address-family>
@@ -151,7 +147,7 @@
                     </nve>
                     <Vlan>
                         <name>{string(../../sirb/vlan-id)}</name>
-                        <description>{string(../../sirb/vlan-name)}</description>
+                        <description when="{../../sirb/vlan-name}">{string(../../sirb/vlan-name)}</description>
                         <vrf>
                             <member>{string(../../name)}</member>
                         </vrf>
@@ -165,7 +161,7 @@
                     </Vlan>
                     <Vlan>
                         <name>{string(vlan-id)}</name>
-                        <description>{string(vlan-name)}</description>
+                        <description when="{vlan-name}">{string(vlan-name)}</description>
                         <vrf>
                             <member>{string(../../name)}</member>
                         </vrf>

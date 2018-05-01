@@ -30,6 +30,12 @@ services evpn-l3-direct FOO001 Vancouver
   vlan 3208
    subnet 20.20.20.0/30
   !
+  vlan 3209
+   subnet 30.30.30.0/30
+  !
+  vlan 3210
+   subnet 40.40.40.0/30
+  !
  !
 !
 

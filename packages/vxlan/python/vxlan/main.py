@@ -7,8 +7,6 @@ from builtins import str as text
 import ncs
 from ncs.application import Service
 import ncs.template
-import functools
-from itertools import islice, chain, repeat
 from vxlan.utils import apply_template, NcsServiceError, value_or_empty, get_device_asn, plan_data_service
 
 
@@ -23,45 +21,43 @@ class VxlanL2ServiceCallback(Service):
             'NVE_SOURCE': value_or_empty(root.plant_information.global_config.nve_source_interface),
         }
 
-        for leaf in service.ports.leaf_node:
-            self.log.info('Rendering L2 leaf template for {}'.format(leaf.node_name))
-            apply_template('l2_leaf_node', leaf, common_vars)
+        # Process leaf nodes
+        self.log.info('Rendering L2 leaf template')
+        apply_template('l2_leaf_node', service, common_vars)
 
+        # Process border-leaf nodes
         border_leaf_nodes = root.plant_information.plant[service.dc_name].border_leaf_node
+        dci_vlans = [vlan for vlan in service.dci.vlan]
 
-        if not ((len(service.dci.vlan) == 1) or (len(service.dci.vlan) == len(border_leaf_nodes))):
-            raise NcsServiceError('Number of L2 DCI VLANs must be 1 or match the number of border-leaf nodes')
+        if not ((len(dci_vlans) == 1) or (len(dci_vlans) == len(border_leaf_nodes))):
+            raise NcsServiceError('Number of L2 DCI VLANs must be either 1 or match the number of border-leaf nodes')
 
-        last_dci_vlan = None
-        for border_leaf, dci_vlan in zip(border_leaf_nodes,
-                                         islice(chain(service.dci.vlan, repeat(None)), len(border_leaf_nodes))):
-            self.log.info('Rendering L2 border-leaf template for {}'.format(border_leaf.name))
+        for b_leaf, b_leaf_dci_vlans in zip(border_leaf_nodes, split_l2_dci_vlans(dci_vlans)):
 
-            if dci_vlan is None:
-                dci_vlan = last_dci_vlan
-            else:
-                last_dci_vlan = dci_vlan
+            if num_dci_ports(b_leaf.dci_layer2) != 1:
+                raise NcsServiceError('Each border-leaf can only have one L2 DCI port. ')
 
-            border_leaf_vars = {
-                'DEVICE-NAME': border_leaf.name,
-                'DCI_VLAN': dci_vlan.id,
-                'DCI_VLAN_NAME': dci_vlan.name
-            }
-            border_leaf_vars.update(common_vars)
-            apply_template('l2_border_leaf_node', service, border_leaf_vars)
+            b_leaf_info = service.border_leaf_info.create(b_leaf.name)
+            fill_border_leaf_info(b_leaf_info, b_leaf.dci_layer2, b_leaf_dci_vlans)
 
-            self.log.info('Rendering border-leaf vlan template for {}'.format(border_leaf.name))
-            dci_ports = border_leaf.dci_layer2.interface.Port_channel or border_leaf.dci_layer2.interface.Ethernet
-            if len(dci_ports) != 1:
-                raise NcsServiceError('Each border-leaf can only have one L2 DCI port')
-            for dci_port in dci_ports:
-                border_leaf_vlan_vars = {
-                    'DCI_PORT': dci_port.id,
-                }
-                border_leaf_vlan_vars.update(border_leaf_vars)
-                apply_template('border_leaf_node_vlans', dci_port, border_leaf_vlan_vars)
+        self.log.info('Rendering L2 border-leaf template')
+        apply_template('l2_border_leaf_node', service, common_vars)
 
         return proplist
+
+
+def split_l2_dci_vlans(vlan_list):
+    """
+    Assign Layer2 DCI VLANs to border-leafs. Returns an unbounded generator that yields each element of vlan_list,
+    then keep returning the last element once vlan_list is exhausted.
+
+    :param vlan_list: A list of VLANs to be split
+    :return: A generator that yields lists containing one VLAN
+    """
+    for i in range(len(vlan_list)):
+        yield vlan_list[i:i+1]
+    while True:
+        yield vlan_list[-1::]
 
 
 # ------------------------------------
@@ -78,39 +74,70 @@ class VxlanL3ServiceCallback(Service):
             'REDIST-CONNECTED': value_or_empty(root.plant_information.global_config.tenant_route_maps.bgp_redistribute_connected),
         }
 
-        for leaf in service.ports.leaf_node:
-            self.log.info('Rendering L3 leaf template for {}'.format(leaf.node_name))
+        # Process leaf nodes
+        self.log.info('Rendering L3 leaf template')
+        apply_template('l3_leaf_node', service, common_vars)
 
-            leaf_vars = {
-                'DEVICE-ASN': get_device_asn(root, leaf.node_name),
-            }
-            leaf_vars.update(common_vars)
-            apply_template('l3_leaf_node', leaf, leaf_vars)
+        # Process border-leaf nodes
+        border_leaf_nodes = root.plant_information.plant[service.dc_name].border_leaf_node
+        dci_vlans = [vlan for vlan in service.dci.vlan]
 
-        dci_vlans = [vlan.id for vlan in service.dci.vlan]
+        if len(dci_vlans) % len(border_leaf_nodes) != 0:
+            raise NcsServiceError('Number of DCI VLANs must be divisible by the number of border-leaf nodes')
 
-        for border_leaf in root.plant_information.plant[service.dc_name].border_leaf_node:
-            self.log.info('Rendering L3 border-leaf template for {}'.format(border_leaf.name))
-            border_leaf_vars = {
-                'DEVICE-NAME': border_leaf.name,
-                'DEVICE-ASN': get_device_asn(root, border_leaf.name),
-            }
-            border_leaf_vars.update(common_vars)
-            apply_template('l3_border_leaf_node', service, border_leaf_vars)
+        for b_leaf, b_leaf_dci_vlans in zip(border_leaf_nodes, split_l3_dci_vlans(dci_vlans, len(border_leaf_nodes))):
 
-            self.log.info('Rendering border-leaf vlan template for {}'.format(border_leaf.name))
-            dci_ports = border_leaf.dci_layer3.interface.Port_channel or border_leaf.dci_layer3.interface.Ethernet
-            if len(dci_ports) != len(dci_vlans):
-                raise NcsServiceError('Number of DCI VLANs must match number of L3 DCI ports')
-            for dci_port, dci_vlan in zip(dci_ports, dci_vlans):
-                border_leaf_vlan_vars = {
-                    'DEVICE-NAME': border_leaf.name,
-                    'DCI_PORT': dci_port.id,
-                    'DCI_VLAN': dci_vlan,
-                }
-                apply_template('border_leaf_node_vlans', dci_port, border_leaf_vlan_vars)
+            if num_dci_ports(b_leaf.dci_layer3) != len(b_leaf_dci_vlans):
+                raise NcsServiceError('Border-leaf number of L3 DCI ports does not match number of DCI VLANs.')
+
+            b_leaf_info = service.border_leaf_info.create(b_leaf.name)
+            fill_border_leaf_info(b_leaf_info, b_leaf.dci_layer3, b_leaf_dci_vlans)
+
+        self.log.info('Rendering L3 border-leaf template')
+        apply_template('l3_border_leaf_node', service, common_vars)
 
         return proplist
+
+
+def split_l3_dci_vlans(vlan_list, num_border_leaf):
+    """
+    Assign Layer3 DCI VLANs to border-leafs. Returns a generator that yields a list of DCI VLANs for being used at
+    a border-leaf.
+    VLANs are assigned to border-leafs in sequence by border-leaf:
+    Given vlan_list = [1001, 1002, 1003, 1004]
+    First border-leaf gets [1001, 1003], second gets [1002, 1004]
+
+    :param vlan_list: A list of VLANs to be split
+    :param num_border_leaf: Number of border-leaf nodes
+    :return: A generator that yields lists containing DCI VLANs for the border-leaf node
+    """
+    return (vlan_list[i::num_border_leaf] for i in range(num_border_leaf))
+
+
+def num_dci_ports(border_leaf_dci):
+    return len(border_leaf_dci.interface.Port_channel or border_leaf_dci.interface.Ethernet)
+
+
+def fill_border_leaf_info(border_leaf_info_node, dci_ports, dci_vlans):
+    for src_port_channel, dst_port_channel, dci_vlan in copy_zip_list('id',
+                                                                      dci_ports.interface.Port_channel,
+                                                                      border_leaf_info_node.interface.Port_channel,
+                                                                      dci_vlans):
+        dst_port_channel.vlan_id = dci_vlan.id
+        dst_port_channel.vlan_name = dci_vlan.name
+        copy_zip_list('member_id', src_port_channel.members.Ethernet, dst_port_channel.members.Ethernet)
+    for src_ethernet, dst_ethernet, dci_vlan in copy_zip_list('id',
+                                                              dci_ports.interface.Ethernet,
+                                                              border_leaf_info_node.interface.Ethernet,
+                                                              dci_vlans):
+        dst_ethernet.vlan_id = dci_vlan.id
+        dst_ethernet.vlan_name = dci_vlan.name
+
+
+def copy_zip_list(key, src_list, dst_list, *extra_lists):
+    for item in src_list:
+        dst_list.create(getattr(item, key))
+    return zip(src_list, dst_list, *extra_lists)
 
 
 # ---------------------------------------------

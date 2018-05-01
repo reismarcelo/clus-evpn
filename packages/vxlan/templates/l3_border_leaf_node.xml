@@ -1,56 +1,32 @@
 <config-template xmlns="http://tail-f.com/ns/config/1.0">
     <devices xmlns="http://tail-f.com/ns/ncs">
         <device>
-            <name>{$DEVICE-NAME}</name>
+            <name>{border-leaf-info/node-name}</name>
             <config>
 
                 <vlan xmlns="http://tail-f.com/ned/cisco-nx">
                     <vlan-list>
-                        <id>{string(sirb/vlan-id)}</id>
-                        <name>{string(sirb/vlan-name)}</name>
-                        <vn-segment>{string(sirb/vni)}</vn-segment>
+                        <id>{string(../sirb/vlan-id)}</id>
+                        <name when="{../sirb/vlan-name}">{string(../sirb/vlan-name)}</name>
+                        <vn-segment>{string(../sirb/vni)}</vn-segment>
                     </vlan-list>
-                    <vlan-list foreach="{dci/vlan}">
-                        <id>{string(id)}</id>
-                        <name>{string(name)}</name>
+                    <vlan-list foreach="{interface/Port-channel | interface/Ethernet}">
+                        <id>{string(vlan-id)}</id>
+                        <name when="{vlan-name}">{string(vlan-name)}</name>
                     </vlan-list>
+
                 </vlan>
 
                 <vrf xmlns="http://tail-f.com/ned/cisco-nx">
                     <context>
-                        <id>{string(name)}</id>
-                        <description when="{vrf-description}">{string(vrf-description)}</description>
-                        <vni>{string(sirb/vni)}</vni>
-                        <rd>{string(sirb/evpn/rd)}</rd>
-                        <address-family when="{not(sirb/evpn/route-target/auto)}">
+                        <id>{string(../name)}</id>
+                        <description when="{../vrf-description}">{string(../vrf-description)}</description>
+                        <vni>{string(../sirb/vni)}</vni>
+                        <rd>{string(../sirb/evpn/rd)}</rd>
+                        <address-family>
                             <ipv4>
                                 <unicast>
-                                    <route-target>
-                                        <method>export</method>
-                                        <asn>{string(sirb/evpn/route-target/export)}</asn>
-                                        <target-evpn>evpn</target-evpn>
-                                    </route-target>
-                                    <route-target>
-                                        <method>export</method>
-                                        <asn>{string(sirb/evpn/route-target/export)}</asn>
-                                        <target-evpn>non-evpn</target-evpn>
-                                    </route-target>
-                                    <route-target>
-                                        <method>import</method>
-                                        <asn>{string(sirb/evpn/route-target/import)}</asn>
-                                        <target-evpn>evpn</target-evpn>
-                                    </route-target>
-                                    <route-target>
-                                        <method>import</method>
-                                        <asn>{string(sirb/evpn/route-target/import)}</asn>
-                                        <target-evpn>non-evpn</target-evpn>
-                                    </route-target>
-                                </unicast>
-                            </ipv4>
-                        </address-family>
-                        <address-family when="{sirb/evpn/route-target/auto}">
-                            <ipv4>
-                                <unicast>
+                                <?if {not(../sirb/evpn/route-target/import)}?>
                                     <route-target>
                                         <method>both</method>
                                         <asn>auto</asn>
@@ -61,6 +37,28 @@
                                         <asn>auto</asn>
                                         <target-evpn>non-evpn</target-evpn>
                                     </route-target>
+                                <?else?>
+                                    <route-target>
+                                        <method>export</method>
+                                        <asn>{string(../sirb/evpn/route-target/export)}</asn>
+                                        <target-evpn>evpn</target-evpn>
+                                    </route-target>
+                                    <route-target>
+                                        <method>export</method>
+                                        <asn>{string(../sirb/evpn/route-target/export)}</asn>
+                                        <target-evpn>non-evpn</target-evpn>
+                                    </route-target>
+                                    <route-target>
+                                        <method>import</method>
+                                        <asn>{string(../sirb/evpn/route-target/import)}</asn>
+                                        <target-evpn>evpn</target-evpn>
+                                    </route-target>
+                                    <route-target>
+                                        <method>import</method>
+                                        <asn>{string(../sirb/evpn/route-target/import)}</asn>
+                                        <target-evpn>non-evpn</target-evpn>
+                                    </route-target>
+                                <?end?>
                                 </unicast>
                             </ipv4>
                         </address-family>
@@ -68,10 +66,11 @@
                 </vrf>
 
                 <router xmlns="http://tail-f.com/ned/cisco-nx">
+                    <?set-root-node {/}?>
                     <bgp>
-                        <id>{$DEVICE-ASN}</id>
+                        <id>{string(/devices/device[name=current()/node-name]/config/router/bgp[1]/id)}</id>
                         <vrf>
-                            <name>{string(name)}</name>
+                            <name>{string(../name)}</name>
                             <address-family>
                                 <proto>ipv4</proto>
                                 <type>unicast</type>
@@ -90,14 +89,14 @@
                                     </static>
                                 </redistribute>
                             </address-family>
-                            <local-as>{string(tenant-as-number)}</local-as>
-                            <neighbor foreach="{dci/vlan}">
-                                <id>{string(bgp-neighbor-ipv4)}</id>
+                            <local-as>{string(../tenant-as-number)}</local-as>
+                            <neighbor foreach="{interface/Port-channel | interface/Ethernet}">
+                                <id>{string(../../../dci/vlan[id=current()/vlan-id]/bgp-neighbor-ipv4)}</id>
                                 <inner-remote-as>
-                                    <remote-as>{string(../dci-as-number)}</remote-as>
+                                    <remote-as>{string(../../../dci/dci-as-number)}</remote-as>
                                 </inner-remote-as>
-                                <description when="{bgp-neighbor-description}">{string(bgp-neighbor-description)}</description>
-                                <update-source>Vlan{string(id)}</update-source>
+                                <description when="{../../../dci/vlan[id=current()/vlan-id]/bgp-neighbor-description}">{string(../../../dci/vlan[id=current()/vlan-id]/bgp-neighbor-description)}</description>
+                                <update-source>Vlan{string(vlan-id)}</update-source>
                                 <address-family>
                                     <proto>ipv4</proto>
                                     <type>unicast</type>
@@ -115,7 +114,7 @@
                         </host-reachability>
                         <member>
                             <vni>
-                                <id>{string(sirb/vni)}</id>
+                                <id>{string(../sirb/vni)}</id>
                                 <associate-vrf/>
                             </vni>
                         </member>
@@ -123,10 +122,10 @@
                         <shutdown tags="delete"/>
                     </nve>
                     <Vlan>
-                        <name>{string(sirb/vlan-id)}</name>
-                        <description>{string(sirb/vlan-name)}</description>
+                        <name>{string(../sirb/vlan-id)}</name>
+                        <description when="{../sirb/vlan-name}">{string(../sirb/vlan-name)}</description>
                         <vrf>
-                            <member>{string(name)}</member>
+                            <member>{string(../name)}</member>
                         </vrf>
                         <ip>
                             <forward/>
@@ -136,15 +135,15 @@
                             <redirects>false</redirects>
                         </ipv6>
                     </Vlan>
-                    <Vlan foreach="{dci/vlan}">
-                        <name>{string(id)}</name>
-                        <description>{string(name)}</description>
+                    <Vlan foreach="{interface/Port-channel | interface/Ethernet}">
+                        <name>{string(vlan-id)}</name>
+                        <description when="{vlan-name}">{string(vlan-name)}</description>
                         <vrf>
-                            <member>{string(../../name)}</member>
+                            <member>{string(../../../name)}</member>
                         </vrf>
                         <ip>
                             <address>
-                                <ipaddr>{string(border-leaf-ipv4)}</ipaddr>
+                                <ipaddr>{string(../../../dci/vlan[id=current()/vlan-id]/border-leaf-ipv4)}</ipaddr>
                             </address>
                             <redirects>false</redirects>
                         </ip>
@@ -152,6 +151,48 @@
                             <redirects>false</redirects>
                         </ipv6>
                     </Vlan>
+                </interface>
+
+               <interface xmlns="http://tail-f.com/ned/cisco-nx" foreach="{interface/Port-channel}">
+                    <port-channel>
+                        <name>{string(id)}</name>
+                        <switchport>
+                            <trunk>
+                                <allowed>
+                                    <vlan>
+                                        <ids>{string(vlan-id)}</ids>
+                                    </vlan>
+                                </allowed>
+                            </trunk>
+                        </switchport>
+                    </port-channel>
+                    <Ethernet foreach="{members/Ethernet}">
+                        <name>{string(member-id)}</name>
+                        <switchport>
+                            <trunk>
+                                <allowed>
+                                    <vlan>
+                                        <ids>{string(../../vlan-id)}</ids>
+                                    </vlan>
+                                </allowed>
+                            </trunk>
+                        </switchport>
+                    </Ethernet>
+                </interface>
+
+                <interface xmlns="http://tail-f.com/ned/cisco-nx" foreach="{interface/Ethernet}">
+                    <Ethernet>
+                        <name>{string(id)}</name>
+                        <switchport>
+                            <trunk>
+                                <allowed>
+                                    <vlan>
+                                        <ids>{string(vlan-id)}</ids>
+                                    </vlan>
+                                </allowed>
+                            </trunk>
+                        </switchport>
+                    </Ethernet>
                 </interface>
 
             </config>
