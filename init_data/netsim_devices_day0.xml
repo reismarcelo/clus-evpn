@@ -2,9 +2,6 @@
   <device>
     <name>BRLFND-0</name>
     <config>
-      <tailfned xmlns="http://tail-f.com/ned/cisco-nx">
-        <default-notification-mac-move>false</default-notification-mac-move>
-      </tailfned>
       <feature xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp/>
         <interface-vlan/>
@@ -28,9 +25,6 @@
   <device>
     <name>BRLFND-1</name>
     <config>
-      <tailfned xmlns="http://tail-f.com/ned/cisco-nx">
-        <default-notification-mac-move>false</default-notification-mac-move>
-      </tailfned>
       <feature xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp/>
         <interface-vlan/>
@@ -54,9 +48,6 @@
   <device>
     <name>LFND-0</name>
     <config>
-      <tailfned xmlns="http://tail-f.com/ned/cisco-nx">
-        <default-notification-mac-move>false</default-notification-mac-move>
-      </tailfned>
       <feature xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp/>
         <interface-vlan/>
@@ -80,9 +71,6 @@
   <device>
     <name>LFND-1</name>
     <config>
-      <tailfned xmlns="http://tail-f.com/ned/cisco-nx">
-        <default-notification-mac-move>false</default-notification-mac-move>
-      </tailfned>
       <feature xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp/>
         <interface-vlan/>
@@ -106,9 +94,6 @@
   <device>
     <name>LFND-2</name>
     <config>
-      <tailfned xmlns="http://tail-f.com/ned/cisco-nx">
-        <default-notification-mac-move>false</default-notification-mac-move>
-      </tailfned>
       <feature xmlns="http://tail-f.com/ned/cisco-nx">
         <bgp/>
         <interface-vlan/>

@@ -67,20 +67,24 @@ def init_plan(plan_component, *custom_states):
     return plan_component
 
 
-def apply_template(template_name, context, var_dict=None):
+def apply_template(template_name, context, var_dict=None, none_value=''):
     """
     Facilitate applying templates by setting template variables via an optional dictionary
+
+    By default, if a dictionary item has value None it is converted to an empty string. In the template,
+    'when' statements can be used to prevent rendering of a template block if the variable is an empty string.
 
     :param template_name: Name of the template file
     :param context: Context in which the template is rendered
     :param var_dict: Optional dictionary containing additional variables to be passed to the template
+    :param none_value: Optional, defines the replacement for variables with None values. Default is an empty string.
     """
     template = ncs.template.Template(context)
     t_vars = ncs.template.Variables()
 
     if var_dict is not None:
         for name, value in var_dict.items():
-            t_vars.add(name, value)
+            t_vars.add(name, value or none_value)
 
     template.apply(template_name, t_vars)
 
@@ -303,27 +307,6 @@ class Validation(object):
 
     def _make_key(self, tctx):
         return '{0}-{1}'.format(id(self), tctx.th)
-
-
-def get_device_asn(root, device_name):
-    bgp = next(iter(root.devices.device[device_name].config.nx__router.bgp), None)
-    if bgp is None:
-        raise NcsServiceError('BGP not configured on node "{}"'.format(device_name))
-
-    return bgp.id
-
-
-def value_or_empty(value):
-    """
-    Return the provided value if it is not None, otherwise return an empty string
-    In order to avoid the corresponding template nodes from being rendered, a 'when' xpath template statement
-    must be used. Do not rely on NSO pre-4.4.3 behavior of not rendering string nodes that evaluates to an
-    empty string.
-
-    :param value:
-    :return: value or an empty string
-    """
-    return value or ''
 
 
 class Allocation(object):

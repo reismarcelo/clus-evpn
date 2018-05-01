@@ -7,11 +7,9 @@ from builtins import str as text
 import ncs
 from ncs.application import Service
 import ncs.template
-import functools
 from itertools import islice, chain, repeat
 from ipaddress import ip_network
-from vxlan.utils import (apply_template, BatchAllocator, Allocation, NcsServiceError, AllocationsNotReady,
-                         plan_data_service, value_or_empty)
+from vxlan.utils import apply_template, BatchAllocator, Allocation, NcsServiceError, AllocationsNotReady, plan_data_service
 
 
 # --------------------------------------------------
@@ -85,7 +83,7 @@ class L3DirectServiceCallback(Service):
 
         self.log.info('Rendering l3-direct template')
         service_vars = {
-            'SITE-LEAF-ASN': value_or_empty(root.plant_information.plant[service.dc_name].as_number.leaf_nodes),
+            'SITE-LEAF-ASN': root.plant_information.plant[service.dc_name].as_number.leaf_nodes,
         }
         apply_template('l3_direct', service, service_vars)
 
@@ -155,7 +153,7 @@ class L3DefaultServiceCallback(Service):
 
         self.log.info('Rendering l3-default template')
         service_vars = {
-            'SITE-LEAF-ASN': value_or_empty(root.plant_information.plant[service.dc_name].as_number.leaf_nodes),
+            'SITE-LEAF-ASN': root.plant_information.plant[service.dc_name].as_number.leaf_nodes,
         }
         apply_template('l3_default', service, service_vars)
 
@@ -209,7 +207,7 @@ class L2VplsServiceCallback(Service):
 
         self.log.info('Rendering l2-vpls template')
         service_vars = {
-            'SITE-LEAF-ASN': value_or_empty(root.plant_information.plant[service.dc_name].as_number.leaf_nodes),
+            'SITE-LEAF-ASN': root.plant_information.plant[service.dc_name].as_number.leaf_nodes,
         }
         apply_template('l2_vpls', service, service_vars)
 
@@ -263,7 +261,7 @@ class L2EvplServiceCallback(Service):
 
         self.log.info('Rendering l2-evpl template')
         service_vars = {
-            'SITE-LEAF-ASN': value_or_empty(root.plant_information.plant[service.dc_name].as_number.leaf_nodes),
+            'SITE-LEAF-ASN': root.plant_information.plant[service.dc_name].as_number.leaf_nodes,
         }
         apply_template('l2_vpls', service, service_vars)
 
@@ -288,7 +286,7 @@ def apply_l3_dci_template(root_context, service_context):
             'BDR-IP': dci_link_ip_list[1],
             'BDR-LEN': dci_link_net.prefixlen,
             'DCI-IP': dci_link_ip_list[0],
-            'SITE-DCI-ASN': value_or_empty(root_context.plant_information.plant[service_context.dc_name].as_number.dci_nodes),
+            'SITE-DCI-ASN': root_context.plant_information.plant[service_context.dc_name].as_number.dci_nodes,
         }
         apply_template('l3_dci', service_context, dci_vars)
 

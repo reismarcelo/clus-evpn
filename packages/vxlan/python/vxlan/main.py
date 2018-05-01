@@ -7,7 +7,7 @@ from builtins import str as text
 import ncs
 from ncs.application import Service
 import ncs.template
-from vxlan.utils import apply_template, NcsServiceError, value_or_empty, get_device_asn, plan_data_service
+from vxlan.utils import apply_template, NcsServiceError, plan_data_service
 
 
 # ------------------------------------
@@ -17,13 +17,13 @@ class VxlanL2ServiceCallback(Service):
     @Service.create
     @plan_data_service()
     def cb_create(self, tctx, root, service, proplist, self_plan):
-        common_vars = {
-            'NVE_SOURCE': value_or_empty(root.plant_information.global_config.nve_source_interface),
+        template_vars = {
+            'NVE_SOURCE': root.plant_information.global_config.nve_source_interface,
         }
 
         # Process leaf nodes
         self.log.info('Rendering L2 leaf template')
-        apply_template('l2_leaf_node', service, common_vars)
+        apply_template('l2_leaf_node', service, template_vars)
 
         # Process border-leaf nodes
         border_leaf_nodes = root.plant_information.plant[service.dc_name].border_leaf_node
@@ -41,7 +41,7 @@ class VxlanL2ServiceCallback(Service):
             fill_border_leaf_info(b_leaf_info, b_leaf.dci_layer2, b_leaf_dci_vlans)
 
         self.log.info('Rendering L2 border-leaf template')
-        apply_template('l2_border_leaf_node', service, common_vars)
+        apply_template('l2_border_leaf_node', service, template_vars)
 
         return proplist
 
@@ -67,16 +67,16 @@ class VxlanL3ServiceCallback(Service):
     @Service.create
     @plan_data_service()
     def cb_create(self, tctx, root, service, proplist, self_plan):
-        common_vars = {
-            'NVE_SOURCE': value_or_empty(root.plant_information.global_config.nve_source_interface),
-            'PREFIX-TAG': value_or_empty(root.plant_information.global_config.tenant_prefix_tag),
-            'REDIST-STATIC': value_or_empty(root.plant_information.global_config.tenant_route_maps.bgp_redistribute_static),
-            'REDIST-CONNECTED': value_or_empty(root.plant_information.global_config.tenant_route_maps.bgp_redistribute_connected),
+        template_vars = {
+            'NVE_SOURCE': root.plant_information.global_config.nve_source_interface,
+            'PREFIX-TAG': root.plant_information.global_config.tenant_prefix_tag,
+            'REDIST-STATIC': root.plant_information.global_config.tenant_route_maps.bgp_redistribute_static,
+            'REDIST-CONNECTED': root.plant_information.global_config.tenant_route_maps.bgp_redistribute_connected,
         }
 
         # Process leaf nodes
         self.log.info('Rendering L3 leaf template')
-        apply_template('l3_leaf_node', service, common_vars)
+        apply_template('l3_leaf_node', service, template_vars)
 
         # Process border-leaf nodes
         border_leaf_nodes = root.plant_information.plant[service.dc_name].border_leaf_node
@@ -94,7 +94,7 @@ class VxlanL3ServiceCallback(Service):
             fill_border_leaf_info(b_leaf_info, b_leaf.dci_layer3, b_leaf_dci_vlans)
 
         self.log.info('Rendering L3 border-leaf template')
-        apply_template('l3_border_leaf_node', service, common_vars)
+        apply_template('l3_border_leaf_node', service, template_vars)
 
         return proplist
 
