@@ -379,7 +379,7 @@ class BatchAllocator(object):
         """
         Perform all allocations requests in the request queue, then read allocations.
 
-        :return: A list of with the allocated values, in the same order in which they were requested.
+        :return: A list with the allocated values, in the same order in which they were requested.
                  None if any of the allocations is not ready
         """
         # Perform allocation requests
