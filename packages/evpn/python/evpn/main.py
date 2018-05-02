@@ -9,7 +9,8 @@ from ncs.application import Service
 import ncs.template
 from itertools import islice, chain, repeat
 from ipaddress import ip_network
-from vxlan.utils import apply_template, BatchAllocator, Allocation, NcsServiceError, AllocationsNotReady, plan_data_service
+from vxlan.utils import apply_template, BatchAllocator, Allocation, NcsServiceError, plan_data_service
+import time
 
 
 # --------------------------------------------------
@@ -38,33 +39,35 @@ class L3DirectServiceCallback(Service):
         allocator = BatchAllocator(tctx.username, root, service)
         # SIRB VLAN
         if service.sirb_vlan is None:
-            allocator.enqueue(Allocation.type.id, Config.SIRB_VLAN_POOL, ['SIRB_VLAN', service.service_id])
+            allocator.append(Allocation.type.id, Config.SIRB_VLAN_POOL,
+                             Allocation.get_id('SIRB_VLAN', service.service_id))
         # LFNC VLAN, ip address
         if service.lfnc_vlan is None:
-            allocator.enqueue(Allocation.type.id, Config.LFNC_VLAN_POOL, ['LFNC_VLAN', service.service_id])
+            allocator.append(Allocation.type.id, Config.LFNC_VLAN_POOL,
+                             Allocation.get_id('LFNC_VLAN', service.service_id))
         if service.lfnc_ip_address is None:
-            allocator.enqueue(Allocation.type.address, Config.LFNC_IP_POOL, ['LFNC_IP', service.service_id],
-                              length=Config.LFNC_IP_LENGTH)
+            allocator.append(Allocation.type.address, Config.LFNC_IP_POOL,
+                             Allocation.get_id('LFNC_IP', service.service_id), length=Config.LFNC_IP_LENGTH)
         # DCI VLAN, subnet
         for count, dci_vlan in enumerate(islice(chain(service.dci.vlan, repeat(None)), Config.L3_DCI_NUM_VLANS)):
             if dci_vlan is None:
-                allocator.enqueue(Allocation.type.id, Config.DCI_VLAN_POOL,
-                                  ['DCI_VLAN', service.service_id, str(count)])
+                allocator.append(Allocation.type.id, Config.DCI_VLAN_POOL,
+                                 Allocation.get_id('DCI_VLAN', service.service_id, count))
             if (dci_vlan is None) or (dci_vlan.subnet is None):
-                allocator.enqueue(Allocation.type.address, Config.DCI_IP_POOL,
-                                  ['DCI_IP', service.service_id, str(count)], length=Config.DCI_IP_LENGTH)
+                allocator.append(Allocation.type.address, Config.DCI_IP_POOL,
+                                 Allocation.get_id('DCI_IP', service.service_id, count), length=Config.DCI_IP_LENGTH)
 
         if len(allocator) > 0:
             self.log.info('Allocating: {}'.format(allocator))
 
-        not_ready_msg = allocator.request()
-        if not_ready_msg is not None:
-            self.log.info(not_ready_msg)
+        allocations = allocator.read()
+        if allocations is None:
+            self.log.info('Resource allocations are not ready')
             return
 
         # Write operational data container with final values for VLANs and IPs
         # These are either the user-configured values or values assigned by BatchAllocator
-        allocations_iter = iter(allocator.allocations)
+        allocations_iter = iter(allocations)
         # SIRB VLAN
         service.auto_values.sirb_vlan = service.sirb_vlan or next(allocations_iter)
         # LFNC VLAN, ip address
@@ -104,35 +107,36 @@ class L3DefaultServiceCallback(Service):
         allocator = BatchAllocator(tctx.username, root, service)
         # SIRB VLAN
         if service.sirb_vlan is None:
-            allocator.enqueue(Allocation.type.id, Config.SIRB_VLAN_POOL, ['SIRB_VLAN', service.service_id])
+            allocator.append(Allocation.type.id, Config.SIRB_VLAN_POOL,
+                             Allocation.get_id('SIRB_VLAN', service.service_id))
         # LFNC VLAN, ip address
         for count, leaf_node in enumerate(service.ports.leaf_node):
             if leaf_node.lfnc_vlan is None:
-                allocator.enqueue(Allocation.type.id, Config.LFNC_VLAN_POOL,
-                                  ['LFNC_VLAN', service.service_id, str(count)])
+                allocator.append(Allocation.type.id, Config.LFNC_VLAN_POOL,
+                                 Allocation.get_id('LFNC_VLAN', service.service_id, count))
             if leaf_node.lfnc_ip_address is None:
-                allocator.enqueue(Allocation.type.address, Config.LFNC_IP_POOL,
-                                  ['LFNC_IP', service.service_id, str(count)], length=Config.LFNC_IP_LENGTH)
+                allocator.append(Allocation.type.address, Config.LFNC_IP_POOL,
+                                 Allocation.get_id('LFNC_IP', service.service_id, count), length=Config.LFNC_IP_LENGTH)
         # DCI VLAN, subnet
         for count, dci_vlan in enumerate(islice(chain(service.dci.vlan, repeat(None)), Config.L3_DCI_NUM_VLANS)):
             if dci_vlan is None:
-                allocator.enqueue(Allocation.type.id, Config.DCI_VLAN_POOL,
-                                  ['DCI_VLAN', service.service_id, str(count)])
+                allocator.append(Allocation.type.id, Config.DCI_VLAN_POOL,
+                                 Allocation.get_id('DCI_VLAN', service.service_id, count))
             if (dci_vlan is None) or (dci_vlan.subnet is None):
-                allocator.enqueue(Allocation.type.address, Config.DCI_IP_POOL,
-                                  ['DCI_IP', service.service_id, str(count)], length=Config.DCI_IP_LENGTH)
+                allocator.append(Allocation.type.address, Config.DCI_IP_POOL,
+                                 Allocation.get_id('DCI_IP', service.service_id, count), length=Config.DCI_IP_LENGTH)
 
         if len(allocator) > 0:
             self.log.info('Allocating: {}'.format(allocator))
 
-        not_ready_msg = allocator.request()
-        if not_ready_msg is not None:
-            self.log.info(not_ready_msg)
+        allocations = allocator.read()
+        if allocations is None:
+            self.log.info('Resource allocations are not ready')
             return
 
         # Write operational data container with final values for VLANs and IPs
         # These are either the user-configured values or values assigned by BatchAllocator
-        allocations_iter = iter(allocator.allocations)
+        allocations_iter = iter(allocations)
         # SIRB VLAN
         service.auto_values.sirb_vlan = service.sirb_vlan or next(allocations_iter)
         # LFNC VLAN, ip address
@@ -174,25 +178,26 @@ class L2VplsServiceCallback(Service):
         allocator = BatchAllocator(tctx.username, root, service)
         # LFNC VLAN
         if service.lfnc_vlan is None:
-            allocator.enqueue(Allocation.type.id, Config.LFNC_VLAN_POOL, ['LFNC_VLAN', service.service_id])
+            allocator.append(Allocation.type.id, Config.LFNC_VLAN_POOL,
+                             Allocation.get_id('LFNC_VLAN', service.service_id))
         # DCI VLAN
         for count, dci_vlan in enumerate(islice(chain(service.dci.vlan, repeat(None)),
                                                 num_l2_dci_vlans(root, service))):
             if dci_vlan is None:
-                allocator.enqueue(Allocation.type.id, Config.DCI_VLAN_POOL,
-                                  ['DCI_VLAN', service.service_id, str(count)])
+                allocator.append(Allocation.type.id, Config.DCI_VLAN_POOL,
+                                 Allocation.get_id('DCI_VLAN', service.service_id, count))
 
         if len(allocator) > 0:
             self.log.info('Allocating: {}'.format(allocator))
 
-        not_ready_msg = allocator.request()
-        if not_ready_msg is not None:
-            self.log.info(not_ready_msg)
+        allocations = allocator.read()
+        if allocations is None:
+            self.log.info('Resource allocations are not ready')
             return
 
         # Write operational data container with final values for VLANs and IPs
         # These are either the user-configured values or values assigned by BatchAllocator
-        allocations_iter = iter(allocator.allocations)
+        allocations_iter = iter(allocations)
         # LFNC VLAN
         service.auto_values.lfnc_vlan = service.lfnc_vlan or next(allocations_iter)
         # DCI VLAN
@@ -228,25 +233,26 @@ class L2EvplServiceCallback(Service):
         allocator = BatchAllocator(tctx.username, root, service)
         # LFNC VLAN
         if service.lfnc_vlan is None:
-            allocator.enqueue(Allocation.type.id, Config.LFNC_VLAN_POOL, ['LFNC_VLAN', service.service_id])
+            allocator.append(Allocation.type.id, Config.LFNC_VLAN_POOL,
+                             Allocation.get_id('LFNC_VLAN', service.service_id))
         # DCI VLAN
         for count, dci_vlan in enumerate(islice(chain(service.dci.vlan, repeat(None)),
                                                 num_l2_dci_vlans(root, service))):
             if dci_vlan is None:
-                allocator.enqueue(Allocation.type.id, Config.DCI_VLAN_POOL,
-                                  ['DCI_VLAN', service.service_id, str(count)])
+                allocator.append(Allocation.type.id, Config.DCI_VLAN_POOL,
+                                 Allocation.get_id('DCI_VLAN', service.service_id, count))
 
         if len(allocator) > 0:
             self.log.info('Allocating: {}'.format(allocator))
 
-        not_ready_msg = allocator.request()
-        if not_ready_msg is not None:
-            self.log.info(not_ready_msg)
+        allocations = allocator.read()
+        if allocations is None:
+            self.log.info('Resource allocations are not ready')
             return
 
         # Write operational data container with final values for VLANs and IPs
         # These are either the user-configured values or values assigned by BatchAllocator
-        allocations_iter = iter(allocator.allocations)
+        allocations_iter = iter(allocations)
         # LFNC VLAN
         service.auto_values.lfnc_vlan = service.lfnc_vlan or next(allocations_iter)
         # DCI VLAN

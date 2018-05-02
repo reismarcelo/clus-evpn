@@ -1,4 +1,4 @@
-""" CLUS-EVPN - NSO EVPN project for Cisco Live US 2017
+""" CLUS-EVPN - NSO EVPN project for Cisco Live US 2018
 """
 from __future__ import absolute_import, division, print_function
 from builtins import (ascii, bytes, chr, dict, filter, hex, input, int, map, next, oct, open, pow, range, round,
@@ -321,6 +321,10 @@ class Allocation(object):
         type.address: net_allocator.net_read,
     }
 
+    @staticmethod
+    def get_id(*request_id_params):
+        return '_'.join(map(str, request_id_params))
+
     def __init__(self, allocation_type, allocation_pool, allocation_id, **extra_args):
         self.type = allocation_type
         self.pool = allocation_pool
@@ -344,13 +348,11 @@ class Allocation(object):
 
 
 class BatchAllocator(object):
-    def __init__(self, user, root, service):
-        self._user = user
+    def __init__(self, username, root, service):
+        self._user = username
         self._root = root
         self._service = service
-        self._service_xpath = get_xpath(service)
         self._request_queue = []
-        self._allocations = []
 
     def __len__(self):
         return len(self._request_queue)
@@ -358,33 +360,41 @@ class BatchAllocator(object):
     def __str__(self):
         return ', '.join(map(str, self._request_queue))
 
-    def enqueue(self, request_type, request_pool, request_id_params, **extra_args):
+    def append(self, request_type, request_pool, allocation_id, **extra_args):
+        """
+        Add a new allocation request to the end of the queue
+
+        :param request_type: An Allocation.type, indicating the type of allocation requested
+        :param request_pool: Resource-manager pool from which request is to be placed
+        :param allocation_id: Unique ID built with Allocation.get_id
+        :param extra_args: Additional parameters that may be necessary by the allocation type. Ex. ip allocations
+                           require a length argument
+        :return: None
+        """
         self._request_queue.append(
-            Allocation(request_type, request_pool, '_'.join(request_id_params), **extra_args)
+            Allocation(request_type, request_pool, allocation_id, **extra_args)
         )
 
-    def request(self):
-        # Perform all allocation requests
-        for allocation_request in self._request_queue:
-            allocation_request.request(self._service, self._service_xpath, self._user)
+    def read(self):
+        """
+        Perform all allocations requests in the request queue, then read allocations.
 
-        # Read allocated values only after all requests have been made to avoid multiple reactive service callbacks
-        for allocation_request in self._request_queue:
-            allocated_value = allocation_request.read(self._user, self._root)
+        :return: A list of with the allocated values, in the same order in which they were requested.
+                 None if any of the allocations is not ready
+        """
+        # Perform allocation requests
+        service_xpath = get_xpath(self._service)
+        for allocation in self._request_queue:
+            allocation.request(self._service, service_xpath, self._user)
 
-            if allocated_value is None:
-                return 'Allocation {} is not ready.'.format(allocation_request.id)
+        # Read allocated values only after all requests have been placed to avoid multiple reactive re-deploys
+        allocated_values = [allocation.read(self._user, self._root) for allocation in self._request_queue]
 
-            self._allocations.append(allocated_value)
+        # Check if any allocation is not ready
+        if any(map(lambda value: value is None, allocated_values)):
+            return None
 
-        return None
-
-    @property
-    def allocations(self):
-        if len(self._request_queue) != len(self._allocations):
-            raise AllocationsNotReady('Read too soon. Allocations are not ready!')
-
-        return self._allocations
+        return allocated_values
 
 
 # ---------------------------------------------
@@ -392,11 +402,6 @@ class BatchAllocator(object):
 # ---------------------------------------------
 class NcsServiceError(Exception):
     """ Exception indicating error during service create """
-    pass
-
-
-class AllocationsNotReady(NcsServiceError):
-    """ Exception indicating that requested allocations are not yet ready """
     pass
 
 

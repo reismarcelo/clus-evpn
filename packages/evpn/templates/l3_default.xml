@@ -10,8 +10,8 @@
                         <vlan-id>{string(auto-values/sirb-vlan)}</vlan-id>
                         <vlan-name>SIRB-{string(service-id)}</vlan-name>
                         <vni>{string(10000+auto-values/sirb-vlan)}</vni>
-                        <evpn>
-                            <route-target when="{$SITE-LEAF-ASN}">
+                        <evpn when="{$SITE-LEAF-ASN}">
+                            <route-target>
                                 <import>{$SITE-LEAF-ASN}:{string(10000+auto-values/sirb-vlan)}</import>
                                 <export>{$SITE-LEAF-ASN}:{string(10000+auto-values/sirb-vlan)}</export>
                             </route-target>
@@ -44,8 +44,8 @@
                             <vlan-id>{string(../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-vlan)}</vlan-id>
                             <vlan-name>LFNC-{string(../../service-id)}-1</vlan-name>
                             <vni>{string(10000+../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-vlan)}</vni>
-                            <evpn>
-                                <route-target when="{$SITE-LEAF-ASN}">
+                            <evpn when="{$SITE-LEAF-ASN}">
+                                <route-target>
                                     <import>{$SITE-LEAF-ASN}:{string(10000+../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-vlan)}</import>
                                     <export>{$SITE-LEAF-ASN}:{string(10000+../../auto-values/leaf-node[node-name=current()/node-name]/lfnc-vlan)}</export>
                                 </route-target>

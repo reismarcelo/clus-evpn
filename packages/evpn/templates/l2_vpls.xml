@@ -9,8 +9,8 @@
                     <vlan-id>{string(auto-values/lfnc-vlan)}</vlan-id>
                     <vlan-name>LFNC-{string(service-id)}</vlan-name>
                     <vni>{string(10000+auto-values/lfnc-vlan)}</vni>
-                    <evpn>
-                        <route-target when="{$SITE-LEAF-ASN}">
+                    <evpn when="{$SITE-LEAF-ASN}">
+                        <route-target>
                             <import>{$SITE-LEAF-ASN}:{string(10000+auto-values/lfnc-vlan)}</import>
                             <export>{$SITE-LEAF-ASN}:{string(10000+auto-values/lfnc-vlan)}</export>
                         </route-target>

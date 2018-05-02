@@ -13,4 +13,5 @@ scripts/
 target/
 packages/resource-manager/
 netsim/
-
+state/
+storedstate

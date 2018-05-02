@@ -316,6 +316,7 @@ module evpn {
       ncs:servicepoint evpn-l3-direct-servicepoint;
 
       uses evpn-service-common-grouping;
+
       leaf replication-group {
         tailf:info "Multicast group for BUM traffic replication";
         when "../replication-mode = 'multicast'" {
@@ -492,6 +493,7 @@ module evpn {
       ncs:servicepoint evpn-l2-vpls-servicepoint;
 
       uses evpn-service-common-grouping;
+
       leaf replication-group {
         tailf:info "Multicast group for BUM traffic replication";
         when "../replication-mode = 'multicast'" {
@@ -549,6 +551,7 @@ module evpn {
       ncs:servicepoint evpn-l2-evpl-servicepoint;
 
       uses evpn-service-common-grouping;
+
       leaf replication-group {
         tailf:info "Multicast group for BUM traffic replication";
         when "../replication-mode = 'multicast'" {
