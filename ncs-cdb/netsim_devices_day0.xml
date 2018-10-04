@@ -1,0 +1,117 @@
+<devices xmlns="http://tail-f.com/ns/ncs">
+  <device>
+    <name>BRLFND-0</name>
+    <config>
+      <feature xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp/>
+        <interface-vlan/>
+      </feature>
+      <vlan xmlns="http://tail-f.com/ned/cisco-nx">
+        <vlan-list>
+          <id>1</id>
+        </vlan-list>
+      </vlan>
+      <router xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp>
+          <id>65001</id>
+          <address-family>
+            <proto>ipv4</proto>
+            <type>evpn</type>
+          </address-family>
+        </bgp>
+      </router>
+    </config>
+  </device>
+  <device>
+    <name>BRLFND-1</name>
+    <config>
+      <feature xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp/>
+        <interface-vlan/>
+      </feature>
+      <vlan xmlns="http://tail-f.com/ned/cisco-nx">
+        <vlan-list>
+          <id>1</id>
+        </vlan-list>
+      </vlan>
+      <router xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp>
+          <id>65001</id>
+          <address-family>
+            <proto>ipv4</proto>
+            <type>evpn</type>
+          </address-family>
+        </bgp>
+      </router>
+    </config>
+  </device>
+  <device>
+    <name>LFND-0</name>
+    <config>
+      <feature xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp/>
+        <interface-vlan/>
+      </feature>
+      <vlan xmlns="http://tail-f.com/ned/cisco-nx">
+        <vlan-list>
+          <id>1</id>
+        </vlan-list>
+      </vlan>
+      <router xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp>
+          <id>65001</id>
+          <address-family>
+            <proto>ipv4</proto>
+            <type>evpn</type>
+          </address-family>
+        </bgp>
+      </router>
+    </config>
+  </device>
+  <device>
+    <name>LFND-1</name>
+    <config>
+      <feature xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp/>
+        <interface-vlan/>
+      </feature>
+      <vlan xmlns="http://tail-f.com/ned/cisco-nx">
+        <vlan-list>
+          <id>1</id>
+        </vlan-list>
+      </vlan>
+      <router xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp>
+          <id>65001</id>
+          <address-family>
+            <proto>ipv4</proto>
+            <type>evpn</type>
+          </address-family>
+        </bgp>
+      </router>
+    </config>
+  </device>
+  <device>
+    <name>LFND-2</name>
+    <config>
+      <feature xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp/>
+        <interface-vlan/>
+      </feature>
+      <vlan xmlns="http://tail-f.com/ned/cisco-nx">
+        <vlan-list>
+          <id>1</id>
+        </vlan-list>
+      </vlan>
+      <router xmlns="http://tail-f.com/ned/cisco-nx">
+        <bgp>
+          <id>65001</id>
+          <address-family>
+            <proto>ipv4</proto>
+            <type>evpn</type>
+          </address-family>
+        </bgp>
+      </router>
+    </config>
+  </device>
+</devices>
