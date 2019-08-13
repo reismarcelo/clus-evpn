@@ -41,7 +41,6 @@ def plan_data_service(*custom_states):
             except NcsServiceError as e:
                 self.log.error(e)
                 self_plan.set_failed('ncs:ready')
-                raise
             else:
                 self_plan.set_reached('ncs:ready')
 
